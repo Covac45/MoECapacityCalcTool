@@ -33,7 +33,21 @@ namespace MoECapacityCalc.FinalExitLevel
             double exitWidth = finalExit.Width;
             double stairWidth = stair.StairWidth;
 
-            return (80 * (exitWidth / 1000) - 60 * (stairWidth / 1000)) * 2.5;
+            double mergingFlowCapacity = (80 * (exitWidth / 1000) - 60 * (stairWidth / 1000)) * 2.5;
+
+            switch(mergingFlowCapacity)
+            {
+                case <= 0:
+                    return mergingFlowCapacity = 0;
+                    break;
+                case > 0:
+                    return mergingFlowCapacity;
+                    break;
+                default:
+                    throw new NotSupportedException("The mering flow capacity has been calculated as NaN");
+            }
+
+            
         }
 
         public void CalcFinalExitLevelCapacity()
@@ -47,7 +61,6 @@ namespace MoECapacityCalc.FinalExitLevel
             var capacities = new List<double> {mergingFlowCapacity, storeyExitCapacity, finalExitCapacity};
 
             double FinalExitLevelCapacity = capacities.Min();
-
         }
     }
 }

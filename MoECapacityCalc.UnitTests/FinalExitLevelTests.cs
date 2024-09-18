@@ -11,6 +11,9 @@ namespace MoECapacityCalc.UnitTests
         public void Setup()
         {
         }
+
+        [TestCase(1200, 1200, 60)]
+        [TestCase(900, 1200, 0)]
         public void MergingFlowCapacityTest(double exitWidth, double stairWidth, double expectedExitCapacity)
         {
             Exit finalExit = new Exit(ExitType.finalExit, DoorSwing.with, exitWidth);
