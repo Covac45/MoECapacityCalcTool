@@ -46,11 +46,10 @@ namespace MoECapacityCalc.FinalExitLevel
                 default:
                     throw new NotSupportedException("The mering flow capacity has been calculated as NaN");
             }
-
             
         }
 
-        public void CalcFinalExitLevelCapacity()
+        public double CalcFinalExitLevelCapacity()
         {            
             double mergingFlowCapacity = this.CalcMergingFlowCapacity();
 
@@ -60,7 +59,8 @@ namespace MoECapacityCalc.FinalExitLevel
 
             var capacities = new List<double> {mergingFlowCapacity, storeyExitCapacity, finalExitCapacity};
 
-            double FinalExitLevelCapacity = capacities.Min();
+            return capacities.Min();
+            
         }
     }
 }
