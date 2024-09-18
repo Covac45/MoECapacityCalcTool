@@ -18,18 +18,21 @@ namespace MoECapacityCalc.UnitTests
         }
 
         //Stair capacity tests
-        [TestCase(800, 1, 50)]
-        [TestCase(900, 5, 50)]
-        [TestCase(1000, 1, 150)]
-        [TestCase(1050, 5, 310)]
-        [TestCase(1200, 5, 420)]
-        [TestCase(1400, 10, 775)]
-        public void StairCapacityTests(double stairWidth, int upperFloorsServed, double expectedStairCapacity)
+        [TestCase(800, 1, 50, 50)]
+        [TestCase(900, 5, 50, 10)]
+        [TestCase(1000, 1, 150, 150)]
+        [TestCase(1050, 5, 310, 62)]
+        [TestCase(1200, 5, 420, 84)]
+        [TestCase(1400, 10, 775, 77.5)]
+        public void StairCapacityTests(double stairWidth, int floorsServed, double expectedStairCapacity, double expectedStairCapacityPerFloor)
         {
-            Stair stair1 = new Stair(stairWidth, upperFloorsServed);
+            Exit finalExit = new Exit(ExitType.finalExit, DoorSwing.with, 1400);
+            Stair stair1 = new Stair(stairWidth, floorsServed, finalExit);
 
             double stairCapacity = stair1.CalcStairCapacity();
+            double stairCapacityPerFloor = stair1.CalcStairCapacityPerFloor();
             Assert.That(stairCapacity, Is.EqualTo(expectedStairCapacity));
+            Assert.That(stairCapacityPerFloor, Is.EqualTo(expectedStairCapacityPerFloor));
         }
 
     }

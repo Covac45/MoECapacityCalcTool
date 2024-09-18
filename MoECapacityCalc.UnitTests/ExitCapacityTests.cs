@@ -1,6 +1,6 @@
 using MoECapacityCalc.Exits;
 using MoECapacityCalc.Exits.Datastructs;
-using MoECapacityCalc.FinalExitLevel;
+using MoECapacityCalc.Stairs.StairFinalExits;
 using MoECapacityCalc.Stairs;
 
 namespace MoECapacityCalc.UnitTests
