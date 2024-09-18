@@ -1,4 +1,6 @@
-﻿using MoECapacityCalc.Exits.Datastructs;
+﻿using MoECapacityCalc.Exits;
+using MoECapacityCalc.Exits.Datastructs;
+using MoECapacityCalc.Stairs.StairFinalExits;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +10,16 @@ using System.Threading.Tasks;
 namespace MoECapacityCalc.Stairs
 {
     public class Stair : IStair
-    {      
+    {
         public double StairWidth;
-        public int UpperfloorsServed;
+        public int FloorsServed;
+        public Exit FinalExit;
 
-        public Stair(double width, int floorsServed)
+        public Stair(double width, int floorsServed, Exit finalExit)
         {
             StairWidth = width;
-            UpperfloorsServed = floorsServed;
+            FloorsServed = floorsServed;
+            FinalExit = finalExit;
         }
 
         public double CalcStairCapacity()
@@ -24,16 +28,16 @@ namespace MoECapacityCalc.Stairs
 
             if (StairWidth >= 1100)
             {
-                stairCapacity = (200 * (StairWidth / 1000)) + (50 * ((StairWidth / 1000) - 0.3) * (UpperfloorsServed - 1));
+                stairCapacity = (200 * (StairWidth / 1000)) + (50 * ((StairWidth / 1000) - 0.3) * (FloorsServed - 1));
             }
             else if (StairWidth >= 1000 && StairWidth < 1100)
             {
-                stairCapacity = 150 + (UpperfloorsServed - 1) * 40;
+                stairCapacity = 150 + (FloorsServed - 1) * 40;
             }
             else if (StairWidth >= 800 && StairWidth < 1000)
             {
                 stairCapacity = 50;
-            }    
+            }
             else
             {
                 throw new NotSupportedException();
@@ -41,5 +45,11 @@ namespace MoECapacityCalc.Stairs
             return stairCapacity;
         }
 
+        public double CalcStairCapacityPerFloor()
+        {
+            double stairCapacityPerFloor = this.CalcStairCapacity() / FloorsServed;
+
+            return stairCapacityPerFloor;
+        }
     }
 }
