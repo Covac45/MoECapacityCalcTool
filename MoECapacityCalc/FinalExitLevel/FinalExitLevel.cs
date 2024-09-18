@@ -22,8 +22,31 @@ namespace MoECapacityCalc.FinalExitLevel
             storeyExit = storeyExitObj;
         }
 
-        public void CalcFinalExitLevelCapacity()
+        public FinalExitLevel(Stair stairObj, Exit finalExitObj)
         {
+            stair = stairObj;
+            finalExit = finalExitObj;
+        }
+
+        public double CalcMergingFlowCapacity()
+        {
+            double exitWidth = finalExit.Width;
+            double stairWidth = stair.StairWidth;
+
+            return (80 * (exitWidth / 1000) - 60 * (stairWidth / 1000)) * 2.5;
+        }
+
+        public void CalcFinalExitLevelCapacity()
+        {            
+            double mergingFlowCapacity = this.CalcMergingFlowCapacity();
+
+            double storeyExitCapacity = this.storeyExit.CalcExitCapacity();
+
+            double finalExitCapacity = this.finalExit.CalcExitCapacity();
+
+            var capacities = new List<double> {mergingFlowCapacity, storeyExitCapacity, finalExitCapacity};
+
+            double FinalExitLevelCapacity = capacities.Min();
 
         }
     }

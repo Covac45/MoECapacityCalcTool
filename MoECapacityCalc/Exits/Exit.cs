@@ -49,12 +49,5 @@ namespace MoECapacityCalc.Exits
             return exitCapacity;
         }
 
-        public double CalcMergingFlowCapacity(double exitWidth, double stairWidth)
-        {
-            double eWidth = exitWidth;
-            double sUpWidth = stairWidth;
-
-            return (80 * (eWidth / 1000) - 60 * (sUpWidth / 1000)) * 2.5;
-        }
     }
 }
