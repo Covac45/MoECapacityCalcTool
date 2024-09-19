@@ -9,8 +9,5 @@ namespace MoECapacityCalc.Stairs
     public interface IStair
     {
         double CalcStairCapacity();
-        double CalcStairCapacityPerFloor();
-        double CalcFinalExitLevelCapacity();
-        double CalcStoreyExitLevelCapacity();
     }
 }
