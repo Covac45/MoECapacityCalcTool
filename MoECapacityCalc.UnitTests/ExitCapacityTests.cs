@@ -1,5 +1,7 @@
 using MoECapacityCalc.Exits;
-using MoECapacityCalc.Exits.Datastructs;
+using MoECapacityCalc.Stairs.StairFinalExits;
+using MoECapacityCalc.Stairs;
+using MoECapacityCalc.Utilities.Datastructs;
 
 namespace MoECapacityCalc.UnitTests
 {
@@ -10,28 +12,18 @@ namespace MoECapacityCalc.UnitTests
         {
         }
 
-        //Exit Capacity tests
-        [TestCase(750, ExitType.storeyExit, DoorSwing.with, 60)]
-        [TestCase(850, ExitType.storeyExit, DoorSwing.with, 110)]
-        [TestCase(1050, ExitType.storeyExit, DoorSwing.with, 220)]
-        [TestCase(1200, ExitType.storeyExit, DoorSwing.with, 250)]
-        [TestCase(1200, ExitType.storeyExit, DoorSwing.against, 60)]
-        public void ExitCapacityTest(double exitWidth, ExitType exitType, DoorSwing doorSwing, double expectedExitCapacity)
-        {
-            Exit exit1 = new Exit(exitType, doorSwing, exitWidth);
-            
-            double exitCapacity = exit1.CalcExitCapacity();
-            Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
-        }
-
         //Merging flow capacity tests
-        [TestCase(1500, 1500, 75)]
-        [TestCase(1000, 1200, 20)]
-        public void MergingFlowCapacityTest(double exitWidth, double stairWidth, double expectedExitCapacity)
+        [TestCase(600, DoorSwing.with, 0)]
+        [TestCase(750, DoorSwing.with, 60)]
+        [TestCase(850, DoorSwing.with, 110)]
+        [TestCase(1050, DoorSwing.with, 220)]
+        [TestCase(1200, DoorSwing.with, 250)]
+        [TestCase(1400, DoorSwing.against, 60)]
+        public void ExitCapacityTest(double exitWidth, DoorSwing doorSwing, double expectedExitCapacity)
         {
-            Exit exit1 = new Exit(ExitType.finalExit, DoorSwing.with, exitWidth);
+            Exit exit1 = new Exit("exit 1", ExitType.exit, doorSwing, exitWidth);
 
-            double exitCapacity = exit1.CalcMergingFlowCapacity(exitWidth, stairWidth);
+            double exitCapacity = exit1.CalcExitCapacity();
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
 

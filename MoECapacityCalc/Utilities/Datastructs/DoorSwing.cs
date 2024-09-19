@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoECapacityCalc.Exits.Datastructs
+namespace MoECapacityCalc.Utilities.Datastructs
 {
-    public enum ExitType
+    public enum DoorSwing
     {
-        exit,
-        storeyExit,
-        finalExit
+        with,
+        against
     }
 }
