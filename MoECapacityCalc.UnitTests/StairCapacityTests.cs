@@ -1,11 +1,11 @@
-﻿using MoECapacityCalc.Exits.Datastructs;
-using MoECapacityCalc.Exits;
+﻿using MoECapacityCalc.Exits;
 using MoECapacityCalc.Stairs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MoECapacityCalc.Utilities.Datastructs;
 
 
 namespace MoECapacityCalc.UnitTests
@@ -26,8 +26,13 @@ namespace MoECapacityCalc.UnitTests
         [TestCase(1400, 10, 775, 77.5)]
         public void StairCapacityTests(double stairWidth, int floorsServed, double expectedStairCapacity, double expectedStairCapacityPerFloor)
         {
-            Exit finalExit = new Exit(ExitType.finalExit, DoorSwing.with, 1400);
-            Stair stair1 = new Stair(stairWidth, floorsServed, finalExit);
+            Exit finalExit1 = new Exit("final exit 1", ExitType.finalExit, DoorSwing.with, 1400);
+            Exit storeyExit1 = new Exit("storey exit 1", ExitType.finalExit, DoorSwing.with, 1400);
+
+            List<Exit> finalExits = new List<Exit> { finalExit1 };
+            List<Exit> storeyExits = new List<Exit> { storeyExit1 };
+
+            Stair stair1 = new Stair("stair 1", stairWidth, floorsServed, 0, finalExits, storeyExits);
 
             double stairCapacity = stair1.CalcStairCapacity();
             double stairCapacityPerFloor = stair1.CalcStairCapacityPerFloor();
