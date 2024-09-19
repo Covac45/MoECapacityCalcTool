@@ -56,5 +56,6 @@ namespace MoECapacityCalc.Stairs.StairFinalExits
 
             return capacities.Min();
         }
+
     }
 }

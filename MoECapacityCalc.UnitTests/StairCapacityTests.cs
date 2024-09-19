@@ -27,7 +27,8 @@ namespace MoECapacityCalc.UnitTests
         public void StairCapacityTests(double stairWidth, int floorsServed, double expectedStairCapacity, double expectedStairCapacityPerFloor)
         {
             Exit finalExit = new Exit(ExitType.finalExit, DoorSwing.with, 1400);
-            Stair stair1 = new Stair(stairWidth, floorsServed, finalExit);
+            Exit storeyExit = new Exit(ExitType.finalExit, DoorSwing.with, 1400);
+            Stair stair1 = new Stair(stairWidth, floorsServed, 0, finalExit, storeyExit);
 
             double stairCapacity = stair1.CalcStairCapacity();
             double stairCapacityPerFloor = stair1.CalcStairCapacityPerFloor();
