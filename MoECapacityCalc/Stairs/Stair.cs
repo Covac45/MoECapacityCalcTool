@@ -1,5 +1,5 @@
 ﻿using MoECapacityCalc.Exits;
-using MoECapacityCalc.Exits.Datastructs;
+using MoECapacityCalc.Utilities.Datastructs;
 using MoECapacityCalc.Stairs.StairFinalExits;
 using System;
 using System.Collections;
@@ -7,24 +7,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MoECapacityCalc.Utilities.Services;
 
 namespace MoECapacityCalc.Stairs
 {
     public class Stair : IStair
     {
+        public string StairName;
         public double StairWidth;
         public int FloorsServed;
         public int FinalExitLevel;
-        public Exit FinalExit;
-        public Exit StoreyExit;
+        public List<Exit> FinalExits;
+        public List<Exit> StoreyExits;
 
-        public Stair(double width, int floorsServed, int finalExitLevel, Exit finalExit, Exit storeyExit = null)
+        public Stair(string name, double width, int floorsServed, int finalExitLevel, List<Exit> finalExits, List<Exit> storeyExits = null)
         {
+            StairName = name;
             StairWidth = width;
             FloorsServed = floorsServed;
             FinalExitLevel = finalExitLevel;
-            FinalExit = finalExit;
-            StoreyExit = storeyExit;
+            FinalExits = finalExits;
+            StoreyExits = storeyExits;
         }
 
         public double CalcStairCapacity()
@@ -59,14 +62,16 @@ namespace MoECapacityCalc.Stairs
 
         public double CalcFinalExitLevelCapacity()
         {
-            StairFinalExit stairFinalExit = new StairFinalExit(this);
+            //Calculate total storey exit and final exit capacity
+            StairExitCalcsService exitCapacityCalcs = new StairExitCalcsService(this.StoreyExits, this.FinalExits);
+            double storeyExitCapacity = exitCapacityCalcs.TotalStoreyExitCapacity();
+            double finalExitCapacity = exitCapacityCalcs.TotalFinalExitCapacity();
 
+            //Calculate merging flow capacity
+            StairFinalExit stairFinalExit = new StairFinalExit(this);
             double mergingFlowCapacity = stairFinalExit.CalcMergingFlowCapacity();
 
-            double storeyExitCapacity = StoreyExit.CalcExitCapacity();
-
-            double finalExitCapacity = this.FinalExit.CalcExitCapacity();
-
+            //calculate limiting factor
             var capacities = new List<double> {mergingFlowCapacity, storeyExitCapacity, finalExitCapacity};
 
             return capacities.Min();
@@ -76,7 +81,9 @@ namespace MoECapacityCalc.Stairs
         {
             double stairCapacityPerFloor = this.CalcStairCapacityPerFloor();
 
-            double storeyExitCapacity = StoreyExit.CalcExitCapacity();
+            //Calculate total storey exit capacity
+            StairExitCalcsService exitCapacityCalcs = new StairExitCalcsService(this.StoreyExits, this.FinalExits);
+            double storeyExitCapacity = exitCapacityCalcs.TotalStoreyExitCapacity();
 
             var capacities = new List<double> {stairCapacityPerFloor, storeyExitCapacity};
 

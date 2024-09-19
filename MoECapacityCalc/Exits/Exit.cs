@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MoECapacityCalc.Exits.Datastructs;
+using MoECapacityCalc.Utilities.Datastructs;
 
 namespace MoECapacityCalc.Exits
 {
     public class Exit : IExit
     {
+        public string ExitName;
         public ExitType Type;
         public double Width;
         public DoorSwing Swing;
 
-        public Exit(ExitType exitType, DoorSwing doorSwing, double exitWidth)
+        public Exit(string name, ExitType exitType, DoorSwing doorSwing, double exitWidth)
         {
+            ExitName = name;
             Type = exitType;
             Width = exitWidth;
             Swing = doorSwing;

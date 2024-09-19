@@ -1,7 +1,7 @@
 ﻿using MoECapacityCalc.Exits;
-using MoECapacityCalc.Exits.Datastructs;
 using MoECapacityCalc.Stairs;
 using MoECapacityCalc.Stairs.StairFinalExits;
+using MoECapacityCalc.Utilities.Datastructs;
 
 namespace MoECapacityCalc.UnitTests
 {
@@ -18,10 +18,13 @@ namespace MoECapacityCalc.UnitTests
         [TestCase(1050, 1050, 52.5)]
         public void MergingFlowCapacityTest(double exitWidth, double stairWidth, double expectedExitCapacity)
         {
-            Exit finalExit = new Exit(ExitType.finalExit, DoorSwing.with, exitWidth);
-            Stair stair = new Stair(stairWidth, 1, 0, finalExit);
+            Exit finalExit1 = new Exit("final exit 1", ExitType.finalExit, DoorSwing.with, exitWidth);
+            List<Exit> finalExits = new List<Exit>() { finalExit1 };
 
-            StairFinalExit finalExitLevel = new StairFinalExit(stair, finalExit);
+            Stair stair1 = new Stair("stair 1", stairWidth, 1, 0, finalExits);
+            //List<Stair> stairs = new List<Stair>() { stair1 };
+
+            StairFinalExit finalExitLevel = new StairFinalExit(stair1, finalExits);
 
             double exitCapacity = finalExitLevel.CalcMergingFlowCapacity();
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
@@ -33,14 +36,19 @@ namespace MoECapacityCalc.UnitTests
         [TestCase(1500, 1050, 1500, 75)]
         public void StairFinalExitLevelCapacityTests(double finalExitWidth, double storeyExitWidth, double stairWidth, double expectedExitCapacity)
         {
-            Exit finalExit = new Exit(ExitType.finalExit, DoorSwing.with, finalExitWidth);
-            Exit storeyExit = new Exit(ExitType.storeyExit, DoorSwing.with, storeyExitWidth);
-            
-            Stair stair = new Stair(stairWidth, 1, 0, finalExit, storeyExit);
+            Exit finalExit1 = new Exit("final exit 1", ExitType.finalExit, DoorSwing.with, finalExitWidth);
+            Exit storeyExit1 = new Exit("storey exit 1", ExitType.storeyExit, DoorSwing.with, storeyExitWidth);
 
-            StairFinalExit finalExitLevel = new StairFinalExit(stair, storeyExit);
+            List<Exit> finalExits = new List<Exit>() { finalExit1 };
+            List<Exit> storeyExits = new List<Exit>() { storeyExit1 };
 
-            double exitCapacity = finalExitLevel.CalcFinalExitLevelCapacity();
+            Stair stair1 = new Stair("stair 1", stairWidth, 1, 0, finalExits, storeyExits);
+            //List<Stair> stairs = new List<Stair>() { stair1 };
+
+
+            StairFinalExit finalExitLevel = new StairFinalExit(stair1, storeyExits);
+
+            double exitCapacity = stair1.CalcFinalExitLevelCapacity();
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
 

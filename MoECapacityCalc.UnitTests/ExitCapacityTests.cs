@@ -1,7 +1,7 @@
 using MoECapacityCalc.Exits;
-using MoECapacityCalc.Exits.Datastructs;
 using MoECapacityCalc.Stairs.StairFinalExits;
 using MoECapacityCalc.Stairs;
+using MoECapacityCalc.Utilities.Datastructs;
 
 namespace MoECapacityCalc.UnitTests
 {
@@ -21,7 +21,7 @@ namespace MoECapacityCalc.UnitTests
         [TestCase(1400, DoorSwing.against, 60)]
         public void ExitCapacityTest(double exitWidth, DoorSwing doorSwing, double expectedExitCapacity)
         {
-            Exit exit1 = new Exit(ExitType.exit, doorSwing, exitWidth);
+            Exit exit1 = new Exit("exit 1", ExitType.exit, doorSwing, exitWidth);
 
             double exitCapacity = exit1.CalcExitCapacity();
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
