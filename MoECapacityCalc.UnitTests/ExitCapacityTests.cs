@@ -2,6 +2,8 @@ using MoECapacityCalc.Exits;
 using MoECapacityCalc.Stairs.StairFinalExits;
 using MoECapacityCalc.Stairs;
 using MoECapacityCalc.Utilities.Datastructs;
+using NUnit.Framework.Internal;
+using MoECapacityCalc.UnitTests.TestHelpers;
 
 namespace MoECapacityCalc.UnitTests
 {
@@ -27,5 +29,13 @@ namespace MoECapacityCalc.UnitTests
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
 
+        [Test]
+        public void Test()
+        {
+            var exit1 = ExitTestHelper.GetDefaultStoreyExitBuilder()
+                .Build();
+            var exit2 = ExitTestHelper.GetDefaultFinalExitBuilder()
+                .Build();
+        }
     }
 }
