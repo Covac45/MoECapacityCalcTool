@@ -12,6 +12,8 @@ namespace MoECapacityCalc.UnitTests
         {
         }
 
+
+        //merging flow capacity unit tests
         [TestCase(900, 1200, 0)]
         [TestCase(1200, 1200, 60)]
         [TestCase(1200, 1500, 15)]
@@ -30,6 +32,8 @@ namespace MoECapacityCalc.UnitTests
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
 
+
+        //Stair capacity limiting factor unit tests
         [TestCase(1200, 850, 1200, 60)]
         [TestCase(1500, 850, 1200, 110)]
         [TestCase(1500, 1050, 1200, 120)]

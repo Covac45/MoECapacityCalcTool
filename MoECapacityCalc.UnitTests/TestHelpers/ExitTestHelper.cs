@@ -24,27 +24,41 @@ namespace MoECapacityCalc.UnitTests.TestHelpers
         {
             var exitBuilders = new List<ExitBuilder>();
 
-            var numberOfDefaultExits = 6;
+            var numberOfDefaultExits = 3;
             for (int i = 0; i < numberOfDefaultExits; i++)
             {
+                exitBuilders.Add(GetDefaultStoreyExitBuilder());
                 exitBuilders.Add(GetDefaultFinalExitBuilder());
             }
 
             return exitBuilders;
         }
 
-        public static List<Exit> GetDefaultExits()
+        public static List<Exit> BuildExits(this List<ExitBuilder> exitBuilders)
         {
-            var exits = new List<Exit>();
-            var exitBuilders = GetDefaultExitBuilders();
 
-            foreach (var anExitBuilder in exitBuilders)
-            {
-                var exit = anExitBuilder.Build();
+            /* foreach (var anExitBuilder in exitBuilders)
+             {
+                 var exit = anExitBuilder.Build();
+                 exits.Add(exit);
+             }*/
+
+            var exits = new List<Exit>();
+            exitBuilders.ForEach(anExitbuilder => {
+                var exit = anExitbuilder.Build();
                 exits.Add(exit);
-            }
+            });
 
             return exits;
         }
+
+        public static List<Exit> GetDefaultExits()
+        {
+            var exitBuilders = GetDefaultExitBuilders();
+
+
+            return exitBuilders.BuildExits();
+        }
+
     }
 }

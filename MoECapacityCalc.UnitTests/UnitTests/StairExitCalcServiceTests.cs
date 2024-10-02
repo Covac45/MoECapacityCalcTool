@@ -27,6 +27,8 @@ namespace MoECapacityCalc.UnitTests
 
             return (storeyExits, finalExits);
         }
+
+        //Storey exit capacity unit test
         [TestCase(660)]
         public void TotalStoreyExitCapacityTest(double expectedExitCapacity)
         {

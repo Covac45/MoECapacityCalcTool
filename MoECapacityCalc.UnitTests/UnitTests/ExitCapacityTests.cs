@@ -14,7 +14,7 @@ namespace MoECapacityCalc.UnitTests
         {
         }
 
-        //Merging flow capacity tests
+        //Exit capacity unit tests
         [TestCase(600, DoorSwing.with, 0)]
         [TestCase(750, DoorSwing.with, 60)]
         [TestCase(850, DoorSwing.with, 110)]
@@ -36,6 +36,12 @@ namespace MoECapacityCalc.UnitTests
                 .Build();
             var exit2 = ExitTestHelper.GetDefaultFinalExitBuilder()
                 .Build();
+        }
+
+        public double GeneralExitCapacityTest(Exit exit)
+        {
+            double exitCapacity = exit.CalcExitCapacity();
+            return exitCapacity;
         }
     }
 }
