@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoECapacityCalc.UnitTests
+namespace MoECapacityCalc.UnitTests.UnitTests.Tests
 {
     public class StairExitCalcServiceTests
     {

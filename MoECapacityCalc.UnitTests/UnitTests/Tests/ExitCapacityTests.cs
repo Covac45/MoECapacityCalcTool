@@ -5,7 +5,7 @@ using MoECapacityCalc.Utilities.Datastructs;
 using NUnit.Framework.Internal;
 using MoECapacityCalc.UnitTests.TestHelpers;
 
-namespace MoECapacityCalc.UnitTests
+namespace MoECapacityCalc.UnitTests.UnitTests.Tests
 {
     public class ExitTests
     {

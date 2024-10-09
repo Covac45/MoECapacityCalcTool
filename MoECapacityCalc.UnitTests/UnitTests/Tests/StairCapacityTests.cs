@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using MoECapacityCalc.Utilities.Datastructs;
 
 
-namespace MoECapacityCalc.UnitTests
+namespace MoECapacityCalc.UnitTests.UnitTests.Tests
 {
     public class StairTests
     {

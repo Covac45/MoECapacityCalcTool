@@ -32,7 +32,7 @@ namespace MoECapacityCalc.Stairs.StairFinalExits
             foreach (Exit anExit in Stair.FinalExits)
             {
                 //must add logic to split clear width of shared final exits amongst stairs that share them!
-                finalExitWidths.Add(anExit.Width);
+                finalExitWidths.Add(anExit.ExitWidth);
             }
 
             double totalFinalExitWidth = finalExitWidths.Sum();

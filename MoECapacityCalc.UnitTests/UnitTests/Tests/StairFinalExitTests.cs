@@ -3,7 +3,7 @@ using MoECapacityCalc.Stairs;
 using MoECapacityCalc.Stairs.StairFinalExits;
 using MoECapacityCalc.Utilities.Datastructs;
 
-namespace MoECapacityCalc.UnitTests
+namespace MoECapacityCalc.UnitTests.UnitTests.Tests
 {
     public class StairFinalExitTests
     {

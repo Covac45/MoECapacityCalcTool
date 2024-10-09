@@ -10,40 +10,40 @@ namespace MoECapacityCalc.Exits
     public class Exit : IExit
     {
         public string ExitName;
-        public ExitType Type;
-        public double Width;
-        public DoorSwing Swing;
+        public ExitType ExitType;
+        public double ExitWidth;
+        public DoorSwing DoorSwing;
 
-        public Exit(string name, ExitType exitType, DoorSwing doorSwing, double exitWidth)
+        public Exit(string exitName, ExitType exitType, DoorSwing doorSwing, double exitWidth)
         {
-            ExitName = name;
-            Type = exitType;
-            Width = exitWidth;
-            Swing = doorSwing;
+            ExitName = exitName;
+            ExitType = exitType;
+            ExitWidth = exitWidth;
+            DoorSwing = doorSwing;
         }
 
         public double CalcExitCapacity()
         {
             double exitCapacity = 0;
 
-            if (Width < 750)
+            if (ExitWidth < 750)
             {
                 exitCapacity = 0;
             }
-            else if (Width >= 750 && Width < 850)
+            else if (ExitWidth >= 750 && ExitWidth < 850)
             {
                 exitCapacity = 60;
             }
-            else if (Width >= 850 && Width < 1050)
+            else if (ExitWidth >= 850 && ExitWidth < 1050)
             {
                 exitCapacity = 110;
             }
-            else if (Width >= 1050)
+            else if (ExitWidth >= 1050)
             {
-                exitCapacity = 220 + (Width - 1050) / 5;
+                exitCapacity = 220 + (ExitWidth - 1050) / 5;
             }
 
-            if (Width >= 750 && Swing == DoorSwing.against)
+            if (ExitWidth >= 750 && DoorSwing == DoorSwing.against)
             {
                 exitCapacity = 60;
             }
