@@ -1,6 +1,7 @@
 ﻿using MoECapacityCalc.Exits;
 using MoECapacityCalc.Stairs;
 using MoECapacityCalc.Stairs.StairFinalExits;
+using MoECapacityCalc.Utilities.Associations;
 using MoECapacityCalc.Utilities.Datastructs;
 
 namespace MoECapacityCalc.UnitTests.UnitTests.Tests
@@ -23,7 +24,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
             Exit finalExit1 = new Exit("final exit 1", ExitType.finalExit, DoorSwing.with, exitWidth);
             List<Exit> finalExits = new List<Exit>() { finalExit1 };
 
-            Stair stair1 = new Stair("stair 1", stairWidth, 1, 0, finalExits);
+            Stair stair1 = new Stair("stair 1", stairWidth, 1, 0, new Associations (finalExits));
             //List<Stair> stairs = new List<Stair>() { stair1 };
 
             StairFinalExit finalExitLevel = new StairFinalExit(stair1, finalExits);
@@ -43,14 +44,14 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
             Exit finalExit1 = new Exit("final exit 1", ExitType.finalExit, DoorSwing.with, finalExitWidth);
             Exit storeyExit1 = new Exit("storey exit 1", ExitType.storeyExit, DoorSwing.with, storeyExitWidth);
 
-            List<Exit> finalExits = new List<Exit>() { finalExit1 };
-            List<Exit> storeyExits = new List<Exit>() { storeyExit1 };
+            List<Exit> stair1Exits = new List<Exit> { finalExit1, storeyExit1 };
 
-            Stair stair1 = new Stair("stair 1", stairWidth, 1, 0, finalExits, storeyExits);
-            //List<Stair> stairs = new List<Stair>() { stair1 };
+            Associations stair1Associations = new Associations(stair1Exits);
+
+            Stair stair1 = new Stair("stair 1", stairWidth, 1, 0, stair1Associations);
 
 
-            StairFinalExit finalExitLevel = new StairFinalExit(stair1, storeyExits);
+            StairFinalExit finalExitLevel = new StairFinalExit(stair1);
 
             double exitCapacity = stair1.CalcFinalExitLevelCapacity();
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));

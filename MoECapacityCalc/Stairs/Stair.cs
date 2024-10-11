@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MoECapacityCalc.Utilities.Services;
+using MoECapacityCalc.Utilities.Associations;
 
 namespace MoECapacityCalc.Stairs
 {
@@ -20,14 +21,14 @@ namespace MoECapacityCalc.Stairs
         public List<Exit> FinalExits;
         public List<Exit> StoreyExits;
 
-        public Stair(string name, double width, int floorsServed, int finalExitLevel, List<Exit> finalExits, List<Exit> storeyExits = null)
+        public Stair(string name, double width, int floorsServed, int finalExitLevel, Associations? associations = null)
         {
             StairName = name;
             StairWidth = width;
             FloorsServed = floorsServed;
             FinalExitLevel = finalExitLevel;
-            FinalExits = finalExits;
-            StoreyExits = storeyExits;
+            FinalExits = associations.FinalExits;
+            StoreyExits = associations.StoreyExits;
         }
 
         public double CalcStairCapacity()
