@@ -8,7 +8,7 @@ using MoECapacityCalc.Utilities.Datastructs;
 
 namespace MoECapacityCalc.Exits
 {
-    public class Exit : IExit
+    public class Exit
     {
         public string ExitName;
         public ExitType ExitType;
@@ -23,36 +23,6 @@ namespace MoECapacityCalc.Exits
             ExitWidth = exitWidth;
             DoorSwing = doorSwing;
             Associations = associations;
-        }
-
-
-        public double CalcExitCapacity()
-        {
-            double exitCapacity = 0;
-
-            if (ExitWidth < 750)
-            {
-                exitCapacity = 0;
-            }
-            else if (ExitWidth >= 750 && ExitWidth < 850)
-            {
-                exitCapacity = 60;
-            }
-            else if (ExitWidth >= 850 && ExitWidth < 1050)
-            {
-                exitCapacity = 110;
-            }
-            else if (ExitWidth >= 1050)
-            {
-                exitCapacity = 220 + (ExitWidth - 1050) / 5;
-            }
-
-            if (ExitWidth >= 750 && DoorSwing == DoorSwing.against)
-            {
-                exitCapacity = 60;
-            }
-
-            return exitCapacity;
         }
 
     }

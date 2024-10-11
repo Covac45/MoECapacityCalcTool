@@ -2,6 +2,7 @@
 using MoECapacityCalc.Stairs;
 using MoECapacityCalc.Stairs.StairFinalExits;
 using MoECapacityCalc.Utilities.Datastructs;
+using MoECapacityCalc.Utilities.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,12 +37,12 @@ namespace MoECapacityCalc.Areas
 
             foreach (Exit anExit in StoreyExits)
             {
-                exitCapacities.Add(anExit.CalcExitCapacity());
+                exitCapacities.Add(new ExitCapacityCalcService(anExit).CalcExitCapacity());
             }
 
             foreach (Exit anExit in FinalExits)
             {
-                exitCapacities.Add(anExit.CalcExitCapacity());
+                exitCapacities.Add(new ExitCapacityCalcService(anExit).CalcExitCapacity());
             }
             
             foreach (Stair aStair in Stairs)

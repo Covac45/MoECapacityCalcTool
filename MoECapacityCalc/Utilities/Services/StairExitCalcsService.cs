@@ -9,9 +9,9 @@ namespace MoECapacityCalc.Utilities.Services
 {
     public class StairExitCalcsService
     {
-        List<Exit> StoreyExits;
-        List<Exit> FinalExits;
-        public StairExitCalcsService(List<Exit> storeyExits = null, List<Exit> finalExits = null)
+        List<Exit>? StoreyExits;
+        List<Exit>? FinalExits;
+        public StairExitCalcsService(List<Exit>? storeyExits = null, List<Exit>? finalExits = null)
         {
             StoreyExits = storeyExits;
             FinalExits = finalExits;
@@ -22,7 +22,8 @@ namespace MoECapacityCalc.Utilities.Services
             List<double> storeyExitCapacities = new List<double>();
             foreach (Exit anExit in StoreyExits)
             {
-                storeyExitCapacities.Add(anExit.CalcExitCapacity());
+                storeyExitCapacities.Add(
+                    new ExitCapacityCalcService(anExit).CalcExitCapacity());
             }
 
             double storeyExitCapacity = storeyExitCapacities.Sum();
@@ -34,7 +35,8 @@ namespace MoECapacityCalc.Utilities.Services
             List<double> finalExitCapacities = new List<double>();
             foreach (Exit anExit in FinalExits)
             {
-                finalExitCapacities.Add(anExit.CalcExitCapacity());
+                finalExitCapacities.Add(
+                    new ExitCapacityCalcService(anExit).CalcExitCapacity());
             }
 
             double finalExitCapacity = finalExitCapacities.Sum();
