@@ -1,6 +1,5 @@
 ﻿using MoECapacityCalc.Exits;
 using MoECapacityCalc.Stairs;
-using MoECapacityCalc.Stairs.StairFinalExits;
 using MoECapacityCalc.Utilities.Datastructs;
 using MoECapacityCalc.Utilities.Services;
 using System;
@@ -49,11 +48,11 @@ namespace MoECapacityCalc.Areas
             {
                 if(this.FloorLevel != aStair.FinalExitLevel)
                 {
-                    exitCapacities.Add(aStair.CalcStoreyExitLevelCapacity());
+                    exitCapacities.Add(new StairExitCalcService(aStair).CalcStoreyExitLevelCapacity());
                 }
                 else if (this.FloorLevel == aStair.FinalExitLevel)
                 {
-                    exitCapacities.Add(aStair.CalcFinalExitLevelCapacity());
+                    exitCapacities.Add(new StairExitCalcService(aStair).CalcFinalExitLevelCapacity());
                 }
             }
 

@@ -1,5 +1,6 @@
 ﻿using MoECapacityCalc.Exits;
 using MoECapacityCalc.Stairs;
+using MoECapacityCalc.Utilities.Associations;
 using MoECapacityCalc.Utilities.Datastructs;
 using MoECapacityCalc.Utilities.Services;
 using System;
@@ -13,7 +14,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
     public class StairExitCalcServiceTests
     {
 
-        public (List<Exit>, List<Exit>) InitialiseLists()
+        public Stair InitialiseLists()
         {
             Exit exit1 = new Exit("storey exit 1", ExitType.storeyExit, DoorSwing.with, 1050);
             Exit exit2 = new Exit("storey exit 2", ExitType.storeyExit, DoorSwing.with, 1050);
@@ -22,19 +23,26 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
             Exit exit5 = new Exit("final exit 2", ExitType.finalExit, DoorSwing.with, 1050);
             Exit exit6 = new Exit("final exit 3", ExitType.finalExit, DoorSwing.with, 1050);
 
+            List<Exit> exits = new List<Exit> { exit1, exit2, exit3, exit4, exit5, exit6 };
+
+
             List<Exit> storeyExits = new List<Exit> { exit1, exit2, exit3 };
             List<Exit> finalExits = new List<Exit> { exit4, exit5, exit6 };
 
-            return (storeyExits, finalExits);
+            Associations stair1Associations = new Associations(exits);
+
+            Stair stair1 = new Stair("stair 1", 1000, 5, 1, stair1Associations);
+
+            return stair1;
         }
 
         //Storey exit capacity unit test
         [TestCase(660)]
         public void TotalStoreyExitCapacityTest(double expectedExitCapacity)
         {
-            var (storeyExits, finalExits) = InitialiseLists();
+            Stair stair1 = InitialiseLists();
 
-            StairExitCalcsService stairExitCalcsService = new StairExitCalcsService(storeyExits, finalExits);
+            StairExitCalcService stairExitCalcsService = new StairExitCalcService(stair1);
 
             double exitCapacity = stairExitCalcsService.TotalStoreyExitCapacity();
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));

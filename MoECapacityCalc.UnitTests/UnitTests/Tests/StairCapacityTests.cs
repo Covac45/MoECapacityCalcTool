@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MoECapacityCalc.Utilities.Datastructs;
 using MoECapacityCalc.Utilities.Associations;
+using MoECapacityCalc.Utilities.Services;
 
 
 namespace MoECapacityCalc.UnitTests.UnitTests.Tests
@@ -28,7 +29,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
         public void StairCapacityTests(double stairWidth, int floorsServed, double expectedStairCapacity, double expectedStairCapacityPerFloor)
         {
             Exit finalExit1 = new Exit("final exit 1", ExitType.finalExit, DoorSwing.with, 1400);
-            Exit storeyExit1 = new Exit("storey exit 1", ExitType.finalExit, DoorSwing.with, 1400);
+            Exit storeyExit1 = new Exit("storey exit 1", ExitType.storeyExit, DoorSwing.with, 1400);
 
             List<Exit> stair1Exits = new List<Exit> { finalExit1, storeyExit1 };
 
@@ -36,8 +37,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
 
             Stair stair1 = new Stair("stair 1", stairWidth, floorsServed, 0, stair1Associations);
 
-            double stairCapacity = stair1.CalcStairCapacity();
-            double stairCapacityPerFloor = stair1.CalcStairCapacityPerFloor();
+            double stairCapacity = new StairCapacityCalcService(stair1).CalcStairCapacity();
+            double stairCapacityPerFloor = new StairCapacityCalcService(stair1).CalcStairCapacityPerFloor();
             Assert.That(stairCapacity, Is.EqualTo(expectedStairCapacity));
             Assert.That(stairCapacityPerFloor, Is.EqualTo(expectedStairCapacityPerFloor));
         }

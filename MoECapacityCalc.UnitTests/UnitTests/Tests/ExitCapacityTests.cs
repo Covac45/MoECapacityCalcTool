@@ -1,5 +1,4 @@
 using MoECapacityCalc.Exits;
-using MoECapacityCalc.Stairs.StairFinalExits;
 using MoECapacityCalc.Stairs;
 using MoECapacityCalc.Utilities.Datastructs;
 using MoECapacityCalc.Utilities.Services;

@@ -11,8 +11,8 @@ namespace MoECapacityCalc.Utilities.Services
     public class ExitCapacityCalcService
     {
 
-        public double ExitWidth;
-        DoorSwing DoorSwing;
+        private double ExitWidth;
+        private DoorSwing DoorSwing;
 
         public ExitCapacityCalcService(Exit exit)
         {
