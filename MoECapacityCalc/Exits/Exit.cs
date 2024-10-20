@@ -10,14 +10,18 @@ namespace MoECapacityCalc.Exits
 {
     public class Exit
     {
-        public string ExitName;
-        public ExitType ExitType;
-        public double ExitWidth;
-        public DoorSwing DoorSwing;
-        public Associations? Associations;
+        public Guid ExitId;
+        public string ExitName { get; set; }
+        public ExitType ExitType { get; set; }
+        public double ExitWidth { get; set; }
+        public DoorSwing DoorSwing { get; set; }
+        public Association? Associations { get; set; }
 
-        public Exit(string exitName, ExitType exitType, DoorSwing doorSwing, double exitWidth, Associations? associations = null)
+        public Exit() { }
+
+        public Exit(string exitName, ExitType exitType, DoorSwing doorSwing, double exitWidth, Association? associations = null)
         {
+            ExitId = Guid.NewGuid();
             ExitName = exitName;
             ExitType = exitType;
             ExitWidth = exitWidth;

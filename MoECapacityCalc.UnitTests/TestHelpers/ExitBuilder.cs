@@ -10,9 +10,9 @@ namespace MoECapacityCalc.UnitTests.TestHelpers
         ExitType _exitType;
         DoorSwing _doorSwing;
         double _exitWidth;
-        Associations? _associations;
+        Association? _associations;
 
-        public ExitBuilder(string name, ExitType exitType, DoorSwing doorSwing, double exitWidth, Associations? associations = null)
+        public ExitBuilder(string name, ExitType exitType, DoorSwing doorSwing, double exitWidth, Association? associations = null)
         {
             _name = name;
             _exitType = exitType;
@@ -51,7 +51,7 @@ namespace MoECapacityCalc.UnitTests.TestHelpers
             return this;
         }
 
-        public ExitBuilder WithAssociations(Associations associations)
+        public ExitBuilder WithAssociations(Association associations)
         {
             _associations = associations;
             return this;

@@ -33,7 +33,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
 
             List<Exit> stair1Exits = new List<Exit> { finalExit1, storeyExit1 };
 
-            Associations stair1Associations = new Associations(stair1Exits);
+            Association stair1Associations = new Association(stair1Exits);
 
             Stair stair1 = new Stair("stair 1", stairWidth, floorsServed, 0, stair1Associations);
 

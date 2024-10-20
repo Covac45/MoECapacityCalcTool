@@ -24,7 +24,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
             Exit finalExit1 = new Exit("final exit 1", ExitType.finalExit, DoorSwing.with, exitWidth);
             List<Exit> finalExits = new List<Exit>() { finalExit1 };
 
-            Stair stair1 = new Stair("stair 1", stairWidth, 1, 0, new Associations (finalExits));
+            Stair stair1 = new Stair("stair 1", stairWidth, 1, 0, new Association (finalExits));
             //List<Stair> stairs = new List<Stair>() { stair1 };
 
             double exitCapacity = new StairExitCalcService(stair1).CalcMergingFlowCapacity();
@@ -44,7 +44,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
 
             List<Exit> stair1Exits = new List<Exit> { finalExit1, storeyExit1 };
 
-            Associations stair1Associations = new Associations(stair1Exits);
+            Association stair1Associations = new Association(stair1Exits);
 
             Stair stair1 = new Stair("stair 1", stairWidth, 1, 0, stair1Associations);
 

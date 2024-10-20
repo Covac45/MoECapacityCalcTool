@@ -31,8 +31,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
             //exits not associated with stairs
             List<Exit> exits = new List<Exit> { storeyExit3, finalExit3 };
 
-            Associations stair1Associations = new Associations(stair1Exits);
-            Associations stair2Associations = new Associations(stair2Exits);
+            Association stair1Associations = new Association(stair1Exits);
+            Association stair2Associations = new Association(stair2Exits);
 
             Stair stair1 = new Stair("stair 1", 1000, 3, 0, stair1Associations);
             Stair stair2 = new Stair("stair 2", 1100, 3, 0, stair2Associations);

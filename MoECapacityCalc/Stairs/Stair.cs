@@ -13,6 +13,7 @@ namespace MoECapacityCalc.Stairs
 {
     public class Stair
     {
+        public Guid StairId;
         public string StairName;
         public double StairWidth;
         public int FloorsServed;
@@ -20,14 +21,17 @@ namespace MoECapacityCalc.Stairs
         public List<Exit> FinalExits;
         public List<Exit> StoreyExits;
 
-        public Stair(string name, double width, int floorsServed, int finalExitLevel, Associations? associations = null)
+        public Stair() { }
+
+        public Stair(string name, double width, int floorsServed, int finalExitLevel, Association? associations = null)
         {
+            StairId = Guid.NewGuid();
             StairName = name;
             StairWidth = width;
             FloorsServed = floorsServed;
             FinalExitLevel = finalExitLevel;
-            FinalExits = associations.FinalExits;
-            StoreyExits = associations.StoreyExits;
+            //FinalExits = associations.FinalExits;
+            //StoreyExits = associations.StoreyExits;
         }
 
     }

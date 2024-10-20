@@ -59,8 +59,6 @@ namespace MoECapacityCalc.Areas
 
             //implements discounting logic for multiple exits (i.e. remove the most capacious exit)
             //Also implements capping logic based on number of storey exits (single exit: 60 people, two exits: 600 people)
-            double discountedExitCapacity;
-
             int numExits = Exits.Count();
 
             switch (numExits)
@@ -72,7 +70,7 @@ namespace MoECapacityCalc.Areas
                 case > 2:
                     return exitCapacities.Sum() - exitCapacities.Max();
                 default:
-                    discountedExitCapacity = 0;
+                    return 0;
                     throw new Exception("The number of exits prodived to this area is less than 1. This is not supported");
             }
         }
