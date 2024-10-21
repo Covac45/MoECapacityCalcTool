@@ -31,11 +31,11 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
             Exit finalExit1 = new Exit("final exit 1", ExitType.finalExit, DoorSwing.with, 1400);
             Exit storeyExit1 = new Exit("storey exit 1", ExitType.storeyExit, DoorSwing.with, 1400);
 
-            List<Exit> stair1Exits = new List<Exit> { finalExit1, storeyExit1 };
+            Stair stair1 = new Stair("stair 1", stairWidth, floorsServed, 0);
 
-            Association stair1Associations = new Association(stair1Exits);
-
-            Stair stair1 = new Stair("stair 1", stairWidth, floorsServed, 0, stair1Associations);
+            stair1.Relationships.ExitRelationships =
+                [new Association<Stair, Exit>(stair1, storeyExit1),
+                new Association<Stair, Exit>(stair1, finalExit1)];
 
             double stairCapacity = new StairCapacityCalcService(stair1).CalcStairCapacity();
             double stairCapacityPerFloor = new StairCapacityCalcService(stair1).CalcStairCapacityPerFloor();

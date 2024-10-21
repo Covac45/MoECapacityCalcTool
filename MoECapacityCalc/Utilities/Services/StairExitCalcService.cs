@@ -1,5 +1,8 @@
-﻿using MoECapacityCalc.Exits;
+﻿using Microsoft.EntityFrameworkCore;
+using MoECapacityCalc.Database;
+using MoECapacityCalc.Exits;
 using MoECapacityCalc.Stairs;
+using MoECapacityCalc.Utilities.Datastructs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +14,17 @@ namespace MoECapacityCalc.Utilities.Services
     public class StairExitCalcService
     {
         private Stair Stair;
-        private List<Exit>? StoreyExits;
-        private List<Exit>? FinalExits;
+        private List<Exit> StoreyExits { get; set; }
+        private List<Exit> FinalExits { get; set; }
+
+        MoEContext context = new();
+
         public StairExitCalcService(Stair stair)
         {
             Stair = stair;
-            StoreyExits = stair.StoreyExits;
-            FinalExits = stair.FinalExits;
+
+            StoreyExits = Stair.Relationships.GetExits().Where(e => e.ExitType == ExitType.storeyExit).ToList();
+            FinalExits = Stair.Relationships.GetExits().Where(e => e.ExitType == ExitType.finalExit).ToList();
         }
 
         public double TotalStoreyExitCapacity()
@@ -50,7 +57,7 @@ namespace MoECapacityCalc.Utilities.Services
         {
             List<double> finalExitWidths = new List<double>();
 
-            foreach (Exit anExit in Stair.FinalExits)
+            foreach (Exit anExit in FinalExits)
             {
                 //must add logic to split clear width of shared final exits amongst stairs that share them!
                 finalExitWidths.Add(anExit.ExitWidth);

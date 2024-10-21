@@ -1,0 +1,59 @@
+﻿using Microsoft.EntityFrameworkCore;
+using MoECapacityCalc.Database;
+using MoECapacityCalc.Exits;
+using MoECapacityCalc.Stairs;
+using MoECapacityCalc.Utilities.Associations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MoECapacityCalc.Utilities.Services
+{
+    public class RelationshipService
+    {
+        public RelationshipService() { }
+
+
+        public Object GetRelationshipSubject(Relationship relationship)
+        {
+            Relationship Relationship = relationship;
+
+            using MoEContext context = new();
+
+            if (Relationship.SubjectType == "Exit")
+            {
+                return context.Exits.FirstOrDefault(e => e.ExitId == Relationship.SubjectId);
+            }
+            else if (Relationship.SubjectType == "Stair")
+            {
+                return context.Stairs.FirstOrDefault(s => s.StairId == Relationship.SubjectId);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public List<Exit> GetExitsRelatedToStair(Stair stair)
+        {
+            Stair Stair = stair;
+
+            using MoEContext context = new();
+
+            var exitRelationships = context.Relationships.Include(e => e.ObjectType == "Exit").Where(s => s.SubjectId == Stair.StairId).ToList();
+
+            List<Exit> exits = new List<Exit>() { };
+
+            foreach (var exitRelationship in exitRelationships)
+            {
+                exits.Add((Exit)context.Exits.Where(e => e.ExitId == exitRelationship.SubjectId));
+            }
+
+            return exits;
+
+        }
+
+    }
+}

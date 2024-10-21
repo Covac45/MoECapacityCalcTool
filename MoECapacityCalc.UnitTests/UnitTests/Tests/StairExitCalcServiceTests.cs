@@ -23,15 +23,15 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
             Exit exit5 = new Exit("final exit 2", ExitType.finalExit, DoorSwing.with, 1050);
             Exit exit6 = new Exit("final exit 3", ExitType.finalExit, DoorSwing.with, 1050);
 
-            List<Exit> exits = new List<Exit> { exit1, exit2, exit3, exit4, exit5, exit6 };
+            Stair stair1 = new Stair("stair 1", 1000, 5, 1);
 
-
-            List<Exit> storeyExits = new List<Exit> { exit1, exit2, exit3 };
-            List<Exit> finalExits = new List<Exit> { exit4, exit5, exit6 };
-
-            Association stair1Associations = new Association(exits);
-
-            Stair stair1 = new Stair("stair 1", 1000, 5, 1, stair1Associations);
+            stair1.Relationships.ExitRelationships =
+                [new Association<Stair,Exit>(stair1, exit1),
+                new Association<Stair,Exit>(stair1, exit2),
+                new Association<Stair,Exit>(stair1, exit3),
+                new Association<Stair,Exit>(stair1, exit4),
+                new Association<Stair,Exit>(stair1, exit5),
+                new Association<Stair,Exit>(stair1, exit6)];
 
             return stair1;
         }

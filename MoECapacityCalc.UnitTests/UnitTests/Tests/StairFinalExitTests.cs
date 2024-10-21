@@ -13,7 +13,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
         {
         }
 
-
+        
         //merging flow capacity unit tests
         [TestCase(900, 1200, 0)]
         [TestCase(1200, 1200, 60)]
@@ -22,10 +22,10 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
         public void MergingFlowCapacityTest(double exitWidth, double stairWidth, double expectedExitCapacity)
         {
             Exit finalExit1 = new Exit("final exit 1", ExitType.finalExit, DoorSwing.with, exitWidth);
-            List<Exit> finalExits = new List<Exit>() { finalExit1 };
+            List<Exit> stair1FinalExit = new List<Exit>() { finalExit1 };
 
-            Stair stair1 = new Stair("stair 1", stairWidth, 1, 0, new Association (finalExits));
-            //List<Stair> stairs = new List<Stair>() { stair1 };
+            Stair stair1 = new Stair("stair 1", stairWidth, 1, 0);
+            stair1.Relationships.ExitRelationships = [new Association<Stair, Exit>(stair1, finalExit1)]; ;
 
             double exitCapacity = new StairExitCalcService(stair1).CalcMergingFlowCapacity();
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
@@ -42,12 +42,12 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
             Exit finalExit1 = new Exit("final exit 1", ExitType.finalExit, DoorSwing.with, finalExitWidth);
             Exit storeyExit1 = new Exit("storey exit 1", ExitType.storeyExit, DoorSwing.with, storeyExitWidth);
 
-            List<Exit> stair1Exits = new List<Exit> { finalExit1, storeyExit1 };
+            Stair stair1 = new Stair("stair 1", stairWidth, 1, 0);
 
-            Association stair1Associations = new Association(stair1Exits);
-
-            Stair stair1 = new Stair("stair 1", stairWidth, 1, 0, stair1Associations);
-
+            stair1.Relationships.ExitRelationships =
+                                [new Association<Stair, Exit>(stair1, storeyExit1),
+                                new Association<Stair, Exit>(stair1, finalExit1)]; ;
+            
             double exitCapacity = new StairExitCalcService(stair1).CalcFinalExitLevelCapacity();
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }

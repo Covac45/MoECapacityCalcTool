@@ -15,18 +15,19 @@ namespace MoECapacityCalc.Exits
         public ExitType ExitType { get; set; }
         public double ExitWidth { get; set; }
         public DoorSwing DoorSwing { get; set; }
-        public Association? Associations { get; set; }
+        public List<Relationship> Relationships { get; set; }
 
         public Exit() { }
 
-        public Exit(string exitName, ExitType exitType, DoorSwing doorSwing, double exitWidth, Association? associations = null)
+        public Exit(string exitName, ExitType exitType, DoorSwing doorSwing, double exitWidth)
         {
             ExitId = Guid.NewGuid();
             ExitName = exitName;
             ExitType = exitType;
             ExitWidth = exitWidth;
             DoorSwing = doorSwing;
-            Associations = associations;
+
+            Relationships = new List<Relationship>();
         }
 
     }

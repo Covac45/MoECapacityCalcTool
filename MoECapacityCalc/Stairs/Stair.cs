@@ -13,25 +13,23 @@ namespace MoECapacityCalc.Stairs
 {
     public class Stair
     {
-        public Guid StairId;
-        public string StairName;
-        public double StairWidth;
-        public int FloorsServed;
-        public int FinalExitLevel;
-        public List<Exit> FinalExits;
-        public List<Exit> StoreyExits;
+        public Guid StairId { get; set; }
+        public string StairName { get; set; }
+        public double StairWidth { get; set; }
+        public int FloorsServed { get; set; }
+        public int FinalExitLevel { get; set; }
+        public RelationshipSet<Stair> Relationships { get; set; }
 
         public Stair() { }
 
-        public Stair(string name, double width, int floorsServed, int finalExitLevel, Association? associations = null)
+        public Stair(string name, double width, int floorsServed, int finalExitLevel)
         {
             StairId = Guid.NewGuid();
             StairName = name;
             StairWidth = width;
             FloorsServed = floorsServed;
             FinalExitLevel = finalExitLevel;
-            //FinalExits = associations.FinalExits;
-            //StoreyExits = associations.StoreyExits;
+            Relationships = new RelationshipSet<Stair>();
         }
 
     }
