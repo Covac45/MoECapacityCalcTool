@@ -28,7 +28,7 @@ namespace MoECapacityCalc.Database.Data_Logic
 
             var exits = new List<Exit>();
 
-            exitRelationships.ForEach(exitRel => exits.Add(_moEDbContext.Exits.Single(exit => exitRel.SubjectId == exit.ExitId)));
+            exitRelationships.ForEach(exitRel => exits.Add(_moEDbContext.Exits.Single(exit => exitRel.SubjectId == exit.Id)));
 
             return exits;
         }
@@ -43,7 +43,7 @@ namespace MoECapacityCalc.Database.Data_Logic
 
             var stairs = new List<Stair>();
 
-            stairRelationships.ForEach(stairRel => stairs.Add(_moEDbContext.Stairs.Single(stair => stairRel.SubjectId == stair.StairId)));
+            stairRelationships.ForEach(stairRel => stairs.Add(_moEDbContext.Stairs.Single(stair => stairRel.SubjectId == stair.Id)));
 
             return stairs;
         }
@@ -58,7 +58,7 @@ namespace MoECapacityCalc.Database.Data_Logic
 
             var areas = new List<Area>();
 
-            areaRelationships.ForEach(areaRel => areas.Add(_moEDbContext.Areas.Single(area => areaRel.SubjectId == area.AreaId)));
+            areaRelationships.ForEach(areaRel => areas.Add(_moEDbContext.Areas.Single(area => areaRel.SubjectId == area.Id)));
 
             return areas;
         }

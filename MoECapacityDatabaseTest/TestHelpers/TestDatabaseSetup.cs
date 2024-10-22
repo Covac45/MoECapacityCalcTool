@@ -46,19 +46,19 @@ namespace MoECapacityDatabaseTest.TestHelpers
         {
             ResetDatbase();
 
-            Exit storeyExit1 = new Exit { ExitId = Guid.NewGuid(), ExitName = "storey exit 1", ExitType = ExitType.storeyExit, DoorSwing = DoorSwing.with, ExitWidth = 1050 };
-            Exit finalExit1 = new Exit { ExitId = Guid.NewGuid(), ExitName = "final exit 1", ExitType = ExitType.finalExit, DoorSwing = DoorSwing.with, ExitWidth = 1050 };
+            Exit storeyExit1 = new Exit { Id = Guid.NewGuid(), ExitName = "storey exit 1", ExitType = ExitType.storeyExit, DoorSwing = DoorSwing.with, ExitWidth = 1050 };
+            Exit finalExit1 = new Exit { Id = Guid.NewGuid(), ExitName = "final exit 1", ExitType = ExitType.finalExit, DoorSwing = DoorSwing.with, ExitWidth = 1050 };
 
-            Exit storeyExit2 = new Exit { ExitId = Guid.NewGuid(), ExitName = "storey exit 2", ExitType = ExitType.storeyExit, DoorSwing = DoorSwing.with, ExitWidth = 1050 };
-            Exit finalExit2 = new Exit { ExitId = Guid.NewGuid(), ExitName = "final exit 2", ExitType = ExitType.finalExit, DoorSwing = DoorSwing.with, ExitWidth = 1050 };
+            Exit storeyExit2 = new Exit { Id = Guid.NewGuid(), ExitName = "storey exit 2", ExitType = ExitType.storeyExit, DoorSwing = DoorSwing.with, ExitWidth = 1050 };
+            Exit finalExit2 = new Exit { Id = Guid.NewGuid(), ExitName = "final exit 2", ExitType = ExitType.finalExit, DoorSwing = DoorSwing.with, ExitWidth = 1050 };
 
-            Exit storeyExit3 = new Exit { ExitId = Guid.NewGuid(), ExitName = "storey exit 3", ExitType = ExitType.storeyExit, DoorSwing = DoorSwing.with, ExitWidth = 1050 };
-            Exit finalExit3 = new Exit { ExitId = Guid.NewGuid(), ExitName = "final exit 3", ExitType = ExitType.finalExit, DoorSwing = DoorSwing.with, ExitWidth = 1050 };
+            Exit storeyExit3 = new Exit { Id = Guid.NewGuid(), ExitName = "storey exit 3", ExitType = ExitType.storeyExit, DoorSwing = DoorSwing.with, ExitWidth = 1050 };
+            Exit finalExit3 = new Exit { Id = Guid.NewGuid(), ExitName = "final exit 3", ExitType = ExitType.finalExit, DoorSwing = DoorSwing.with, ExitWidth = 1050 };
 
 
             Stair stair1 = new Stair
             {
-                StairId = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 StairName = "stair 1",
                 StairWidth = 1000,
                 FloorsServed = 3,
@@ -67,7 +67,7 @@ namespace MoECapacityDatabaseTest.TestHelpers
 
             Stair stair2 = new Stair
             {
-                StairId = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 StairName = "stair 2",
                 StairWidth = 1100,
                 FloorsServed = 3,
@@ -76,7 +76,7 @@ namespace MoECapacityDatabaseTest.TestHelpers
 
             Area area1 = new Area
             {
-                AreaId = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 AreaName = "area 1"
             };
 

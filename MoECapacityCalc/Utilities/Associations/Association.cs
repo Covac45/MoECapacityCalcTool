@@ -32,36 +32,36 @@ namespace MoECapacityCalc.Utilities.Associations
         public Association(Stair stair, Exit exit)
         {
             AssociationId = Guid.NewGuid();
-            ObjectId = stair.StairId;
+            ObjectId = stair.Id;
             ObjectType = stair.GetType().Name;
-            SubjectId = exit.ExitId;
+            SubjectId = exit.Id;
             SubjectType = exit.GetType().Name;
         }
 
         public Association(Exit exit1, Exit exit2)
         {
             AssociationId = Guid.NewGuid();
-            ObjectId = exit1.ExitId;
+            ObjectId = exit1.Id;
             ObjectType = exit2.GetType().Name;
-            SubjectId = exit2.ExitId;
+            SubjectId = exit2.Id;
             SubjectType = exit2.GetType().Name;
         }
 
         public Association(Area area, Exit exit)
         {
             AssociationId = Guid.NewGuid();
-            ObjectId = area.AreaId;
+            ObjectId = area.Id;
             ObjectType = exit.GetType().Name;
-            SubjectId = exit.ExitId;
+            SubjectId = exit.Id;
             SubjectType = exit.GetType().Name;
         }
 
         public Association(Area area, Stair stair)
         {
             AssociationId = Guid.NewGuid();
-            ObjectId = area.AreaId;
+            ObjectId = area.Id;
             ObjectType = stair.GetType().Name;
-            SubjectId = stair.StairId;
+            SubjectId = stair.Id;
             SubjectType = stair.GetType().Name;
         }
     }

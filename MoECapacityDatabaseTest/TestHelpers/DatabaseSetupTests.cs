@@ -16,10 +16,10 @@ namespace MoECapacityDatabaseTest.TestHelpers
             var context = GetContext();
             SeedDatbase();
 
-            var exits = context.Exits.Select(e => e.ExitId).ToList().Count();
+            var exits = context.Exits.Select(e => e.Id).ToList().Count();
 
-            Assert.AreNotEqual(context.Exits.Select(e => e.ExitId).ToList().Count(),0);
-            Assert.AreNotEqual(context.Stairs.Select(e => e.StairId).ToList().Count(),0);
+            Assert.AreNotEqual(context.Exits.Select(e => e.Id).ToList().Count(),0);
+            Assert.AreNotEqual(context.Stairs.Select(e => e.Id).ToList().Count(),0);
             Assert.AreNotEqual(context.Associations.Select(e => e.AssociationId).ToList().Count(), 0);
         }
             

@@ -48,9 +48,9 @@ namespace MoECapacityCalc.Database.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Exit>().Ignore(e => e.Relationships).HasKey(e => e.ExitId);
-            modelBuilder.Entity<Stair>().Ignore(s => s.Relationships).HasKey(s => s.StairId);
-            modelBuilder.Entity<Area>().Ignore(a => a.Relationships).HasKey(a => a.AreaId);
+            modelBuilder.Entity<Exit>().Ignore(e => e.Relationships).HasKey(e => e.Id);
+            modelBuilder.Entity<Stair>().Ignore(s => s.Relationships).HasKey(s => s.Id);
+            modelBuilder.Entity<Area>().Ignore(a => a.Relationships).HasKey(a => a.Id);
             modelBuilder.Entity<Association>().HasKey(a => a.AssociationId);
 
         }

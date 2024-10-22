@@ -8,12 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using MoECapacityCalc.Utilities.Services;
 using MoECapacityCalc.Utilities.Associations;
+using MoECapacityCalc.Database.Interfaces;
 
 namespace MoECapacityCalc.Stairs
 {
-    public class Stair
+    public class Stair : IEntity
     {
-        public Guid StairId { get; set; }
+        public Guid Id { get; set; }
         public string StairName { get; set; }
         public double StairWidth { get; set; }
         public int FloorsServed { get; set; }
@@ -24,7 +25,7 @@ namespace MoECapacityCalc.Stairs
 
         public Stair(string name, double width, int floorsServed, int finalExitLevel)
         {
-            StairId = Guid.NewGuid();
+            Id = Guid.NewGuid();
             StairName = name;
             StairWidth = width;
             FloorsServed = floorsServed;

@@ -23,7 +23,7 @@ namespace MoECapacityCalc.Database
 
         public Stair GetStairById(Guid id)
         {
-            var retrievedStair = _moEDbContext.Stairs.Single(s => s.StairId == id);
+            var retrievedStair = _moEDbContext.Stairs.Single(s => s.Id == id);
 
             var exits = new RepositoryService(_moEDbContext).GetExitsFromAssociations(id);
             var stairs = new RepositoryService(_moEDbContext).GetStairsFromAssociations(id);
@@ -45,7 +45,7 @@ namespace MoECapacityCalc.Database
 
         public Exit GetExitById(Guid id)
         {
-            var retrievedExit = _moEDbContext.Exits.Single(e => e.ExitId == id);
+            var retrievedExit = _moEDbContext.Exits.Single(e => e.Id == id);
 
             var exits = new RepositoryService(_moEDbContext).GetExitsFromAssociations(id);
             var stairs = new RepositoryService(_moEDbContext).GetStairsFromAssociations(id);
@@ -66,7 +66,7 @@ namespace MoECapacityCalc.Database
 
         public Area GetAreaById(Guid id)
         {
-            var retrievedArea = _moEDbContext.Areas.Single(e => e.AreaId == id);
+            var retrievedArea = _moEDbContext.Areas.Single(e => e.Id == id);
 
             var exits = new RepositoryService(_moEDbContext).GetExitsFromAssociations(id);
             var stairs = new RepositoryService(_moEDbContext).GetStairsFromAssociations(id);

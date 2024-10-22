@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MoECapacityCalc.Stairs;
+﻿using MoECapacityCalc.Database.Interfaces;
 using MoECapacityCalc.Utilities.Associations;
 using MoECapacityCalc.Utilities.Datastructs;
 
 namespace MoECapacityCalc.Exits
 {
-    public class Exit
+    public class Exit : IEntity
     {
-        public Guid ExitId;
+        public Guid Id;
         public string ExitName { get; set; }
         public ExitType ExitType { get; set; }
         public double ExitWidth { get; set; }
@@ -22,7 +17,7 @@ namespace MoECapacityCalc.Exits
 
         public Exit(string exitName, ExitType exitType, DoorSwing doorSwing, double exitWidth)
         {
-            ExitId = Guid.NewGuid();
+            Id = Guid.NewGuid();
             ExitName = exitName;
             ExitType = exitType;
             ExitWidth = exitWidth;

@@ -1,4 +1,5 @@
-﻿using MoECapacityCalc.Exits;
+﻿using MoECapacityCalc.Database.Interfaces;
+using MoECapacityCalc.Exits;
 using MoECapacityCalc.Stairs;
 using MoECapacityCalc.Utilities.Associations;
 using MoECapacityCalc.Utilities.Datastructs;
@@ -11,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace MoECapacityCalc.Areas
 {
-    public class Area
+    public class Area : IEntity
     {
-        public Guid AreaId { get; set; }
+        public Guid Id { get; set; }
         public string AreaName { get; set; }
         public int FloorLevel { get; set; }
 
@@ -23,7 +24,7 @@ namespace MoECapacityCalc.Areas
 
         public Area(int floorLevel, string areaName)
         {
-            AreaId = Guid.NewGuid();
+            Id = Guid.NewGuid();
             AreaName = areaName;
             FloorLevel = floorLevel;
             Relationships = new RelationshipSet<Area>();

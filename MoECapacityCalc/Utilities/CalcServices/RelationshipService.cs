@@ -24,11 +24,11 @@ namespace MoECapacityCalc.Utilities.Services
 
             if (Relationship.SubjectType == "Exit")
             {
-                return context.Exits.FirstOrDefault(e => e.ExitId == Relationship.SubjectId);
+                return context.Exits.FirstOrDefault(e => e.Id == Relationship.SubjectId);
             }
             else if (Relationship.SubjectType == "Stair")
             {
-                return context.Stairs.FirstOrDefault(s => s.StairId == Relationship.SubjectId);
+                return context.Stairs.FirstOrDefault(s => s.Id == Relationship.SubjectId);
             }
             else
             {
@@ -42,13 +42,13 @@ namespace MoECapacityCalc.Utilities.Services
 
             using MoEContext context = new();
 
-            var exitRelationships = context.Associations.Include(e => e.ObjectType == "Exit").Where(s => s.SubjectId == Stair.StairId).ToList();
+            var exitRelationships = context.Associations.Include(e => e.ObjectType == "Exit").Where(s => s.SubjectId == Stair.Id).ToList();
 
             List<Exit> exits = new List<Exit>() { };
 
             foreach (var exitRelationship in exitRelationships)
             {
-                exits.Add((Exit)context.Exits.Where(e => e.ExitId == exitRelationship.SubjectId));
+                exits.Add((Exit)context.Exits.Where(e => e.Id == exitRelationship.SubjectId));
             }
 
             return exits;
