@@ -21,9 +21,6 @@ namespace MoECapacityCalc.Database.Data_Logic
         }
         public List<Exit> GetExitsFromAssociations(Guid id)
         {
-            var dbContext = new MoEContext();
-            var exitRepository = new ExitsRepository(dbContext);
-
             var relationships = _moEDbContext.Associations
                 .Where(rel => rel.ObjectId == id)
                 .ToList();
