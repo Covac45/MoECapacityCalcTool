@@ -12,7 +12,7 @@ using MoECapacityCalc.Database.Interfaces;
 
 namespace MoECapacityCalc.Stairs
 {
-    public class Stair : IEntity
+    public class Stair : Entity
     {
         public Guid Id { get; set; }
         public string StairName { get; set; }

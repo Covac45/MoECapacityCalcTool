@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MoECapacityCalc.Areas
 {
-    public class Area : IEntity
+    public class Area : Entity
     {
         public Guid Id { get; set; }
         public string AreaName { get; set; }

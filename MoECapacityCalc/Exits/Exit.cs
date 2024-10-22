@@ -4,7 +4,7 @@ using MoECapacityCalc.Utilities.Datastructs;
 
 namespace MoECapacityCalc.Exits
 {
-    public class Exit : IEntity
+    public class Exit : Entity
     {
         public Guid Id;
         public string ExitName { get; set; }

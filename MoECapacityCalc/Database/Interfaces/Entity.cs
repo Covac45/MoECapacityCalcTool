@@ -1,6 +1,6 @@
 ﻿namespace MoECapacityCalc.Database.Interfaces
 {
-    public interface IEntity
+    public class Entity
     {
         public Guid Id { get; set; }
     }
