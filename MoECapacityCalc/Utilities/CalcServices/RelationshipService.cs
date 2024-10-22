@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MoECapacityCalc.Database;
+using MoECapacityCalc.Database.Context;
 using MoECapacityCalc.Exits;
 using MoECapacityCalc.Stairs;
 using MoECapacityCalc.Utilities.Associations;
@@ -16,9 +16,9 @@ namespace MoECapacityCalc.Utilities.Services
         public RelationshipService() { }
 
 
-        public Object GetRelationshipSubject(Relationship relationship)
+        public Object GetRelationshipSubject(Association relationship)
         {
-            Relationship Relationship = relationship;
+            Association Relationship = relationship;
 
             using MoEContext context = new();
 
@@ -42,7 +42,7 @@ namespace MoECapacityCalc.Utilities.Services
 
             using MoEContext context = new();
 
-            var exitRelationships = context.Relationships.Include(e => e.ObjectType == "Exit").Where(s => s.SubjectId == Stair.StairId).ToList();
+            var exitRelationships = context.Associations.Include(e => e.ObjectType == "Exit").Where(s => s.SubjectId == Stair.StairId).ToList();
 
             List<Exit> exits = new List<Exit>() { };
 

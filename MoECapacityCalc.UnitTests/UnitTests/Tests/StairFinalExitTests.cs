@@ -25,7 +25,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
             List<Exit> stair1FinalExit = new List<Exit>() { finalExit1 };
 
             Stair stair1 = new Stair("stair 1", stairWidth, 1, 0);
-            stair1.Relationships.ExitRelationships = [new Association<Stair, Exit>(stair1, finalExit1)]; ;
+            stair1.Relationships.ExitRelationships = [new Relationship<Stair, Exit>(stair1, finalExit1)]; ;
 
             double exitCapacity = new StairExitCalcService(stair1).CalcMergingFlowCapacity();
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
@@ -45,8 +45,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
             Stair stair1 = new Stair("stair 1", stairWidth, 1, 0);
 
             stair1.Relationships.ExitRelationships =
-                                [new Association<Stair, Exit>(stair1, storeyExit1),
-                                new Association<Stair, Exit>(stair1, finalExit1)]; ;
+                                [new Relationship<Stair, Exit>(stair1, storeyExit1),
+                                new Relationship<Stair, Exit>(stair1, finalExit1)]; ;
             
             double exitCapacity = new StairExitCalcService(stair1).CalcFinalExitLevelCapacity();
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));

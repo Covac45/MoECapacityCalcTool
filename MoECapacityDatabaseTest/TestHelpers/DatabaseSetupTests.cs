@@ -14,14 +14,13 @@ namespace MoECapacityDatabaseTest.TestHelpers
         public void SeedDatbaseTest()
         {
             var context = GetContext();
-            ResetDatbase();
             SeedDatbase();
 
             var exits = context.Exits.Select(e => e.ExitId).ToList().Count();
 
             Assert.AreNotEqual(context.Exits.Select(e => e.ExitId).ToList().Count(),0);
             Assert.AreNotEqual(context.Stairs.Select(e => e.StairId).ToList().Count(),0);
-            Assert.AreNotEqual(context.Relationships.Select(e => e.RelationshipId).ToList().Count(), 0);
+            Assert.AreNotEqual(context.Associations.Select(e => e.AssociationId).ToList().Count(), 0);
         }
             
     }

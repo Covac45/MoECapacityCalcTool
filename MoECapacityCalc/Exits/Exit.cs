@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MoECapacityCalc.Stairs;
 using MoECapacityCalc.Utilities.Associations;
 using MoECapacityCalc.Utilities.Datastructs;
 
@@ -15,7 +16,7 @@ namespace MoECapacityCalc.Exits
         public ExitType ExitType { get; set; }
         public double ExitWidth { get; set; }
         public DoorSwing DoorSwing { get; set; }
-        public List<Relationship> Relationships { get; set; }
+        public RelationshipSet<Exit> Relationships { get; set; }
 
         public Exit() { }
 
@@ -27,7 +28,7 @@ namespace MoECapacityCalc.Exits
             ExitWidth = exitWidth;
             DoorSwing = doorSwing;
 
-            Relationships = new List<Relationship>();
+            Relationships = new RelationshipSet<Exit>();
         }
 
     }

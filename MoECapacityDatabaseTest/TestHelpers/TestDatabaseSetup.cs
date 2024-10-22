@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using MoECapacityCalc.Database;
 using MoECapacityCalc.Exits;
 using MoECapacityCalc.Utilities.Datastructs;
 using System.Reflection.Emit;
 using MoECapacityCalc.Stairs;
 using MoECapacityCalc.Utilities.Associations;
+using MoECapacityCalc.Database.Context;
+using MoECapacityCalc.Areas;
 
 namespace MoECapacityDatabaseTest.TestHelpers
 {
@@ -73,6 +74,12 @@ namespace MoECapacityDatabaseTest.TestHelpers
                 FinalExitLevel = 0
             };
 
+            Area area1 = new Area
+            {
+                AreaId = Guid.NewGuid(),
+                AreaName = "area 1"
+            };
+
             using (var context = GetContext())
             {
                 context.Exits.AddRange(
@@ -85,11 +92,20 @@ namespace MoECapacityDatabaseTest.TestHelpers
 
                 context.Stairs.AddRange(stair1, stair2);
 
-                context.Relationships.AddRange(
-                    new Relationship(stair1, storeyExit1),
-                    new Relationship(stair1, finalExit1),
-                    new Relationship(stair2, storeyExit2),
-                    new Relationship(stair2, finalExit2));
+                context.Associations.AddRange(
+                    new Association(stair1, storeyExit1),
+                    new Association(stair1, finalExit1),
+                    new Association(stair2, storeyExit2),
+                    new Association(stair2, finalExit2),
+                    new Association(storeyExit3, finalExit3));
+
+                context.Areas.Add(area1);
+
+                context.Associations.AddRange(
+                    new Association(area1, storeyExit3),
+                    new Association(area1, finalExit3),
+                    new Association(area1, stair1),
+                    new Association(area1, stair2));
 
                 context.SaveChanges();
             }

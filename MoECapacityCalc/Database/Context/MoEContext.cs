@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MoECapacityCalc.Areas;
 using MoECapacityCalc.Exits;
 using MoECapacityCalc.Stairs;
 using MoECapacityCalc.Utilities.Associations;
@@ -12,20 +13,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoECapacityCalc.Database
+namespace MoECapacityCalc.Database.Context
 {
     public interface IMoEDbContext
     {
         public DbSet<Exit> Exits { get; set; }
         public DbSet<Stair> Stairs { get; set; }
-        public DbSet<Relationship> Relationships { get; set; }
+        public DbSet<Area> Areas { get; set; }
+        public DbSet<Association> Associations { get; set; }
     }
 
     public class MoEContext : DbContext, IMoEDbContext
     {
         public DbSet<Exit> Exits { get; set; }
         public DbSet<Stair> Stairs { get; set; }
-        public DbSet<Relationship> Relationships { get; set; }
+        public DbSet<Area> Areas { get; set; }
+        public DbSet<Association> Associations { get; set; }
 
         public MoEContext() { }
 
@@ -45,15 +48,13 @@ namespace MoECapacityCalc.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Exit>().HasKey(e => e.ExitId);
+            modelBuilder.Entity<Exit>().Ignore(e => e.Relationships).HasKey(e => e.ExitId);
             modelBuilder.Entity<Stair>().Ignore(s => s.Relationships).HasKey(s => s.StairId);
-            modelBuilder.Entity<Relationship>().HasKey(a => a.RelationshipId);
-
-            //modelBuilder.Entity<Exit>().HasMany(r => r.Relationships);
-            //modelBuilder.Entity<Stair>().HasMany(r => r.Relationships);
+            modelBuilder.Entity<Area>().Ignore(a => a.Relationships).HasKey(a => a.AreaId);
+            modelBuilder.Entity<Association>().HasKey(a => a.AssociationId);
 
         }
 
 
-}
+    }
 }

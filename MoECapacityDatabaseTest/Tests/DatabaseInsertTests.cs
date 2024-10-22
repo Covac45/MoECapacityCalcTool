@@ -115,19 +115,17 @@ namespace MoECapacityDatabaseTest.Tests
                     FinalExitLevel = 0
                 };
 
-
-
-                context.Relationships.AddRange(
-                    new Relationship(stair1, storeyExit1),
-                    new Relationship(stair1, finalExit1),
-                    new Relationship(stair2, storeyExit2),
-                    new Relationship(stair2, finalExit2));
+                context.Associations.AddRange(
+                    new Association(stair1, storeyExit1),
+                    new Association(stair1, finalExit1),
+                    new Association(stair2, storeyExit2),
+                    new Association(stair2, finalExit2));
 
                 context.SaveChanges();
 
-                Assert.AreNotEqual(0, context.Relationships.Count());
-                Assert.AreNotEqual("", context.Relationships.First().RelationshipId.ToString());
-                Assert.AreNotEqual(null, context.Relationships.First().RelationshipId.ToString());
+                Assert.AreNotEqual(0, context.Associations.Count());
+                Assert.AreNotEqual("", context.Associations.First().AssociationId.ToString());
+                Assert.AreNotEqual(null, context.Associations.First().AssociationId.ToString());
             }
 
         }

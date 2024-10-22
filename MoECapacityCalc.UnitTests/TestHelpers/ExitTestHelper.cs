@@ -1,5 +1,6 @@
 ﻿using MoECapacityCalc.Exits;
 using MoECapacityCalc.Utilities.Datastructs;
+using MoECapacityCalc.Utilities.Associations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,12 @@ namespace MoECapacityCalc.UnitTests.TestHelpers
     {
         public static ExitBuilder GetDefaultStoreyExitBuilder()
         {
-            return new ExitBuilder("defaultStoreyExit", ExitType.storeyExit, DoorSwing.with, 1050);
+            return new ExitBuilder("defaultStoreyExit", ExitType.storeyExit, DoorSwing.with, 1050, new RelationshipSet<Exit>());
         }
 
         public static ExitBuilder GetDefaultFinalExitBuilder()
         {
-            return new ExitBuilder("defaultfinalExit", ExitType.finalExit, DoorSwing.with, 1050);
+            return new ExitBuilder("defaultfinalExit", ExitType.finalExit, DoorSwing.with, 1050, new RelationshipSet<Exit>());
         }
 
         public static List<ExitBuilder> GetDefaultExitBuilders()

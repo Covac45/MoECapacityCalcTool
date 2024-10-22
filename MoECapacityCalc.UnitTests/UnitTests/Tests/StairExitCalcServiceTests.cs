@@ -26,12 +26,12 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
             Stair stair1 = new Stair("stair 1", 1000, 5, 1);
 
             stair1.Relationships.ExitRelationships =
-                [new Association<Stair,Exit>(stair1, exit1),
-                new Association<Stair,Exit>(stair1, exit2),
-                new Association<Stair,Exit>(stair1, exit3),
-                new Association<Stair,Exit>(stair1, exit4),
-                new Association<Stair,Exit>(stair1, exit5),
-                new Association<Stair,Exit>(stair1, exit6)];
+                [new Relationship<Stair,Exit>(stair1, exit1),
+                new Relationship<Stair,Exit>(stair1, exit2),
+                new Relationship<Stair,Exit>(stair1, exit3),
+                new Relationship<Stair,Exit>(stair1, exit4),
+                new Relationship<Stair,Exit>(stair1, exit5),
+                new Relationship<Stair,Exit>(stair1, exit6)];
 
             return stair1;
         }

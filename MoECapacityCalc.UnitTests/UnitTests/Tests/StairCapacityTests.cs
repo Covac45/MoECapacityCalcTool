@@ -34,8 +34,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
             Stair stair1 = new Stair("stair 1", stairWidth, floorsServed, 0);
 
             stair1.Relationships.ExitRelationships =
-                [new Association<Stair, Exit>(stair1, storeyExit1),
-                new Association<Stair, Exit>(stair1, finalExit1)];
+                [new Relationship<Stair, Exit>(stair1, storeyExit1),
+                new Relationship<Stair, Exit>(stair1, finalExit1)];
 
             double stairCapacity = new StairCapacityCalcService(stair1).CalcStairCapacity();
             double stairCapacityPerFloor = new StairCapacityCalcService(stair1).CalcStairCapacityPerFloor();

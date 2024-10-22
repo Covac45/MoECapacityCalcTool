@@ -1,4 +1,5 @@
-﻿using MoECapacityCalc.Exits;
+﻿using MoECapacityCalc.Database.Context;
+using MoECapacityCalc.Exits;
 using MoECapacityCalc.Stairs;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace MoECapacityCalc.Database
 {
-    public class RelationshipsDictionary
+    public class AssociationsDictionary
     {
-        public MoEContext Context { get; set; }
-        public RelationshipsDictionary(MoEContext context)
+        /*public MoEContext Context { get; set; }
+        public AssociationsDictionary(MoEContext context)
         {
             Context = context;
         }
@@ -37,7 +38,7 @@ namespace MoECapacityCalc.Database
             }
             
             return stairDictionary;
-        }
+        }*/
 
 
     }

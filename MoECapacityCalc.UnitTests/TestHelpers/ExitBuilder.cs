@@ -10,15 +10,15 @@ namespace MoECapacityCalc.UnitTests.TestHelpers
         ExitType _exitType;
         DoorSwing _doorSwing;
         double _exitWidth;
-        List<Relationship>? _relationships;
+        RelationshipSet<Exit> _relationships;
 
-        public ExitBuilder(string name, ExitType exitType, DoorSwing doorSwing, double exitWidth, List<Relationship>? relationships = null)
+        public ExitBuilder(string name, ExitType exitType, DoorSwing doorSwing, double exitWidth, RelationshipSet<Exit> relationships)
         {
             _name = name;
             _exitType = exitType;
             _doorSwing = doorSwing;
             _exitWidth = exitWidth;
-            _relationships = relationships;
+            _relationships = relationships ?? new RelationshipSet<Exit>();
         }
 
         public Exit Build()
@@ -51,7 +51,7 @@ namespace MoECapacityCalc.UnitTests.TestHelpers
             return this;
         }
 
-        public ExitBuilder WithAssociations(List<Relationship> relationships)
+        public ExitBuilder WithAssociations(RelationshipSet<Exit> relationships)
         {
             _relationships = relationships;
             return this;

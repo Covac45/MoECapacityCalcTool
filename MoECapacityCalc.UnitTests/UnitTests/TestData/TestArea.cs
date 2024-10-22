@@ -1,6 +1,6 @@
-﻿using MoECapacityCalc.Exits;
+﻿using MoECapacityCalc.Areas;
+using MoECapacityCalc.Exits;
 using MoECapacityCalc.Stairs;
-using MoECapacityCalc.UnitTests.TestHelpers;
 using MoECapacityCalc.Utilities.Associations;
 using MoECapacityCalc.Utilities.Datastructs;
 using System;
@@ -11,41 +11,26 @@ using System.Threading.Tasks;
 
 namespace MoECapacityCalc.UnitTests.UnitTests.TestData
 {
-    public class TestArea
+    public class TestArea : TestExitsAndStairs
     {
-        public static (List<Exit>, List<Stair>) GetAreaTestData()
+        public static Area GetAreaTestData()
         {
-            Exit storeyExit1 = new Exit("storey exit 1", ExitType.storeyExit, DoorSwing.with, 1050);
-            Exit finalExit1 = new Exit("final exit 1", ExitType.finalExit, DoorSwing.with, 1050);
+            var (exits, stairs) = GetExitsAndStairsTestData();
 
-            Exit storeyExit2 = new Exit("storey exit 2", ExitType.storeyExit, DoorSwing.with, 1050);
-            Exit finalExit2 = new Exit("final exit 2", ExitType.finalExit, DoorSwing.with, 1050);
+            Area area1 = new Area(0, "Area 1");
 
-            Exit storeyExit3 = new Exit("storey exit 3", ExitType.storeyExit, DoorSwing.with, 1050);
-            Exit finalExit3 = new Exit("final exit 3", ExitType.finalExit, DoorSwing.with, 1050);
+            foreach (var exit in exits)
+            {
+                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, exit));
 
-            //Exits associated with stairs
-            List<Exit> stair1Exits = new List<Exit> { storeyExit1, finalExit1 };
-            List<Exit> stair2Exits = new List<Exit> { storeyExit2, finalExit3 };
+            }
 
-            //exits not associated with stairs
-            List<Exit> exits = new List<Exit> { storeyExit3, finalExit3 };
-
-            Stair stair1 = new Stair("stair 1", 1000, 3, 0);
-            Stair stair2 = new Stair("stair 2", 1100, 3, 0);
-
-            stair1.Relationships.ExitRelationships =
-                                [new Association<Stair, Exit>(stair1, storeyExit1),
-                                new Association<Stair, Exit>(stair1, finalExit1)];
-
-            stair2.Relationships.ExitRelationships =
-                                [new Association<Stair, Exit>(stair2, storeyExit2),
-                                new Association<Stair, Exit>(stair2, finalExit2)];
-
-
-            List<Stair> stairs = new List<Stair> { stair1, stair2 };
-
-            return (exits, stairs);
+            foreach (var stair in stairs)
+            {
+                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, stair));
+            }
+            return area1;
         }
+
     }
 }

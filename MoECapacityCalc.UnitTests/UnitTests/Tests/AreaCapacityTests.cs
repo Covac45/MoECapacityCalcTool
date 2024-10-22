@@ -8,6 +8,8 @@ using MoECapacityCalc.Stairs;
 using MoECapacityCalc.Areas;
 using MoECapacityCalc.Utilities.Datastructs;
 using MoECapacityCalc.UnitTests.UnitTests.TestData;
+using MoECapacityCalc.Utilities.CalcServices;
+using MoECapacityCalc.Utilities.Associations;
 
 
 namespace MoECapacityCalc.UnitTests.UnitTests.Tests
@@ -25,11 +27,9 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
         public void AreaFinalExitLevelCapacityTest(double expectedExitCapacity)
         {
 
-            var (exits, stairs) = GetAreaTestData();
+            var area1 = GetAreaTestData();
 
-            Area area1 = new Area(0, exits, stairs);
-
-            double exitCapacity = area1.CalcDiscountedExitCapacity();
+            double exitCapacity = new AreaCalcService(area1).CalcDiscountedExitCapacity();
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
 
