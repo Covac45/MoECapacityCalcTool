@@ -27,13 +27,9 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories
 
             var allAssociations = _associationsRepository.GetAllAssociations(retrievedStair).ToList();
 
-            var exits = new RelationshipBuildService<Exit>(_moEDbContext).GetAssociatedEntities(allAssociations, new Exit());
-            var stairs = new RelationshipBuildService<Stair>(_moEDbContext).GetAssociatedEntities(allAssociations, new Stair());
-            var areas = new RelationshipBuildService<Area>(_moEDbContext).GetAssociatedEntities(allAssociations, new Area());
-
-            var exitRelationships = exits.Select(exit => new Relationship<Stair, Exit>(retrievedStair, exit)).ToList();
-            var stairRelationships = stairs.Select(stair => new Relationship<Stair, Stair>(retrievedStair, stair)).ToList();
-            var areaRelationships = areas.Select(area => new Relationship<Stair, Area>(retrievedStair, area)).ToList();
+            var exitRelationships = new RelationshipBuildService<Stair, Exit>(_moEDbContext).GetRelationships(retrievedStair, allAssociations, new Exit());
+            var stairRelationships = new RelationshipBuildService<Stair, Stair>(_moEDbContext).GetRelationships(retrievedStair, allAssociations, new Stair());
+            var areaRelationships = new RelationshipBuildService<Stair, Area>(_moEDbContext).GetRelationships(retrievedStair, allAssociations, new Area());
 
             retrievedStair.Relationships = new RelationshipSet<Stair>
             {

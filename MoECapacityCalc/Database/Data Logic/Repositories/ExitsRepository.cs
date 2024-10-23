@@ -2,6 +2,7 @@
 using MoECapacityCalc.Areas;
 using MoECapacityCalc.Database.Context;
 using MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions;
+using MoECapacityCalc.Database.Data_Logic.Repositories.RepositoryServices;
 using MoECapacityCalc.Database.Repositories.Abstractions;
 using MoECapacityCalc.Exits;
 using MoECapacityCalc.Stairs;
@@ -25,21 +26,21 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories
             var retrievedExit = GetById(id);
 
             var allAssociations = _associationsRepository.GetAllAssociations(retrievedExit).ToList();
+            
+            retrievedExit.Relationships = new RelationshipSetBuildService<Exit>(_moEDbContext).GetRelationshipSet(retrievedExit, allAssociations);
 
-            var exits = new RelationshipBuildService<Exit>(_moEDbContext).GetAssociatedEntities(allAssociations, new Exit());
-            var stairs = new RelationshipBuildService<Stair>(_moEDbContext).GetAssociatedEntities(allAssociations, new Stair());
-            var areas = new RelationshipBuildService<Area>(_moEDbContext).GetAssociatedEntities(allAssociations, new Area());
-
-            var exitRelationships = exits.Select(exit => new Relationship<Exit, Exit>(retrievedExit, exit)).ToList();
-            var stairRelationships = stairs.Select(stair => new Relationship<Exit, Stair>(retrievedExit, stair)).ToList();
-            var areaRelationships = areas.Select(area => new Relationship<Exit, Area>(retrievedExit, area)).ToList();
-
+            /*
+            var exitRelationships = new RelationshipBuildService<Exit, Exit>(_moEDbContext).GetRelationships(retrievedExit, allAssociations, new Exit());
+            var stairRelationships = new RelationshipBuildService<Exit, Stair>(_moEDbContext).GetRelationships(retrievedExit, allAssociations, new Stair());
+            var areaRelationships = new RelationshipBuildService<Exit, Area>(_moEDbContext).GetRelationships(retrievedExit, allAssociations, new Area());
 
             retrievedExit.Relationships = new RelationshipSet<Exit>
-            {   ExitRelationships = exitRelationships,
+            {   
+                ExitRelationships = exitRelationships,
                 StairRelationships = stairRelationships,
                 AreaRelationships = areaRelationships
-            }; 
+            };
+            */
             return retrievedExit;
         }
 

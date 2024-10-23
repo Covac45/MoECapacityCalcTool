@@ -14,32 +14,29 @@ using System.Threading.Tasks;
 
 namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
 {
-    /*public interface IRelationshipBuildService<TEntity> where TEntity : Entity
-    {
-        public List<TEntity> GetAssociatedEntities(List<Association> allAssociations, Entity entity);
-    }*/
 
-    public class RelationshipBuildService<TEntity>() where TEntity : Entity
+    public class RelationshipBuildService<TEntity1, TEntity2>
+        where TEntity1 : Entity
+        where TEntity2 : Entity
     {
         private readonly DbContext _dbContext;
-        private readonly DbSet<TEntity> _table;
+        private readonly DbSet<TEntity2> _table;
 
-        public RelationshipBuildService(DbContext dbContext) : this()
+        public RelationshipBuildService(DbContext dbContext)
         {
             _dbContext = dbContext;
-            _table = _dbContext.Set<TEntity>();
+            _table = _dbContext.Set<TEntity2>();
         }
 
-        public List<TEntity> GetAssociatedEntities(List<Association> allAssociations, Entity entity)
+        public List<Relationship<TEntity1, TEntity2>> GetRelationships(TEntity1 objectEntity, List<Association> allAssociations, TEntity2 subjectEntity)
         {
-            var associations = allAssociations.Where(assoc => assoc.SubjectType == entity.GetType().Name).ToList();
+            var associations = allAssociations.Where(assoc => assoc.SubjectType == subjectEntity.GetType().Name).ToList();
 
             var entities = associations.Select(assoc => _table.Single(ent => assoc.SubjectId == ent.Id)).ToList();
 
-            return entities;
+            var relationships = entities.Select(ent => new Relationship<TEntity1, TEntity2>(objectEntity, ent)).ToList();
+
+            return relationships;
         }
-
-
-
     }
 }
