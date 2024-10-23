@@ -32,7 +32,7 @@ namespace MoECapacityDatabaseTest.Tests
             using var context = GetContext();
             SeedDatbase();
 
-            var exit = new ExitsRepository(context, new AssociationsRepository(context)).GetExitById(context.Exits.First(e => e.Name == "storey exit 3").Id);
+            var exit = new ExitsRepository(context, new AssociationsRepository(context)).GetById(context.Exits.First(e => e.Name == "storey exit 3").Id);
 
             Assert.AreNotEqual(exit.Relationships.ExitRelationships.Count, 0);
 

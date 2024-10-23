@@ -2,6 +2,7 @@
 
 namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
 {
+    //Generic repository for all types
     public abstract class GenericRepository<T> where T : class
     {
         private readonly DbContext _dbContext;
