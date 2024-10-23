@@ -1,15 +1,14 @@
-﻿using MoECapacityCalc.Database.Interfaces;
+﻿using MoECapacityCalc.Database.Abstractions;
 using MoECapacityCalc.Utilities.Associations;
 using MoECapacityCalc.Utilities.Datastructs;
 
 namespace MoECapacityCalc.Exits
 {
-    public class Exit : Entity
+    public class Exit : MeansOfEscapeEntity<Exit>
     {
         public ExitType ExitType { get; set; }
         public double ExitWidth { get; set; }
         public DoorSwing DoorSwing { get; set; }
-        public RelationshipSet<Exit> Relationships { get; set; }
 
         public Exit() { }
 

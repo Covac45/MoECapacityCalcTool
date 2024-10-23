@@ -8,16 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using MoECapacityCalc.Utilities.Services;
 using MoECapacityCalc.Utilities.Associations;
-using MoECapacityCalc.Database.Interfaces;
+using MoECapacityCalc.Database.Abstractions;
 
 namespace MoECapacityCalc.Stairs
 {
-    public class Stair : Entity
+    public class Stair : MeansOfEscapeEntity<Stair>
     {
         public double StairWidth { get; set; }
         public int FloorsServed { get; set; }
         public int FinalExitLevel { get; set; }
-        public RelationshipSet<Stair> Relationships { get; set; }
 
         public Stair() { }
 

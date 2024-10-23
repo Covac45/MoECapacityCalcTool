@@ -2,6 +2,7 @@
 using MoECapacityCalc.Areas;
 using MoECapacityCalc.Database.Context;
 using MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions;
+using MoECapacityCalc.Database.Data_Logic.Repositories.RepositoryServices;
 using MoECapacityCalc.Database.Repositories.Abstractions;
 using MoECapacityCalc.Exits;
 using MoECapacityCalc.Stairs;
@@ -12,16 +13,17 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories
     public class StairsRepository : EntityRepository<Stair>
     {
         private readonly MoEContext _moEDbContext;
+        private readonly IRelationshipSetBuildService<Stair> _relationshipSetBuildService;
         private readonly IAssociationsRepository _associationsRepository;
 
 
-        public StairsRepository(MoEContext moEDbContext, IAssociationsRepository associationsRepository) : base(moEDbContext)
+        public StairsRepository(MoEContext moEDbContext, IRelationshipSetBuildService<Stair> relationshipSetBuildService) : base(moEDbContext, relationshipSetBuildService)
         {
             _moEDbContext = moEDbContext;
-            _associationsRepository = associationsRepository;
+            _relationshipSetBuildService = relationshipSetBuildService;
         }
 
-        public Stair GetStairById(Guid id)
+        /*public Stair GetStairById(Guid id)
         {
             var retrievedStair = GetById(id);
 
@@ -38,7 +40,7 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories
                 AreaRelationships = areaRelationships
             };
             return retrievedStair;
-        }
+        }*/
 
     }
 }

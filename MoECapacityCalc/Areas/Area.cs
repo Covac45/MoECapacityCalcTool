@@ -1,4 +1,4 @@
-﻿using MoECapacityCalc.Database.Interfaces;
+﻿using MoECapacityCalc.Database.Abstractions;
 using MoECapacityCalc.Exits;
 using MoECapacityCalc.Stairs;
 using MoECapacityCalc.Utilities.Associations;
@@ -12,11 +12,9 @@ using System.Threading.Tasks;
 
 namespace MoECapacityCalc.Areas
 {
-    public class Area : Entity
+    public class Area : MeansOfEscapeEntity<Area>
     {
         public int FloorLevel { get; set; }
-
-        public RelationshipSet<Area> Relationships { get; set; }
 
         public Area() { }
 

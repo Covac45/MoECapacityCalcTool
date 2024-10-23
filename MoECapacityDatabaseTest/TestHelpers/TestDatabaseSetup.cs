@@ -13,6 +13,8 @@ using MoECapacityCalc.Stairs;
 using MoECapacityCalc.Utilities.Associations;
 using MoECapacityCalc.Database.Context;
 using MoECapacityCalc.Areas;
+using MoECapacityCalc.Database.Data_Logic.Repositories.RepositoryServices;
+using MoECapacityCalc.Database.Data_Logic.Repositories;
 
 namespace MoECapacityDatabaseTest.TestHelpers
 {
@@ -30,7 +32,7 @@ namespace MoECapacityDatabaseTest.TestHelpers
 
             var context = new MoEContext(builder.Options);
 
-                return context;
+            return context;
         }
 
 
@@ -111,5 +113,30 @@ namespace MoECapacityDatabaseTest.TestHelpers
             }
         }
 
+        public static Repositories GetRepositories()
+        {
+            var context = GetContext();
+            IAssociationsRepository associationsRepository = new AssociationsRepository(context);
+            IRelationshipSetBuildService<Exit> relationshipSetBuilderServiceExit = new RelationshipSetBuildService<Exit>(context, associationsRepository);
+            IRelationshipSetBuildService<Stair> relationshipSetBuilderServiceStair = new RelationshipSetBuildService<Stair>(context, associationsRepository);
+            IRelationshipSetBuildService<Area> relationshipSetBuilderServiceArea = new RelationshipSetBuildService<Area>(context, associationsRepository);
+
+            var exitRepository = new ExitsRepository(context, relationshipSetBuilderServiceExit);
+            var stairRepository = new StairsRepository(context, relationshipSetBuilderServiceStair);
+            var areaRepository = new AreasRepository(context, relationshipSetBuilderServiceArea);
+
+            return new Repositories()
+            {   
+                ExitsRepository = exitRepository,
+                StairsRepository = stairRepository,
+                AreasRepository = areaRepository 
+            };
+
+        }
+
+
+
+
     }
+
 }

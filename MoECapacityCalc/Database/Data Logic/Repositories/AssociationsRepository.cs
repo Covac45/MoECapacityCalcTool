@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MoECapacityCalc.Areas;
+using MoECapacityCalc.Database.Abstractions;
 using MoECapacityCalc.Database.Context;
 using MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions;
-using MoECapacityCalc.Database.Interfaces;
 using MoECapacityCalc.Exits;
 using MoECapacityCalc.Stairs;
 using MoECapacityCalc.Utilities.Associations;

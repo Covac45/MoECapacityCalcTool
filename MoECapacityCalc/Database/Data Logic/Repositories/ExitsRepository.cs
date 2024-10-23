@@ -9,23 +9,20 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories
     public class ExitsRepository : EntityRepository<Exit>
     {
         private readonly MoEContext _moEDbContext;
-        private readonly IRelationshipSetBuildService<Exit> _relationshipSetBuilderService;
 
-
-        public ExitsRepository(MoEContext moEDbContext, IRelationshipSetBuildService<Exit> relationshipSetBuilderService) : base(moEDbContext)
+        public ExitsRepository(MoEContext moEDbContext, IRelationshipSetBuildService<Exit> relationshipSetBuilderService) : base(moEDbContext, relationshipSetBuilderService)
         {
             _moEDbContext = moEDbContext;
-            _relationshipSetBuilderService = relationshipSetBuilderService;
         }
 
-        public Exit GetById(Guid id)
+        /*public Exit GetById(Guid id)
         {
-            var retrievedExit = GetById(id);
+            var retrievedExit = base.GetById(id);
       
-            retrievedExit.Relationships = _relationshipSetBuilderService.GetRelationshipSet(retrievedExit);
+            //retrievedExit.Relationships = _relationshipSetBuilderService.GetRelationshipSet(retrievedExit);
 
             return retrievedExit;
-        }
+        }*/
 
     }
 

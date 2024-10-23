@@ -1,29 +1,38 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MoECapacityCalc.Database.Abstractions;
 using MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions;
-using MoECapacityCalc.Database.Interfaces;
+using MoECapacityCalc.Database.Data_Logic.Repositories.RepositoryServices;
+using MoECapacityCalc.Exits;
 
 namespace MoECapacityCalc.Database.Repositories.Abstractions
 {
     //Generic repository for entity types
-    public abstract class EntityRepository<TEntity> : GenericRepository<TEntity> where TEntity : Entity
+    public abstract class EntityRepository<TEntity> : GenericRepository<TEntity> where TEntity : MeansOfEscapeEntity<TEntity>
     {
         private readonly DbContext DbContext;
         private readonly DbSet<TEntity> _table;
+        private readonly IRelationshipSetBuildService<TEntity> _relationshipSetBuilderService;
 
-        public EntityRepository(DbContext dbContext) : base(dbContext)
+        public EntityRepository(DbContext dbContext, IRelationshipSetBuildService<TEntity> relationshipSetBuilderService) : base(dbContext)
         {
             DbContext = dbContext;
             _table = DbContext.Set<TEntity>();
+            _relationshipSetBuilderService = relationshipSetBuilderService;
         }
 
         public TEntity GetById(Guid id)
         {
-            return _table.Single(entity => entity.Id == id);
+             var entity = _table.Single(entity => entity.Id == id);
+            entity.Relationships = _relationshipSetBuilderService.GetRelationshipSet(entity);
+
+            return entity;
+
         }
 
         public IEnumerable<TEntity> GetAll()
         {
             return _table.AsEnumerable();
+            //TODO add relationships please!
         }
     }
 }

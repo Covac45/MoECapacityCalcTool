@@ -2,6 +2,7 @@
 using MoECapacityCalc.Areas;
 using MoECapacityCalc.Database.Context;
 using MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions;
+using MoECapacityCalc.Database.Data_Logic.Repositories.RepositoryServices;
 using MoECapacityCalc.Database.Repositories;
 using MoECapacityCalc.Database.Repositories.Abstractions;
 using MoECapacityCalc.Exits;
@@ -13,12 +14,14 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories
     public class AreasRepository : EntityRepository<Area>
     {
         private readonly MoEContext _moEDbContext;
-        private readonly IAssociationsRepository _associationsRepository;
-        public AreasRepository(MoEContext moEDbContext, IAssociationsRepository associationsRepository) : base(moEDbContext)
+        private readonly IRelationshipSetBuildService<Area> _relationshipSetBuildService;
+        public AreasRepository(MoEContext moEDbContext, IRelationshipSetBuildService<Area> relationshipSetBuildService) : base(moEDbContext, relationshipSetBuildService)
         {
             _moEDbContext = moEDbContext;
-            _associationsRepository = associationsRepository;
+            _relationshipSetBuildService = relationshipSetBuildService;
         }
+
+        /*
         public Area GetAreaById(Guid id)
         {
             var retrievedArea = GetById(id);
@@ -37,7 +40,7 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories
             };
             return retrievedArea;
         }
-
+        */
 
     }
 }

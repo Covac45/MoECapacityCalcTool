@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MoECapacityCalc.Areas;
+using MoECapacityCalc.Database.Abstractions;
 using MoECapacityCalc.Database.Context;
-using MoECapacityCalc.Database.Interfaces;
 using MoECapacityCalc.Database.Repositories.Abstractions;
 using MoECapacityCalc.Exits;
 using MoECapacityCalc.Stairs;
@@ -16,8 +16,8 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
 {
 
     public class RelationshipBuildService<TEntity1, TEntity2>
-        where TEntity1 : Entity
-        where TEntity2 : Entity
+        where TEntity1 : MeansOfEscapeEntity<TEntity1>
+        where TEntity2 : MeansOfEscapeEntity<TEntity2>
     {
         private readonly DbContext _dbContext;
         private readonly DbSet<TEntity2> _table;
