@@ -2,6 +2,7 @@
 using MoECapacityCalc.Areas;
 using MoECapacityCalc.Database.Context;
 using MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions;
+using MoECapacityCalc.Database.Repositories;
 using MoECapacityCalc.Database.Repositories.Abstractions;
 using MoECapacityCalc.Exits;
 using MoECapacityCalc.Stairs;
@@ -9,40 +10,40 @@ using MoECapacityCalc.Utilities.Associations;
 
 namespace MoECapacityCalc.Database.Data_Logic.Repositories
 {
-    public class ExitsRepository : EntityRepository<Exit>
+    public class AreasRepository : EntityRepository<Area>
     {
         private readonly MoEContext _moEDbContext;
         private readonly IAssociationsRepository _associationsRepository;
-
-        public ExitsRepository(MoEContext moEDbContext, IAssociationsRepository associationsRepository) : base(moEDbContext)
+        public AreasRepository(MoEContext moEDbContext, IAssociationsRepository associationsRepository) : base(moEDbContext)
         {
             _moEDbContext = moEDbContext;
             _associationsRepository = associationsRepository;
         }
-
-        public Exit GetExitById(Guid id)
+        public Area GetAreaById(Guid id)
         {
-            var retrievedExit = GetById(id);
+            var retrievedArea = GetById(id);
 
-            var allAssociations = _associationsRepository.GetAllAssociations(retrievedExit).ToList();
+            var allAssociations = _associationsRepository.GetAllAssociations(retrievedArea).ToList();
 
             var exits = new RelationshipBuildService<Exit>(_moEDbContext).GetAssociatedEntities(allAssociations, new Exit());
             var stairs = new RelationshipBuildService<Stair>(_moEDbContext).GetAssociatedEntities(allAssociations, new Stair());
             var areas = new RelationshipBuildService<Area>(_moEDbContext).GetAssociatedEntities(allAssociations, new Area());
 
-            var exitRelationships = exits.Select(exit => new Relationship<Exit, Exit>(retrievedExit, exit)).ToList();
-            var stairRelationships = stairs.Select(stair => new Relationship<Exit, Stair>(retrievedExit, stair)).ToList();
-            var areaRelationships = areas.Select(area => new Relationship<Exit, Area>(retrievedExit, area)).ToList();
+
+            var exitRelationships = exits.Select(exit => new Relationship<Area, Exit>(retrievedArea, exit)).ToList();
+            var stairRelationships = stairs.Select(stair => new Relationship<Area, Stair>(retrievedArea, stair)).ToList();
+            var areaRelationships = areas.Select(area => new Relationship<Area, Area>(retrievedArea, area)).ToList();
 
 
-            retrievedExit.Relationships = new RelationshipSet<Exit>
-            {   ExitRelationships = exitRelationships,
+            retrievedArea.Relationships = new RelationshipSet<Area>
+            {
+                ExitRelationships = exitRelationships,
                 StairRelationships = stairRelationships,
                 AreaRelationships = areaRelationships
-            }; 
-            return retrievedExit;
+            };
+            return retrievedArea;
         }
 
-    }
 
+    }
 }

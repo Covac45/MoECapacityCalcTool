@@ -14,8 +14,6 @@ namespace MoECapacityCalc.Stairs
 {
     public class Stair : Entity
     {
-        public Guid Id { get; set; }
-        public string StairName { get; set; }
         public double StairWidth { get; set; }
         public int FloorsServed { get; set; }
         public int FinalExitLevel { get; set; }
@@ -26,7 +24,7 @@ namespace MoECapacityCalc.Stairs
         public Stair(string name, double width, int floorsServed, int finalExitLevel)
         {
             Id = Guid.NewGuid();
-            StairName = name;
+            Name = name;
             StairWidth = width;
             FloorsServed = floorsServed;
             FinalExitLevel = finalExitLevel;

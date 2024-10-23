@@ -1,4 +1,5 @@
 ﻿using MoECapacityCalc.Database;
+using MoECapacityCalc.Database.Data_Logic.Repositories;
 using MoECapacityCalc.Stairs;
 using MoECapacityDatabaseTest.TestHelpers;
 using System;
@@ -20,10 +21,9 @@ namespace MoECapacityDatabaseTest.Tests
             using var context = GetContext();
             SeedDatbase();
 
-            var stair = new MoEObjectRepository(context).GetStairById(context.Stairs.First().Id);
+            var stair = new StairsRepository(context, new AssociationsRepository(context)).GetStairById(context.Stairs.First(s => s.Name == "stair 1").Id);
 
             Assert.AreNotEqual(stair.Relationships.ExitRelationships.Count, 0);
-
         }
         
         [TestMethod]
@@ -32,7 +32,7 @@ namespace MoECapacityDatabaseTest.Tests
             using var context = GetContext();
             SeedDatbase();
 
-            var exit = new MoEObjectRepository(context).GetExitById(context.Exits.First(e => e.ExitName == "storey exit 3").Id);
+            var exit = new ExitsRepository(context, new AssociationsRepository(context)).GetExitById(context.Exits.First(e => e.Name == "storey exit 3").Id);
 
             Assert.AreNotEqual(exit.Relationships.ExitRelationships.Count, 0);
 
@@ -44,9 +44,9 @@ namespace MoECapacityDatabaseTest.Tests
             using var context = GetContext();
             SeedDatbase();
 
-            var Area = new MoEObjectRepository(context).GetAreaById(context.Areas.First(e => e.AreaName == "area 1").Id);
+            var area = new AreasRepository(context, new AssociationsRepository(context)).GetAreaById(context.Areas.First(s => s.Name == "area 1").Id);
 
-            Assert.AreNotEqual(Area.Relationships.ExitRelationships.Count, 0);
+            Assert.AreNotEqual(area.Relationships.ExitRelationships.Count, 0);
 
         }
     }

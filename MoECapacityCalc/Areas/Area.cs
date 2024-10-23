@@ -14,8 +14,6 @@ namespace MoECapacityCalc.Areas
 {
     public class Area : Entity
     {
-        public Guid Id { get; set; }
-        public string AreaName { get; set; }
         public int FloorLevel { get; set; }
 
         public RelationshipSet<Area> Relationships { get; set; }
@@ -25,7 +23,7 @@ namespace MoECapacityCalc.Areas
         public Area(int floorLevel, string areaName)
         {
             Id = Guid.NewGuid();
-            AreaName = areaName;
+            Name = areaName;
             FloorLevel = floorLevel;
             Relationships = new RelationshipSet<Area>();
         }

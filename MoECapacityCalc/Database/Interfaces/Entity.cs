@@ -1,7 +1,8 @@
 ﻿namespace MoECapacityCalc.Database.Interfaces
 {
-    public class Entity
+    public abstract class Entity
     {
         public Guid Id { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using MoECapacityCalc.Database.Interfaces;
 
 namespace MoECapacityCalc.Database.Repositories.Abstractions
 {
-    public class EntityRepository<TEntity> : GenericRepository<TEntity> where TEntity : Entity
+    public abstract class EntityRepository<TEntity> : GenericRepository<TEntity> where TEntity : Entity
     {
         private readonly DbContext DbContext;
         private readonly DbSet<TEntity> _table;

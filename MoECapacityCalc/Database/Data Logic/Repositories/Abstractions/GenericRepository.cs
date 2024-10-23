@@ -2,7 +2,7 @@
 
 namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
 {
-    public class GenericRepository<T> where T : class
+    public abstract class GenericRepository<T> where T : class
     {
         private readonly DbContext _dbContext;
         private readonly DbSet<T> _table;
@@ -15,7 +15,8 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
 
         public IEnumerable<T> GetAll()
         {
-            return _table.AsEnumerable();
+            var table = _table.AsEnumerable();
+            return table;
         }
     }
 }
