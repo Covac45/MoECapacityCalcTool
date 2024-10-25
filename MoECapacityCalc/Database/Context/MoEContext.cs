@@ -48,7 +48,7 @@ namespace MoECapacityCalc.Database.Context
             modelBuilder.Entity<Exit>().Ignore(e => e.Relationships).HasKey(e => e.Id);
             modelBuilder.Entity<Stair>().Ignore(s => s.Relationships).HasKey(s => s.Id);
             modelBuilder.Entity<Area>().Ignore(a => a.Relationships).HasKey(a => a.Id);
-            modelBuilder.Entity<Association>().HasKey(a => a.AssociationId);
+            modelBuilder.Entity<Association>().HasKey(a => a.Id);
 
         }
 

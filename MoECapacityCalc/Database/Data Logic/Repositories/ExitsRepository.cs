@@ -8,10 +8,14 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories
     public class ExitsRepository : MeansOfEscapeEntityRepository<Exit>
     {
         private readonly MoEContext _moEDbContext;
+        private readonly IRelationshipSetBuildService<Exit> _relationshipSetBuildService;
+        private readonly IAssociationsRepository _associationsRepository;
 
-        public ExitsRepository(MoEContext moEDbContext, IRelationshipSetBuildService<Exit> relationshipSetBuilderService) : base(moEDbContext, relationshipSetBuilderService)
+        public ExitsRepository(MoEContext moEDbContext, IRelationshipSetBuildService<Exit> relationshipSetBuilderService, IAssociationsRepository associationsRepository) : base(moEDbContext, relationshipSetBuilderService, associationsRepository)
         {
             _moEDbContext = moEDbContext;
+            _relationshipSetBuildService = relationshipSetBuilderService;
+            _associationsRepository = associationsRepository;
         }
 
     }

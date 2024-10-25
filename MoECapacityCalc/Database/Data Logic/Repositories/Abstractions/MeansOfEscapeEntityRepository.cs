@@ -1,21 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MoECapacityCalc.Database.Abstractions;
+using MoECapacityCalc.Database.Data_Logic.Repositories;
 using MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions;
 using MoECapacityCalc.Database.Data_Logic.Repositories.RepositoryServices;
 namespace MoECapacityCalc.Database.Repositories.Abstractions
 {
     //Generic repository for entity types
-    public abstract class MeansOfEscapeEntityRepository<TEntity> : EntityRepository<TEntity> where TEntity : MeansOfEscapeEntity<TEntity>
+    public interface IMeansofEscapeEntityRepository<TEntity> : IEntityRepository<TEntity>
+        where TEntity : Entity
+    {
+        
+    }
+
+    public abstract class MeansOfEscapeEntityRepository<TEntity> : EntityRepository<TEntity>
+        where TEntity : MeansOfEscapeEntity<TEntity>
     {
         private readonly DbContext DbContext;
         private readonly DbSet<TEntity> _table;
         private readonly IRelationshipSetBuildService<TEntity> _relationshipSetBuilderService;
+        private readonly IAssociationsRepository _associationsRepository;
 
-        public MeansOfEscapeEntityRepository(DbContext dbContext, IRelationshipSetBuildService<TEntity> relationshipSetBuilderService) : base(dbContext)
+        public MeansOfEscapeEntityRepository(DbContext dbContext, IRelationshipSetBuildService<TEntity> relationshipSetBuilderService, IAssociationsRepository associationsRepository) : base(dbContext)
         {
             DbContext = dbContext;
             _table = DbContext.Set<TEntity>();
             _relationshipSetBuilderService = relationshipSetBuilderService;
+            _associationsRepository = associationsRepository;
         }
 
         public override TEntity GetById(Guid id)
@@ -35,19 +45,24 @@ namespace MoECapacityCalc.Database.Repositories.Abstractions
             entities.ToList();
 
             return entities;
-
         }
-        /*public void Add(TEntity entity)
+
+        public override void Remove(TEntity entity)
         {
-            _table.Add(entity);
+            var objectAssociations = _associationsRepository.GetAllAssociationsForObject(entity).ToList();
+            var subjectAssociations = _associationsRepository.GetAllAssociationsForSubject(entity).ToList();
+            _associationsRepository.RemoveMany(objectAssociations);
+            _associationsRepository.RemoveMany(subjectAssociations);
+
+            _table.Remove(entity);
             DbContext.SaveChanges();
         }
 
-        public void AddMany(List<TEntity> entities)
+        public override void RemoveMany(IEnumerable<TEntity> entities)
         {
-            entities.ForEach(entity => _table.Add(entity));
+            entities.ToList().ForEach(entity => _table.Remove(entity));
             DbContext.SaveChanges();
-        }*/
+        }
 
     }
 }

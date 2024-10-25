@@ -22,7 +22,7 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
 
         public List<Relationship<TEntity1, TEntity2>> GetRelationships(TEntity1 objectEntity, TEntity2 subjectEntity)
         {
-            var allAssociations = _associationsRepository.GetAllAssociations(objectEntity).ToList();
+            var allAssociations = _associationsRepository.GetAllAssociationsForObject(objectEntity).ToList();
 
             var associations = allAssociations.Where(assoc => assoc.SubjectType == subjectEntity.GetType().Name).ToList();
 

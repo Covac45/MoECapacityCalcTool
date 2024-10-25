@@ -13,10 +13,12 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories
         private readonly IAssociationsRepository _associationsRepository;
 
 
-        public StairsRepository(MoEContext moEDbContext, IRelationshipSetBuildService<Stair> relationshipSetBuildService) : base(moEDbContext, relationshipSetBuildService)
+        public StairsRepository(MoEContext moEDbContext, IRelationshipSetBuildService<Stair> relationshipSetBuildService, IAssociationsRepository associationsRepository)
+                                : base(moEDbContext, relationshipSetBuildService, associationsRepository)
         {
             _moEDbContext = moEDbContext;
             _relationshipSetBuildService = relationshipSetBuildService;
-        }
+            _associationsRepository = associationsRepository;
+    }
     }
 }

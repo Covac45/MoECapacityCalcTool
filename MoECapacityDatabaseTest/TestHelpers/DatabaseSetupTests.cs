@@ -20,7 +20,7 @@ namespace MoECapacityDatabaseTest.TestHelpers
 
             Assert.AreNotEqual(context.Exits.Select(e => e.Id).ToList().Count(),0);
             Assert.AreNotEqual(context.Stairs.Select(e => e.Id).ToList().Count(),0);
-            Assert.AreNotEqual(context.Associations.Select(e => e.AssociationId).ToList().Count(), 0);
+            Assert.AreNotEqual(context.Associations.Select(e => e.Id).ToList().Count(), 0);
         }
             
     }

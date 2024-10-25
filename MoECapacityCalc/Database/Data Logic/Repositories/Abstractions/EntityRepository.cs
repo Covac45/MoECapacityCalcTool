@@ -9,10 +9,19 @@ using System.Threading.Tasks;
 
 namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
 {
-    public abstract class EntityRepository<TEntity> : GenericRepository<TEntity> where TEntity : Entity
+    public interface IEntityRepository<TEntity> : IGenericRepository<TEntity>
+        where TEntity : Entity
+    {
+        public TEntity GetById(Guid id);
+
+    }
+
+    public abstract class EntityRepository<TEntity> : GenericRepository<TEntity>, IEntityRepository<TEntity>
+        where TEntity : Entity 
     {
         private readonly DbContext DbContext;
         private readonly DbSet<TEntity> _table;
+
         public EntityRepository(DbContext dbContext) : base(dbContext) 
         {
             DbContext = dbContext;
@@ -26,16 +35,5 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
             return entity;
         }
 
-        public void Add(TEntity entity)
-        {
-            _table.Add(entity);
-            DbContext.SaveChanges();
-        }
-
-        public void AddMany(List<TEntity> entities)
-        {
-            entities.ForEach(entity => _table.Add(entity));
-            DbContext.SaveChanges();
-        }
     }
 }

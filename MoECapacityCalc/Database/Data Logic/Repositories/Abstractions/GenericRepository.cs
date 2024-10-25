@@ -4,7 +4,19 @@ using MoECapacityCalc.Database.Abstractions;
 namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
 {
     //Generic repository for all types
-    public abstract class GenericRepository<T> where T : class
+
+    public interface IGenericRepository<T>
+        where T : class
+    {
+        public IEnumerable<T> GetAll();
+        public void Add(T entity);
+        public void AddMany(IEnumerable<T> entities);
+        public void Remove(T entity);
+        public void RemoveMany(IEnumerable<T> entities);
+    }
+
+    public abstract class GenericRepository<T> : IGenericRepository<T>
+        where T : class
     {
         private readonly DbContext DbContext;
         private readonly DbSet<T> _table;
@@ -20,5 +32,30 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
             var table = _table.AsEnumerable();
             return table;
         }
+
+        public void Add(T entity)
+        {
+            _table.Add(entity);
+            DbContext.SaveChanges();
+        }
+
+        public void AddMany(IEnumerable<T> entities)
+        {
+            entities.ToList().ForEach(entity => _table.Add(entity));
+            DbContext.SaveChanges();
+        }
+
+        public virtual void Remove(T entity)
+        {
+            _table.Remove(entity);
+            DbContext.SaveChanges();
+        }
+
+        public virtual void RemoveMany(IEnumerable<T> entities)
+        {
+            entities.ToList().ForEach(entity => _table.Remove(entity));
+            DbContext.SaveChanges();
+        }
+
     }
 }

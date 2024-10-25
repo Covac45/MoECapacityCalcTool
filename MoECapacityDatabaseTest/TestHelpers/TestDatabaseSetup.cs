@@ -119,9 +119,9 @@ namespace MoECapacityDatabaseTest.TestHelpers
             IRelationshipSetBuildService<Stair> relationshipSetBuilderServiceStair = new RelationshipSetBuildService<Stair>(context, associationsRepository);
             IRelationshipSetBuildService<Area> relationshipSetBuilderServiceArea = new RelationshipSetBuildService<Area>(context, associationsRepository);
 
-            var exitRepository = new ExitsRepository(context, relationshipSetBuilderServiceExit);
-            var stairRepository = new StairsRepository(context, relationshipSetBuilderServiceStair);
-            var areaRepository = new AreasRepository(context, relationshipSetBuilderServiceArea);
+            var exitRepository = new ExitsRepository(context, relationshipSetBuilderServiceExit, associationsRepository);
+            var stairRepository = new StairsRepository(context, relationshipSetBuilderServiceStair, associationsRepository);
+            var areaRepository = new AreasRepository(context, relationshipSetBuilderServiceArea, associationsRepository);
 
             return new Repositories()
             {

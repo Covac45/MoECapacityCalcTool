@@ -5,7 +5,7 @@ using MoECapacityDatabaseTest.TestHelpers;
 namespace MoECapacityDatabaseTest.Tests
 {
     [TestClass]
-    public class ReadRelationshipsTest : TestDatabaseSetup
+    public class DatabaseReadMoEEntityRelationshipsTest : TestDatabaseSetup
     {
 
         private Repositories _repositories = GetRepositories();

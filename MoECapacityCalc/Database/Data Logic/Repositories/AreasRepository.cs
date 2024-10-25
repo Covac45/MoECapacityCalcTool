@@ -11,10 +11,13 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories
     {
         private readonly MoEContext _moEDbContext;
         private readonly IRelationshipSetBuildService<Area> _relationshipSetBuildService;
-        public AreasRepository(MoEContext moEDbContext, IRelationshipSetBuildService<Area> relationshipSetBuildService) : base(moEDbContext, relationshipSetBuildService)
+        private readonly IAssociationsRepository _associationsRepository;
+        public AreasRepository(MoEContext moEDbContext, IRelationshipSetBuildService<Area> relationshipSetBuildService, IAssociationsRepository associationsRepository)
+                              : base(moEDbContext, relationshipSetBuildService, associationsRepository)
         {
             _moEDbContext = moEDbContext;
             _relationshipSetBuildService = relationshipSetBuildService;
+            _associationsRepository = associationsRepository;
         }
 
     }

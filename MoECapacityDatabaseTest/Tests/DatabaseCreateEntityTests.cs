@@ -12,12 +12,12 @@ namespace MoECapacityDatabaseTest.Tests
 {
     [TestClass]
 
-    public class DatabaseInsertTests : TestDatabaseSetup
+    public class DatabaseCreateEntityTests : TestDatabaseSetup
     {
         private Repositories _repositories = GetRepositories();
 
         [TestMethod]
-        public void CanInsertExitsIntoDatabase()
+        public void CanAddExitsToDatabase()
         {
             ResetDatbase();
 
@@ -50,7 +50,7 @@ namespace MoECapacityDatabaseTest.Tests
         }
 
         [TestMethod]
-        public void CanInsertStairsIntoDatabase()
+        public void CanAddStairsIntoDatabase()
         {
             ResetDatbase();
 
@@ -86,7 +86,7 @@ namespace MoECapacityDatabaseTest.Tests
             }
         }
 
-        public void CanInsertAreasIntoDatabase()
+        public void CanAddAreasToDatabase()
         {
             ResetDatbase();
 
@@ -118,7 +118,7 @@ namespace MoECapacityDatabaseTest.Tests
         }
 
         [TestMethod]
-        public void CanInsertRelationshipsIntoDatabase()
+        public void CanAddAssociationsToDatabase()
         {
             ResetDatbase();
 
@@ -149,16 +149,15 @@ namespace MoECapacityDatabaseTest.Tests
                 };
 
                 _repositories.AssociationsRepository.Add(new Association(stair1, storeyExit1));
-
-                context.Associations.AddRange(
-                    new Association(stair1, storeyExit1),
+                _repositories.AssociationsRepository.AddMany(new List<Association>() {
                     new Association(stair1, finalExit1),
                     new Association(stair2, storeyExit2),
-                    new Association(stair2, finalExit2));
+                    new Association(stair2, finalExit2)
+                });
 
                 Assert.AreNotEqual(0, context.Associations.Count());
-                Assert.AreNotEqual("", context.Associations.First().AssociationId.ToString());
-                Assert.AreNotEqual(null, context.Associations.First().AssociationId.ToString());
+                Assert.AreNotEqual("", context.Associations.First().Id.ToString());
+                Assert.AreNotEqual(null, context.Associations.First().Id.ToString());
             }
 
         }
