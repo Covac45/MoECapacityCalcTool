@@ -22,25 +22,5 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories
             _moEDbContext = moEDbContext;
             _relationshipSetBuildService = relationshipSetBuildService;
         }
-
-        /*public Stair GetStairById(Guid id)
-        {
-            var retrievedStair = GetById(id);
-
-            var allAssociations = _associationsRepository.GetAllAssociations(retrievedStair).ToList();
-
-            var exitRelationships = new RelationshipBuildService<Stair, Exit>(_moEDbContext).GetRelationships(retrievedStair, allAssociations, new Exit());
-            var stairRelationships = new RelationshipBuildService<Stair, Stair>(_moEDbContext).GetRelationships(retrievedStair, allAssociations, new Stair());
-            var areaRelationships = new RelationshipBuildService<Stair, Area>(_moEDbContext).GetRelationships(retrievedStair, allAssociations, new Area());
-
-            retrievedStair.Relationships = new RelationshipSet<Stair>
-            {
-                ExitRelationships = exitRelationships,
-                StairRelationships = stairRelationships,
-                AreaRelationships = areaRelationships
-            };
-            return retrievedStair;
-        }*/
-
     }
 }

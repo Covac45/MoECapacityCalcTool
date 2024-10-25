@@ -15,15 +15,6 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories
             _moEDbContext = moEDbContext;
         }
 
-        /*public Exit GetById(Guid id)
-        {
-            var retrievedExit = base.GetById(id);
-      
-            //retrievedExit.Relationships = _relationshipSetBuilderService.GetRelationshipSet(retrievedExit);
-
-            return retrievedExit;
-        }*/
-
     }
 
 }
