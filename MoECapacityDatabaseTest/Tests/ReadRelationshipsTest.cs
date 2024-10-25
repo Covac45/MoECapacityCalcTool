@@ -1,14 +1,4 @@
-﻿using MoECapacityCalc.Database;
-using MoECapacityCalc.Database.Data_Logic.Repositories;
-using MoECapacityCalc.Database.Data_Logic.Repositories.RepositoryServices;
-using MoECapacityCalc.Stairs;
-using MoECapacityCalc.Exits;
-using MoECapacityDatabaseTest.TestHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MoECapacityDatabaseTest.TestHelpers;
 
 
 namespace MoECapacityDatabaseTest.Tests

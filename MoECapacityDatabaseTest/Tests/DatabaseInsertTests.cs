@@ -2,10 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MoECapacityCalc.Database;
-using MoECapacityCalc.Exits;
-using MoECapacityCalc.Stairs;
+using MoECapacityCalc.DomainEntities;
+using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.Utilities.Associations;
-using MoECapacityCalc.Utilities.Datastructs;
 using MoECapacityDatabaseTest.TestHelpers;
 using System.Reflection.Emit;
 

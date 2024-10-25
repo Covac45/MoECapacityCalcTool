@@ -2,8 +2,6 @@
 using MoECapacityCalc.Database.Abstractions;
 using MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions;
 using MoECapacityCalc.Database.Data_Logic.Repositories.RepositoryServices;
-using MoECapacityCalc.Exits;
-
 namespace MoECapacityCalc.Database.Repositories.Abstractions
 {
     //Generic repository for entity types

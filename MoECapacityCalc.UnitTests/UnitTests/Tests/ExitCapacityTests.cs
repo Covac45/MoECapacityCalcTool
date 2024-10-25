@@ -1,9 +1,8 @@
-using MoECapacityCalc.Exits;
-using MoECapacityCalc.Stairs;
-using MoECapacityCalc.Utilities.Datastructs;
+using MoECapacityCalc.DomainEntities;
+using MoECapacityCalc.DomainEntities.Datastructs;
+using MoECapacityCalc.UnitTests.TestHelpers;
 using MoECapacityCalc.Utilities.Services;
 using NUnit.Framework.Internal;
-using MoECapacityCalc.UnitTests.TestHelpers;
 
 namespace MoECapacityCalc.UnitTests.UnitTests.Tests
 {

@@ -1,16 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MoECapacityCalc.Areas;
 using MoECapacityCalc.Database.Abstractions;
-using MoECapacityCalc.Database.Context;
-using MoECapacityCalc.Database.Repositories.Abstractions;
-using MoECapacityCalc.Exits;
-using MoECapacityCalc.Stairs;
 using MoECapacityCalc.Utilities.Associations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
 {

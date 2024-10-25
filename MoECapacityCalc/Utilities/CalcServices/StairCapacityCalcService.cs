@@ -1,4 +1,4 @@
-﻿using MoECapacityCalc.Stairs;
+﻿using MoECapacityCalc.DomainEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

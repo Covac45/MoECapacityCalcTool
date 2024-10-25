@@ -2,11 +2,8 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using MoECapacityCalc.Areas;
-using MoECapacityCalc.Exits;
-using MoECapacityCalc.Stairs;
+using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.Utilities.Associations;
-using MoECapacityCalc.Utilities.Datastructs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

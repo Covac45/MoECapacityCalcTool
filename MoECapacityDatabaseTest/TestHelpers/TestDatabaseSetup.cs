@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using MoECapacityCalc.Exits;
-using MoECapacityCalc.Utilities.Datastructs;
 using System.Reflection.Emit;
-using MoECapacityCalc.Stairs;
 using MoECapacityCalc.Utilities.Associations;
 using MoECapacityCalc.Database.Context;
-using MoECapacityCalc.Areas;
 using MoECapacityCalc.Database.Data_Logic.Repositories.RepositoryServices;
 using MoECapacityCalc.Database.Data_Logic.Repositories;
+using MoECapacityCalc.DomainEntities;
+using MoECapacityCalc.DomainEntities.Datastructs;
 
 namespace MoECapacityDatabaseTest.TestHelpers
 {

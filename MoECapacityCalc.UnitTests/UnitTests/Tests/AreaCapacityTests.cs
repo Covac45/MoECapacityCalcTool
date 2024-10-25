@@ -1,15 +1,5 @@
-﻿using MoECapacityCalc.Exits;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MoECapacityCalc.Stairs;
-using MoECapacityCalc.Areas;
-using MoECapacityCalc.Utilities.Datastructs;
-using MoECapacityCalc.UnitTests.UnitTests.TestData;
+﻿using MoECapacityCalc.UnitTests.UnitTests.TestData;
 using MoECapacityCalc.Utilities.CalcServices;
-using MoECapacityCalc.Utilities.Associations;
 
 
 namespace MoECapacityCalc.UnitTests.UnitTests.Tests

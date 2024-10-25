@@ -1,6 +1,4 @@
-﻿using MoECapacityCalc.Areas;
-using MoECapacityCalc.Exits;
-using MoECapacityCalc.Stairs;
+﻿using MoECapacityCalc.DomainEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,5 +1,5 @@
-﻿using MoECapacityCalc.Exits;
-using MoECapacityCalc.Utilities.Datastructs;
+﻿using MoECapacityCalc.DomainEntities;
+using MoECapacityCalc.DomainEntities.Datastructs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

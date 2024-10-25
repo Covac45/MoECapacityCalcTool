@@ -1,16 +1,7 @@
-﻿using MoECapacityCalc.Exits;
-using MoECapacityCalc.Utilities.Datastructs;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MoECapacityCalc.Utilities.Services;
+﻿using MoECapacityCalc.Database.Abstractions;
 using MoECapacityCalc.Utilities.Associations;
-using MoECapacityCalc.Database.Abstractions;
 
-namespace MoECapacityCalc.Stairs
+namespace MoECapacityCalc.DomainEntities
 {
     public class Stair : MeansOfEscapeEntity<Stair>
     {

@@ -1,8 +1,8 @@
 ﻿using MoECapacityCalc.Database.Abstractions;
+using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.Utilities.Associations;
-using MoECapacityCalc.Utilities.Datastructs;
 
-namespace MoECapacityCalc.Exits
+namespace MoECapacityCalc.DomainEntities
 {
     public class Exit : MeansOfEscapeEntity<Exit>
     {

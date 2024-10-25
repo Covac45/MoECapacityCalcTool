@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MoECapacityCalc.Database.Context;
-using MoECapacityCalc.Exits;
-using MoECapacityCalc.Stairs;
+using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.Utilities.Associations;
 using System;
 using System.Collections.Generic;

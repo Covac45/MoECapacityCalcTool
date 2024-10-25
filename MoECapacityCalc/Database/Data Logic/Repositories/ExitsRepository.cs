@@ -1,8 +1,7 @@
 ﻿using MoECapacityCalc.Database.Context;
 using MoECapacityCalc.Database.Data_Logic.Repositories.RepositoryServices;
 using MoECapacityCalc.Database.Repositories.Abstractions;
-using MoECapacityCalc.Exits;
-
+using MoECapacityCalc.DomainEntities;
 
 namespace MoECapacityCalc.Database.Data_Logic.Repositories
 {

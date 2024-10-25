@@ -1,7 +1,6 @@
-﻿using MoECapacityCalc.Exits;
-using MoECapacityCalc.Stairs;
+﻿using MoECapacityCalc.DomainEntities;
+using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.Utilities.Associations;
-using MoECapacityCalc.Utilities.Datastructs;
 using MoECapacityCalc.Utilities.Services;
 using System;
 using System.Collections.Generic;
