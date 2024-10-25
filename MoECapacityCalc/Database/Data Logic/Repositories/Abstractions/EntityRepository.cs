@@ -29,8 +29,22 @@ namespace MoECapacityCalc.Database.Repositories.Abstractions
 
         public IEnumerable<TEntity> GetAll()
         {
-            return _table.AsEnumerable();
+            var entities = _table.ToList();
+
             //TODO add relationships please!
+
+            /*foreach (var entity in entities)
+            {
+                entity.Relationships = _relationshipSetBuilderService.GetRelationshipSet(entity);
+            }*/
+
+            entities.ForEach(entity => entity.Relationships = _relationshipSetBuilderService.GetRelationshipSet(entity));
+
+            entities.ToList();
+
+            return entities;
+
         }
+
     }
 }

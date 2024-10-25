@@ -27,11 +27,12 @@ namespace MoECapacityDatabaseTest.Tests
             SeedDatbase();
 
             var exit = _repositories.ExitsRepository.GetById(context.Exits.First(e => e.Name == "storey exit 3").Id);
+            var exits = _repositories.ExitsRepository.GetAll();
 
             Assert.AreNotEqual(exit.Relationships.ExitRelationships.Count, 0);
-
+            Assert.AreNotEqual(exits.Any(e => e.Relationships.ExitRelationships.Count != 0), false);
         }
-        
+
         [TestMethod]
         public void CanReadAreaRealtionships()
         {
