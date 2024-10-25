@@ -7,7 +7,7 @@ using MoECapacityCalc.Database.Repositories.Abstractions;
 using MoECapacityCalc.DomainEntities;
 namespace MoECapacityCalc.Database.Data_Logic.Repositories
 {
-    public class AreasRepository : EntityRepository<Area>
+    public class AreasRepository : MeansOfEscapeEntityRepository<Area>
     {
         private readonly MoEContext _moEDbContext;
         private readonly IRelationshipSetBuildService<Area> _relationshipSetBuildService;

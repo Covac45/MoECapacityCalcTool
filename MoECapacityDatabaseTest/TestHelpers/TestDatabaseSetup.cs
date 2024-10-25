@@ -114,7 +114,7 @@ namespace MoECapacityDatabaseTest.TestHelpers
         public static Repositories GetRepositories()
         {
             var context = GetContext();
-            IAssociationsRepository associationsRepository = new AssociationsRepository(context);
+            var associationsRepository = new AssociationsRepository(context);
             IRelationshipSetBuildService<Exit> relationshipSetBuilderServiceExit = new RelationshipSetBuildService<Exit>(context, associationsRepository);
             IRelationshipSetBuildService<Stair> relationshipSetBuilderServiceStair = new RelationshipSetBuildService<Stair>(context, associationsRepository);
             IRelationshipSetBuildService<Area> relationshipSetBuilderServiceArea = new RelationshipSetBuildService<Area>(context, associationsRepository);
@@ -124,10 +124,11 @@ namespace MoECapacityDatabaseTest.TestHelpers
             var areaRepository = new AreasRepository(context, relationshipSetBuilderServiceArea);
 
             return new Repositories()
-            {   
+            {
                 ExitsRepository = exitRepository,
                 StairsRepository = stairRepository,
-                AreasRepository = areaRepository 
+                AreasRepository = areaRepository,
+                AssociationsRepository = associationsRepository
             };
 
         }

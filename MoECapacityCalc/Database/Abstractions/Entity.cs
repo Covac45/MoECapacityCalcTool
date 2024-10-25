@@ -1,6 +1,6 @@
 ﻿namespace MoECapacityCalc.Database.Abstractions
 {
-    public class Entity
+    public abstract class Entity
     {
         public Guid Id { get; set; }
     }

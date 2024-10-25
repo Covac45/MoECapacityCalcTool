@@ -5,7 +5,7 @@ using MoECapacityCalc.DomainEntities;
 
 namespace MoECapacityCalc.Database.Data_Logic.Repositories
 {
-    public class ExitsRepository : EntityRepository<Exit>
+    public class ExitsRepository : MeansOfEscapeEntityRepository<Exit>
     {
         private readonly MoEContext _moEDbContext;
 

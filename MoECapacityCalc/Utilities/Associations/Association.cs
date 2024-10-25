@@ -1,4 +1,5 @@
-﻿using MoECapacityCalc.DomainEntities;
+﻿using MoECapacityCalc.Database.Abstractions;
+using MoECapacityCalc.DomainEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MoECapacityCalc.Utilities.Associations
 {
-    public class Association
+    public class Association : Entity
     {
         public Guid AssociationId { get; set; }
         public Guid ObjectId { get; set; }

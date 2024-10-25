@@ -7,5 +7,6 @@ namespace MoECapacityDatabaseTest.TestHelpers
         public ExitsRepository ExitsRepository { get; set; }
         public StairsRepository StairsRepository { get; set; }
         public AreasRepository AreasRepository { get; set; }
+        public AssociationsRepository AssociationsRepository { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using MoECapacityCalc.DomainEntities;
 
 namespace MoECapacityCalc.Database.Data_Logic.Repositories
 {
-    public class StairsRepository : EntityRepository<Stair>
+    public class StairsRepository : MeansOfEscapeEntityRepository<Stair>
     {
         private readonly MoEContext _moEDbContext;
         private readonly IRelationshipSetBuildService<Stair> _relationshipSetBuildService;

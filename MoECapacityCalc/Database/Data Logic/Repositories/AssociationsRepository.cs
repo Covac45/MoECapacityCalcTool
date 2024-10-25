@@ -10,7 +10,7 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories
         public IEnumerable<Association> GetAllAssociations(Entity entity);
     }
 
-    public class AssociationsRepository : GenericRepository<Association>, IAssociationsRepository
+    public class AssociationsRepository : EntityRepository<Association>, IAssociationsRepository
     {
         private readonly MoEContext _moEDbContext;
 

@@ -1,4 +1,5 @@
-﻿using MoECapacityDatabaseTest.TestHelpers;
+﻿using MoECapacityCalc.DomainEntities;
+using MoECapacityDatabaseTest.TestHelpers;
 
 
 namespace MoECapacityDatabaseTest.Tests
@@ -16,10 +17,14 @@ namespace MoECapacityDatabaseTest.Tests
             SeedDatbase();
 
             var stair = _repositories.StairsRepository.GetById(context.Stairs.First(e => e.Name == "stair 1").Id);
+            var stairs = _repositories.StairsRepository.GetAll();
+
 
             Assert.AreNotEqual(stair.Relationships.ExitRelationships.Count, 0);
+            Assert.AreNotEqual(stairs.Any(e => e.Relationships.ExitRelationships.Count != 0), false);
+
         }
-        
+
         [TestMethod]
         public void CanReadExitRealtionships()
         {
@@ -40,9 +45,10 @@ namespace MoECapacityDatabaseTest.Tests
             SeedDatbase();
 
             var area = _repositories.AreasRepository.GetById(context.Areas.First(e => e.Name == "area 1").Id);
+            var areas = _repositories.AreasRepository.GetAll();
 
             Assert.AreNotEqual(area.Relationships.ExitRelationships.Count, 0);
-
+            Assert.AreNotEqual(areas.Any(e => e.Relationships.ExitRelationships.Count != 0), false);
         }
     }
 }
