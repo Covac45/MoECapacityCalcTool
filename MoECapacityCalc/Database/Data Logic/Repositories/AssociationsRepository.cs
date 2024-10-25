@@ -1,6 +1,7 @@
 ﻿using MoECapacityCalc.Database.Abstractions;
 using MoECapacityCalc.Database.Context;
 using MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions;
+using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.Utilities.Associations;
 
 namespace MoECapacityCalc.Database.Data_Logic.Repositories
@@ -31,5 +32,25 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories
             return associations;
 
         }
+
+        public void AddOrUpdate(Association association)
+        {
+            var retrievedAssociation = _moEDbContext.Associations.SingleOrDefault(a => a.Id == association.Id);
+
+            if (retrievedAssociation == null)
+            {
+                base.AddOrUpdate(association);
+            }
+            else
+            {
+                retrievedAssociation.ObjectId = association.ObjectId;
+                retrievedAssociation.ObjectType = association.ObjectType;
+                retrievedAssociation.SubjectId = association.SubjectId;
+                retrievedAssociation.SubjectType = association.SubjectType;
+
+                _moEDbContext.SaveChanges();
+            }
+        }
+
     }
 }

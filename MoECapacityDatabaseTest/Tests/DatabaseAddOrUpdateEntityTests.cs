@@ -2,22 +2,24 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MoECapacityCalc.Database;
+using MoECapacityCalc.Database.Data_Logic.Repositories;
 using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.Utilities.Associations;
 using MoECapacityDatabaseTest.TestHelpers;
 using System.Reflection.Emit;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace MoECapacityDatabaseTest.Tests
 {
     [TestClass]
 
-    public class DatabaseCreateEntityTests : TestDatabaseSetup
+    public class DatabaseAddOrUpdateEntityTests : TestDatabaseSetup
     {
         private Repositories _repositories = GetRepositories();
 
         [TestMethod]
-        public void CanAddExitsToDatabase()
+        public void CanAddOrUpdateExitsToDatabase()
         {
             ResetDatbase();
 
@@ -33,8 +35,8 @@ namespace MoECapacityDatabaseTest.Tests
                 Exit storeyExit6 = new Exit { Id = Guid.NewGuid(), Name = "storey exit 6", ExitType = ExitType.storeyExit, DoorSwing = DoorSwing.with, ExitWidth = 1050 };
                 Exit finalExit6 = new Exit { Id = Guid.NewGuid(), Name = "final exit 6", ExitType = ExitType.finalExit, DoorSwing = DoorSwing.with, ExitWidth = 1050 };
 
-                _repositories.ExitsRepository.Add(storeyExit4);
-                _repositories.ExitsRepository.AddMany(new List<Exit> {
+                _repositories.ExitsRepository.AddOrUpdate(storeyExit4);
+                _repositories.ExitsRepository.AddOrUpdateMany(new List<Exit> {
                     finalExit4,
                     storeyExit5,
                     finalExit5,
@@ -42,15 +44,24 @@ namespace MoECapacityDatabaseTest.Tests
                     finalExit6
                 });
 
+                //check creation
                 Assert.AreEqual(6, context.Exits.Count());
                 Assert.AreEqual(true, context.Exits.Any(e => e.Name == storeyExit4.Name));
                 Assert.AreEqual(true, context.Exits.Any(e => e.Name == finalExit6.Name));
+
+                //check update
+                var oldStoreyExit5Id = storeyExit5.Id;
+
+                storeyExit5.ExitWidth = 1200;
+                _repositories.ExitsRepository.AddOrUpdate(storeyExit5);
+
+                Assert.AreEqual(true, context.Exits.Where(e => e.Id == oldStoreyExit5Id).Any(e => e.ExitWidth == storeyExit5.ExitWidth));
             }
 
         }
 
         [TestMethod]
-        public void CanAddStairsIntoDatabase()
+        public void CanAddOrUpdateStairsIntoDatabase()
         {
             ResetDatbase();
 
@@ -75,18 +86,28 @@ namespace MoECapacityDatabaseTest.Tests
                     FinalExitLevel = 0
                 };
 
-                _repositories.StairsRepository.Add(stair3);
-                _repositories.StairsRepository.AddMany(new List<Stair> {
+                _repositories.StairsRepository.AddOrUpdate(stair3);
+                _repositories.StairsRepository.AddOrUpdateMany(new List<Stair> {
                     stair4
                 });
 
+
+                //check creation
                 Assert.AreEqual(2, context.Stairs.Count());
                 Assert.AreEqual(true, context.Stairs.Any(e => e.Name == stair3.Name));
                 Assert.AreEqual(true, context.Stairs.Any(e => e.Name == stair4.Name));
+
+                //check update
+                var oldStair4Id = stair4.Id;
+
+                stair3.StairWidth = 1200;
+                _repositories.StairsRepository.AddOrUpdate(stair4);
+
+                Assert.AreEqual(true, context.Stairs.Where(e => e.Id == oldStair4Id).Any(e => e.StairWidth == stair4.StairWidth));
             }
         }
 
-        public void CanAddAreasToDatabase()
+        public void CanAddOrUpdateAreasToDatabase()
         {
             ResetDatbase();
 
@@ -106,19 +127,28 @@ namespace MoECapacityDatabaseTest.Tests
                     FloorLevel = 0
                 };
 
-                _repositories.AreasRepository.Add(area2);
-                _repositories.AreasRepository.AddMany(new List<Area> {
+                _repositories.AreasRepository.AddOrUpdate(area2);
+                _repositories.AreasRepository.AddOrUpdateMany(new List<Area> {
                     area3
                 });
 
+                //check creation
                 Assert.AreEqual(2, context.Areas.Count());
                 Assert.AreEqual(true, context.Areas.Any(e => e.Name == area2.Name));
                 Assert.AreEqual(true, context.Areas.Any(e => e.Name == area3.Name));
+
+                // check update
+                var oldArea3Id = area3.Id;
+
+                area3.FloorLevel = 1;
+                _repositories.AreasRepository.AddOrUpdate(area3);
+
+                Assert.AreEqual(true, context.Areas.Where(e => e.Id == oldArea3Id).Any(e => e.FloorLevel == area3.FloorLevel));
             }
         }
 
         [TestMethod]
-        public void CanAddAssociationsToDatabase()
+        public void CanAddOrUpdateAssociationsToDatabase()
         {
             ResetDatbase();
 
@@ -148,16 +178,29 @@ namespace MoECapacityDatabaseTest.Tests
                     FinalExitLevel = 0
                 };
 
-                _repositories.AssociationsRepository.Add(new Association(stair1, storeyExit1));
-                _repositories.AssociationsRepository.AddMany(new List<Association>() {
-                    new Association(stair1, finalExit1),
-                    new Association(stair2, storeyExit2),
-                    new Association(stair2, finalExit2)
+                var association1 = new Association(stair1, storeyExit1);
+                var association2 = new Association(stair1, finalExit1);
+                var association3 = new Association(stair2, storeyExit2);
+                var association4 = new Association(stair2, finalExit2);
+
+                _repositories.AssociationsRepository.AddOrUpdate(association1);
+                _repositories.AssociationsRepository.AddOrUpdateMany(new List<Association>() {
+                    association2,
+                    association3,
+                    association4
                 });
 
                 Assert.AreNotEqual(0, context.Associations.Count());
                 Assert.AreNotEqual("", context.Associations.First().Id.ToString());
                 Assert.AreNotEqual(null, context.Associations.First().Id.ToString());
+
+                // check update
+                var oldAssociation4Id = association4.Id;
+
+                association4.SubjectId = finalExit1.Id;
+                _repositories.AssociationsRepository.AddOrUpdate(association4);
+
+                Assert.AreEqual(true, context.Associations.Where(e => e.Id == oldAssociation4Id).Any(e => e.SubjectId == finalExit1.Id));
             }
 
         }

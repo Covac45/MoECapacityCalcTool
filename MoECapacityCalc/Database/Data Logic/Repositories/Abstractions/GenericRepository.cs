@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using MoECapacityCalc.Database.Abstractions;
 
 namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
@@ -9,8 +10,8 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
         where T : class
     {
         public IEnumerable<T> GetAll();
-        public void Add(T entity);
-        public void AddMany(IEnumerable<T> entities);
+        public void AddOrUpdate(T entity);
+        public void AddOrUpdateMany(IEnumerable<T> entities);
         public void Remove(T entity);
         public void RemoveMany(IEnumerable<T> entities);
     }
@@ -33,13 +34,13 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
             return table;
         }
 
-        public void Add(T entity)
+        public void AddOrUpdate(T entity)
         {
             _table.Add(entity);
             DbContext.SaveChanges();
         }
 
-        public void AddMany(IEnumerable<T> entities)
+        public void AddOrUpdateMany(IEnumerable<T> entities)
         {
             entities.ToList().ForEach(entity => _table.Add(entity));
             DbContext.SaveChanges();
@@ -56,6 +57,5 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
             entities.ToList().ForEach(entity => _table.Remove(entity));
             DbContext.SaveChanges();
         }
-
     }
 }

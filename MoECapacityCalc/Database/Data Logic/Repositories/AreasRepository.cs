@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MoECapacityCalc.Database.Abstractions;
 using MoECapacityCalc.Database.Context;
 using MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions;
 using MoECapacityCalc.Database.Data_Logic.Repositories.RepositoryServices;
@@ -20,5 +21,22 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories
             _associationsRepository = associationsRepository;
         }
 
+        public void AddOrUpdate(Area area)
+        {
+            var retrievedArea = _moEDbContext.Areas.SingleOrDefault(e => e.Id == area.Id);
+
+            if (retrievedArea == null)
+            {
+                base.AddOrUpdate(area);
+            }
+            else
+            {
+                retrievedArea.Name = area.Name;
+                retrievedArea.FloorLevel = area.FloorLevel;
+                retrievedArea.Relationships = area.Relationships;
+
+                _moEDbContext.SaveChanges();
+            }
+        }
     }
 }
