@@ -60,7 +60,7 @@ namespace MoECapacityCalc.Database.Repositories.Abstractions
 
         public override void RemoveMany(IEnumerable<TEntity> entities)
         {
-            entities.ToList().ForEach(entity => _table.Remove(entity));
+            entities.ToList().ForEach(entity => Remove(entity));
             DbContext.SaveChanges();
         }
 
