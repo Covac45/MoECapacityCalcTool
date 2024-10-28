@@ -2,7 +2,9 @@
 using MoECapacityCalc.Database.Context;
 using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
+using MoECapacityCalc.Utilities.Associations;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +18,7 @@ namespace MoECapacityCalc.Utilities.Services
         private List<Exit> StoreyExits { get; set; }
         private List<Exit> FinalExits { get; set; }
 
-        MoEContext context = new();
+        //MoEContext context = new();
 
         public StairExitCalcService(Stair stair)
         {
@@ -32,7 +34,7 @@ namespace MoECapacityCalc.Utilities.Services
             foreach (Exit anExit in StoreyExits)
             {
                 storeyExitCapacities.Add(
-                    new ExitCapacityCalcService(anExit).CalcExitCapacity());
+                    new ExitCapacityCalcService().CalcExitCapacity(anExit).exitCapacity);
             }
 
             double storeyExitCapacity = storeyExitCapacities.Sum();
@@ -44,8 +46,7 @@ namespace MoECapacityCalc.Utilities.Services
             List<double> finalExitCapacities = new List<double>();
             foreach (Exit anExit in FinalExits)
             {
-                finalExitCapacities.Add(
-                    new ExitCapacityCalcService(anExit).CalcExitCapacity());
+                finalExitCapacities.Add(new ExitCapacityCalcService().CalcExitCapacity(anExit).exitCapacity);
             }
 
             double finalExitCapacity = finalExitCapacities.Sum();
@@ -53,12 +54,14 @@ namespace MoECapacityCalc.Utilities.Services
         }
 
         public double CalcMergingFlowCapacity()
-        {
+        {   
+
             List<double> finalExitWidths = new List<double>();
 
             foreach (Exit anExit in FinalExits)
             {
                 //must add logic to split clear width of shared final exits amongst stairs that share them!
+                
                 finalExitWidths.Add(anExit.ExitWidth);
             }
 
@@ -94,7 +97,7 @@ namespace MoECapacityCalc.Utilities.Services
 
         public double CalcStoreyExitLevelCapacity()
         {
-            double stairCapacityPerFloor = new StairCapacityCalcService(Stair).CalcStairCapacityPerFloor();
+            double stairCapacityPerFloor = new StairCapacityCalcService().CalcStairCapacityPerFloor(Stair);
 
             //Calculate total storey exit capacity
             StairExitCalcService exitCapacityCalcs = new StairExitCalcService(Stair);

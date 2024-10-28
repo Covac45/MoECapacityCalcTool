@@ -11,42 +11,52 @@ namespace MoECapacityCalc.Utilities.Services
     public class ExitCapacityCalcService
     {
 
-        private double ExitWidth;
-        private DoorSwing DoorSwing;
-
-        public ExitCapacityCalcService(Exit exit)
+        public ExitCapacityCalcService()
         {
-            ExitWidth = exit.ExitWidth;
-            DoorSwing = exit.DoorSwing;
+
         }
 
-        public double CalcExitCapacity()
+        public ExitCapacityStruct CalcExitCapacity(Exit exit)
         {
             double exitCapacity = 0;
+            string note = "";
 
-            if (ExitWidth < 750)
+
+            if (exit.ExitWidth < 750)
             {
                 exitCapacity = 0;
+                note = "The exit has insufficient width to be used as a means of escape.";
             }
-            else if (ExitWidth >= 750 && ExitWidth < 850)
+            else if (exit.ExitWidth >= 750 && exit.ExitWidth < 850)
             {
                 exitCapacity = 60;
+                note = "The exit capacity is limited by its width.";
             }
-            else if (ExitWidth >= 850 && ExitWidth < 1050)
+            else if (exit.ExitWidth >= 850 && exit.ExitWidth < 1050)
             {
                 exitCapacity = 110;
+                note = "The exit capacity is limited by its width.";
             }
-            else if (ExitWidth >= 1050)
+            else if (exit.ExitWidth >= 1050)
             {
-                exitCapacity = 220 + (ExitWidth - 1050) / 5;
+                exitCapacity = 220 + (exit.ExitWidth - 1050) / 5;
+                note = "The exit capacity is limited by its width.";
             }
 
-            if (ExitWidth >= 750 && DoorSwing == DoorSwing.against)
+            if (exit.ExitWidth >= 850 && exit.DoorSwing == DoorSwing.against)
             {
                 exitCapacity = 60;
+                note = "The exit capacity is limited by the door swing.";
             }
 
-            return exitCapacity;
+            ExitCapacityStruct exitCapacityStruct = new()
+            {
+                ExitId = exit.Id,
+                exitCapacity = exitCapacity,
+                capacityNote = note
+            };
+
+            return exitCapacityStruct;
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using MoECapacityCalc.DomainEntities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,28 +10,24 @@ namespace MoECapacityCalc.Utilities.Services
 {
     public class StairCapacityCalcService
     {
-        private double StairWidth;
-        private int FloorsServed;
 
-        public StairCapacityCalcService(Stair stair)
+        public StairCapacityCalcService()
         {
-            StairWidth = stair.StairWidth;
-            FloorsServed = stair.FloorsServed;
         }
 
-        public double CalcStairCapacity()
+        public double CalcStairCapacity(Stair stair)
         {
             double stairCapacity = 0;
 
-            if (StairWidth >= 1100)
+            if (stair.StairWidth >= 1100)
             {
-                stairCapacity = (200 * (StairWidth / 1000)) + (50 * ((StairWidth / 1000) - 0.3) * (FloorsServed - 1));
+                stairCapacity = (200 * (stair.StairWidth / 1000)) + (50 * ((stair.StairWidth / 1000) - 0.3) * (stair.FloorsServed - 1));
             }
-            else if (StairWidth >= 1000 && StairWidth < 1100)
+            else if (stair.StairWidth >= 1000 && stair.StairWidth < 1100)
             {
-                stairCapacity = 150 + (FloorsServed - 1) * 40;
+                stairCapacity = 150 + (stair.FloorsServed - 1) * 40;
             }
-            else if (StairWidth >= 800 && StairWidth < 1000)
+            else if (stair.StairWidth >= 800 && stair.StairWidth < 1000)
             {
                 stairCapacity = 50;
             }
@@ -41,10 +38,9 @@ namespace MoECapacityCalc.Utilities.Services
             return stairCapacity;
         }
 
-        public double CalcStairCapacityPerFloor()
+        public double CalcStairCapacityPerFloor(Stair stair)
         {
-            double stairCapacityPerFloor = this.CalcStairCapacity() / FloorsServed;
-
+            double stairCapacityPerFloor = CalcStairCapacity(stair) / stair.FloorsServed;
             return stairCapacityPerFloor;
         }
 

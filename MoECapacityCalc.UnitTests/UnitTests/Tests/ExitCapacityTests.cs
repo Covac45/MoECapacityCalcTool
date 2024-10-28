@@ -24,7 +24,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
         {
             Exit exit1 = new Exit("exit 1", ExitType.exit, doorSwing, exitWidth);
 
-            double exitCapacity = new ExitCapacityCalcService(exit1).CalcExitCapacity();
+            double exitCapacity = new ExitCapacityCalcService().CalcExitCapacity(exit1).exitCapacity;
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
 

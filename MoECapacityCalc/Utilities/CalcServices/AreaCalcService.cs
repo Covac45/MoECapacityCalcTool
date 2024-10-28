@@ -42,12 +42,12 @@ namespace MoECapacityCalc.Utilities.CalcServices
 
             foreach (Exit anExit in StoreyExits)
             {
-                exitCapacities.Add(new ExitCapacityCalcService(anExit).CalcExitCapacity());
+                exitCapacities.Add(new ExitCapacityCalcService().CalcExitCapacity(anExit).exitCapacity);
             }
 
             foreach (Exit anExit in FinalExits)
             {
-                exitCapacities.Add(new ExitCapacityCalcService(anExit).CalcExitCapacity());
+                exitCapacities.Add(new ExitCapacityCalcService().CalcExitCapacity(anExit).exitCapacity);
             }
 
             foreach (Stair aStair in Stairs)

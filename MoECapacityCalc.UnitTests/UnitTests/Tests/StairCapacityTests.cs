@@ -36,8 +36,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
                 [new Relationship<Stair, Exit>(stair1, storeyExit1),
                 new Relationship<Stair, Exit>(stair1, finalExit1)];
 
-            double stairCapacity = new StairCapacityCalcService(stair1).CalcStairCapacity();
-            double stairCapacityPerFloor = new StairCapacityCalcService(stair1).CalcStairCapacityPerFloor();
+            double stairCapacity = new StairCapacityCalcService().CalcStairCapacity(stair1);
+            double stairCapacityPerFloor = new StairCapacityCalcService().CalcStairCapacityPerFloor(stair1);
             Assert.That(stairCapacity, Is.EqualTo(expectedStairCapacity));
             Assert.That(stairCapacityPerFloor, Is.EqualTo(expectedStairCapacityPerFloor));
         }
