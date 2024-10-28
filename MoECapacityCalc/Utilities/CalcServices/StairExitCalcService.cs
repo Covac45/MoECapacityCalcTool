@@ -1,18 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MoECapacityCalc.Database.Context;
 using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.Utilities.Associations;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoECapacityCalc.Utilities.Services
 {
-    public class StairExitCalcService
+    public interface IStairExitCalcService
+    {
+        double TotalStoreyExitCapacity(Stair stair);
+        double TotalFinalExitCapacity(Stair stair);
+        Dictionary<Stair, double> CalcMergingFlowCapacities(List<Stair> stairs);
+        double CalcFinalExitLevelCapacity(Stair stair);
+        double CalcStoreyExitLevelCapacity(Stair stair);
+    }
+
+    public class StairExitCalcService : IStairExitCalcService
     {
 
         public StairExitCalcService() { }

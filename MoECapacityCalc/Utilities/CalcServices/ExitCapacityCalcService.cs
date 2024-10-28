@@ -1,14 +1,14 @@
 ﻿using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoECapacityCalc.Utilities.Services
 {
-    public class ExitCapacityCalcService
+    public interface IExitCapacityCalcService
+    {
+        ExitCapacityStruct CalcExitCapacity(Exit exit);
+    }
+
+    public class ExitCapacityCalcService : IExitCapacityCalcService
     {
 
         public ExitCapacityCalcService()

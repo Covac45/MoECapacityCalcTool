@@ -1,13 +1,13 @@
 ﻿using MoECapacityCalc.DomainEntities.Datastructs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoECapacityCalc.Utilities.CalcServices
 {
-    public class ExitCapacityStructCapService
+    public interface IExitCapacityStructCapService
+    {
+        List<ExitCapacityStruct> GetCappedExitCapacityStructs(List<ExitCapacityStruct> exitCapacityStructs);
+    }
+
+    public class ExitCapacityStructCapService : IExitCapacityStructCapService
     {
         public ExitCapacityStructCapService() { }
 
