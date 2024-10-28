@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MoECapacityCalc.Utilities.CalcServices
 {
-    public class AreaCalcService
+    /*public class AreaCalcService
     {
 
         private Area Area;
@@ -86,5 +86,5 @@ namespace MoECapacityCalc.Utilities.CalcServices
             return Math.Min(totalExitCapacity, cap);
         }
 
-    }
+    }*/
 }
