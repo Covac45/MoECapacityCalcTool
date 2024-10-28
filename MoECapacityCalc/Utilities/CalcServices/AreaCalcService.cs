@@ -54,11 +54,11 @@ namespace MoECapacityCalc.Utilities.CalcServices
             {
                 if (Area.FloorLevel != aStair.FinalExitLevel)
                 {
-                    exitCapacities.Add(new StairExitCalcService(aStair).CalcStoreyExitLevelCapacity());
+                    exitCapacities.Add(new StairExitCalcService().CalcStoreyExitLevelCapacity(aStair));
                 }
                 else if (Area.FloorLevel == aStair.FinalExitLevel)
                 {
-                    exitCapacities.Add(new StairExitCalcService(aStair).CalcFinalExitLevelCapacity());
+                    exitCapacities.Add(new StairExitCalcService().CalcFinalExitLevelCapacity(aStair));
                 }
             }
 

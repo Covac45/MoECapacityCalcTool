@@ -41,9 +41,9 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
         {
             Stair stair1 = InitialiseLists();
 
-            StairExitCalcService stairExitCalcsService = new StairExitCalcService(stair1);
+            StairExitCalcService stairExitCalcsService = new StairExitCalcService();
 
-            double exitCapacity = stairExitCalcsService.TotalStoreyExitCapacity();
+            double exitCapacity = stairExitCalcsService.TotalStoreyExitCapacity(stair1);
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
     }

@@ -31,7 +31,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
 
-        //test for two stairs which share a final exit
+        //test for two stairs which share two final exits
         [TestCase(325)]
         public void AreaHMoECapacityTest2(double expectedExitCapacity)
         {
@@ -46,6 +46,18 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
 
 
         //test for two stairs each with their own final exit and which share a final exit.
+        [TestCase(315)]
+        public void AreaHMoECapacityTest3(double expectedExitCapacity)
+        {
+
+            var area1 = GetAreaTestData3();
+
+            List<ExitCapacityStruct> exitCapacityStructs = new HorizontalEscapeCapacityCalcService().CalcExitCapacities(area1);
+            var exitCapacity = new HorizontalEscapeCapacityCalcService().CalcTotalHMoECapacity(exitCapacityStructs);
+
+            Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
+        }
+
 
     }
 }
