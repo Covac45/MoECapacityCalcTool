@@ -30,8 +30,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
             //exits not associated with stairs
             List<Exit> exits = new List<Exit> { storeyExit3, finalExit3 };
 
-            Stair stair1 = new Stair("stair 1", 1000, 3, 0);
-            Stair stair2 = new Stair("stair 2", 1100, 3, 0);
+            Stair stair1 = new Stair("stair 1", 1000, 3, 0, false);
+            Stair stair2 = new Stair("stair 2", 1100, 3, 0, false);
 
             stair1.Relationships.ExitRelationships =
                                 [new Relationship<Stair, Exit>(stair1, storeyExit1),
@@ -66,8 +66,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
             //exits not associated with stairs
             List<Exit> exits = new List<Exit> { storeyExit3, finalExit3 };
 
-            Stair stair1 = new Stair("stair 1", 1000, 3, 0);
-            Stair stair2 = new Stair("stair 2", 1100, 3, 0);
+            Stair stair1 = new Stair("stair 1", 1000, 3, 0, false);
+            Stair stair2 = new Stair("stair 2", 1100, 3, 0, false);
 
             stair1.Relationships.ExitRelationships =
                                 [new Relationship<Stair, Exit>(stair1, storeyExit1),
@@ -103,8 +103,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
             //exits not associated with stairs
             List<Exit> exits = new List<Exit> { storeyExit3 };
 
-            Stair stair1 = new Stair("stair 1", 1000, 3, 0);
-            Stair stair2 = new Stair("stair 2", 1100, 3, 0);
+            Stair stair1 = new Stair("stair 1", 1000, 3, 0, false);
+            Stair stair2 = new Stair("stair 2", 1100, 3, 0, false);
 
             stair1.Relationships.ExitRelationships =
                                 [new Relationship<Stair, Exit>(stair1, storeyExit1),
@@ -147,7 +147,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
             //exits not associated with stairs
             List<Exit> exits = new List<Exit> { storeyExit5,  finalExit7};
 
-            Stair stair1 = new Stair("stair 1", 1000, 3, 0);
+            Stair stair1 = new Stair("stair 1", 1000, 3, 0, false);
             
 
             stair1.Relationships.ExitRelationships =
@@ -155,7 +155,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
                                 new Relationship<Stair, Exit>(stair1, finalExit1),
                                 new Relationship<Stair, Exit>(stair1, finalExit5)];
 
-            Stair stair2 = new Stair("stair 2", 1100, 3, 0);
+            Stair stair2 = new Stair("stair 2", 1100, 3, 0, false);
 
             stair2.Relationships.ExitRelationships =
                                 [new Relationship<Stair, Exit>(stair2, storeyExit2),
@@ -163,14 +163,14 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
                                 new Relationship<Stair, Exit>(stair2, finalExit5)];
 
 
-            Stair stair3 = new Stair("stair 1", 1000, 3, 0);
+            Stair stair3 = new Stair("stair 1", 1000, 3, 0, false);
          
             stair3.Relationships.ExitRelationships =
                                 [new Relationship<Stair, Exit>(stair3, storeyExit3),
                                 new Relationship<Stair, Exit>(stair3, finalExit3),
                                 new Relationship<Stair, Exit>(stair3, finalExit6)];
             
-            Stair stair4 = new Stair("stair 2", 1100, 3, 0);
+            Stair stair4 = new Stair("stair 2", 1100, 3, 0, false);
 
             stair4.Relationships.ExitRelationships =
                                 [new Relationship<Stair, Exit>(stair4, storeyExit4),
@@ -206,7 +206,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
             //exits not associated with stairs
             List<Exit> exits = new List<Exit> { storeyExit5 };
 
-            Stair stair1 = new Stair("stair 1", 1000, 3, 0);
+            Stair stair1 = new Stair("stair 1", 1000, 3, 0, false);
 
 
             stair1.Relationships.ExitRelationships =
@@ -214,7 +214,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
                                 new Relationship<Stair, Exit>(stair1, finalExit1),
                                 new Relationship<Stair, Exit>(stair1, finalExit5)];
 
-            Stair stair2 = new Stair("stair 2", 1100, 3, 0);
+            Stair stair2 = new Stair("stair 2", 1100, 3, 0, false);
 
             stair2.Relationships.ExitRelationships =
                                 [new Relationship<Stair, Exit>(stair2, storeyExit2),
@@ -222,14 +222,14 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
                                 new Relationship<Stair, Exit>(stair2, finalExit5)];
 
 
-            Stair stair3 = new Stair("stair 1", 1000, 3, 0);
+            Stair stair3 = new Stair("stair 1", 1000, 3, 0, false);
 
             stair3.Relationships.ExitRelationships =
                                 [new Relationship<Stair, Exit>(stair3, storeyExit3),
                                 new Relationship<Stair, Exit>(stair3, finalExit3),
                                 new Relationship<Stair, Exit>(stair3, finalExit6)];
 
-            Stair stair4 = new Stair("stair 2", 1100, 3, 0);
+            Stair stair4 = new Stair("stair 2", 1100, 3, 0, false);
 
             stair4.Relationships.ExitRelationships =
                                 [new Relationship<Stair, Exit>(stair4, storeyExit4),
@@ -265,7 +265,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
             //exits not associated with stairs
             List<Exit> exits = new List<Exit> { storeyExit5 };
 
-            Stair stair1 = new Stair("stair 1", 1000, 3, 0);
+            Stair stair1 = new Stair("stair 1", 1000, 3, 0, false);
 
 
             stair1.Relationships.ExitRelationships =
@@ -273,7 +273,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
                                 new Relationship<Stair, Exit>(stair1, finalExit1),
                                 new Relationship<Stair, Exit>(stair1, finalExit5)];
 
-            Stair stair2 = new Stair("stair 2", 1100, 3, 0);
+            Stair stair2 = new Stair("stair 2", 1100, 3, 0, false);
 
             stair2.Relationships.ExitRelationships =
                                 [new Relationship<Stair, Exit>(stair2, storeyExit2),
@@ -281,14 +281,14 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
                                 new Relationship<Stair, Exit>(stair2, finalExit5)];
 
 
-            Stair stair3 = new Stair("stair 1", 1000, 3, 0);
+            Stair stair3 = new Stair("stair 1", 1000, 3, 0, false);
 
             stair3.Relationships.ExitRelationships =
                                 [new Relationship<Stair, Exit>(stair3, storeyExit3),
                                 new Relationship<Stair, Exit>(stair3, finalExit3),
                                 new Relationship<Stair, Exit>(stair3, finalExit6)];
 
-            Stair stair4 = new Stair("stair 2", 1100, 3, 0);
+            Stair stair4 = new Stair("stair 2", 1100, 3, 0, false);
 
             stair4.Relationships.ExitRelationships =
                                 [new Relationship<Stair, Exit>(stair4, storeyExit4),
@@ -297,6 +297,87 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
 
 
             List<Stair> stairs = new List<Stair> { stair1, stair2, stair3, stair4 };
+
+            return (exits, stairs);
+        }
+
+
+        public static (List<Exit>, List<Stair>) GetExitsAndStairsTestData7()
+        {
+            Exit storeyExit1 = new Exit("storey exit 1", ExitType.storeyExit, DoorSwing.with, 1050);
+            Exit finalExit1 = new Exit("final exit 1", ExitType.finalExit, DoorSwing.against, 1050);
+
+            Exit storeyExit2 = new Exit("storey exit 2", ExitType.storeyExit, DoorSwing.with, 1050);
+            Exit finalExit2 = new Exit("final exit 2", ExitType.finalExit, DoorSwing.against, 1050);
+
+            Exit storeyExit3 = new Exit("storey exit 3", ExitType.storeyExit, DoorSwing.with, 1050);
+            Exit finalExit3 = new Exit("final exit 3", ExitType.finalExit, DoorSwing.against, 1050);
+
+            Exit storeyExit4 = new Exit("storey exit 4", ExitType.storeyExit, DoorSwing.with, 1050);
+            Exit finalExit4 = new Exit("final exit 4", ExitType.finalExit, DoorSwing.with, 1050);
+
+
+            //exits not associated with stairs
+            List<Exit> exits = new List<Exit> { storeyExit4, finalExit4 };
+
+            Stair stair1 = new Stair("stair 1", 1000, 3, 0, false);
+
+
+            stair1.Relationships.ExitRelationships =
+                                [new Relationship<Stair, Exit>(stair1, storeyExit1),
+                                new Relationship<Stair, Exit>(stair1, finalExit1),
+                                new Relationship<Stair, Exit>(stair1, finalExit3)];
+
+            Stair stair2 = new Stair("stair 2", 1100, 3, 0, false);
+
+            stair2.Relationships.ExitRelationships =
+                                [new Relationship<Stair, Exit>(stair2, storeyExit2),
+                                new Relationship<Stair, Exit>(stair2, finalExit2),
+                                new Relationship<Stair, Exit>(stair2, finalExit3)];
+
+
+
+            List<Stair> stairs = new List<Stair> { stair1, stair2 };
+
+            return (exits, stairs);
+        }
+
+
+        public static (List<Exit>, List<Stair>) GetExitsAndStairsTestData8()
+        {
+            Exit storeyExit1 = new Exit("storey exit 1", ExitType.storeyExit, DoorSwing.with, 1050);
+            Exit finalExit1 = new Exit("final exit 1", ExitType.finalExit, DoorSwing.against, 1050);
+
+            Exit storeyExit2 = new Exit("storey exit 2", ExitType.storeyExit, DoorSwing.with, 1050);
+            Exit finalExit2 = new Exit("final exit 2", ExitType.finalExit, DoorSwing.against, 1050);
+
+            Exit finalExit3 = new Exit("final exit 3", ExitType.finalExit, DoorSwing.with, 1600);
+
+            Exit storeyExit4 = new Exit("storey exit 4", ExitType.storeyExit, DoorSwing.with, 1050);
+            Exit finalExit4 = new Exit("final exit 4", ExitType.finalExit, DoorSwing.with, 1050);
+
+
+            //exits not associated with stairs
+            List<Exit> exits = new List<Exit> { storeyExit4, finalExit4 };
+
+            Stair stair1 = new Stair("stair 1", 1000, 3, 0, false);
+
+
+            stair1.Relationships.ExitRelationships =
+                                [new Relationship<Stair, Exit>(stair1, storeyExit1),
+                                new Relationship<Stair, Exit>(stair1, finalExit1),
+                                new Relationship<Stair, Exit>(stair1, finalExit3)];
+
+            Stair stair2 = new Stair("stair 2", 1100, 3, 0, false);
+
+            stair2.Relationships.ExitRelationships =
+                                [new Relationship<Stair, Exit>(stair2, storeyExit2),
+                                new Relationship<Stair, Exit>(stair2, finalExit2),
+                                new Relationship<Stair, Exit>(stair2, finalExit3)];
+
+
+
+            List<Stair> stairs = new List<Stair> { stair1, stair2 };
 
             return (exits, stairs);
         }
