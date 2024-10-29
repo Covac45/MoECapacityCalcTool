@@ -73,7 +73,7 @@ namespace MoECapacityDatabaseTest.Tests
                     Id = Guid.NewGuid(),
                     Name = "stair 3",
                     StairWidth = 1000,
-                    FloorsServed = 3,
+                    FloorsServedPerEvacuationPhase = 3,
                     FinalExitLevel = 0
                 };
 
@@ -82,7 +82,7 @@ namespace MoECapacityDatabaseTest.Tests
                     Id = Guid.NewGuid(),
                     Name = "stair 4",
                     StairWidth = 1100,
-                    FloorsServed = 3,
+                    FloorsServedPerEvacuationPhase = 3,
                     FinalExitLevel = 0
                 };
 
@@ -165,7 +165,7 @@ namespace MoECapacityDatabaseTest.Tests
                     Id = Guid.NewGuid(),
                     Name = "stair 1",
                     StairWidth = 1000,
-                    FloorsServed = 3,
+                    FloorsServedPerEvacuationPhase = 3,
                     FinalExitLevel = 0
                 };
 
@@ -174,7 +174,7 @@ namespace MoECapacityDatabaseTest.Tests
                     Id = Guid.NewGuid(),
                     Name = "stair 2",
                     StairWidth = 1100,
-                    FloorsServed = 3,
+                    FloorsServedPerEvacuationPhase = 3,
                     FinalExitLevel = 0
                 };
 

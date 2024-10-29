@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Utilities\MoECapacityCalcServices\" />
+    <Folder Include="Utilities\AggregatedCapacityCalcServices\MoECapacityCalcServices\" />
   </ItemGroup>
 
 </Project>
