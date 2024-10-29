@@ -6,13 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MoECapacityCalc.Utilities.Services;
+using MoECapacityCalc.Utilities.CalcServices;
 
-namespace MoECapacityCalc.Utilities.CalcServices
+namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.HMoECalcServices
 {
     public interface IHorizontalEscapeCapacityCalcService
     {
         List<ExitCapacityStruct> CalcExitCapacities(Area area);
-        double CalcTotalHMoECapacity(List<ExitCapacityStruct> exitCapacityStructs);
+        public HmoeCapacityStruct CalcTotalHMoECapacity(List<ExitCapacityStruct> exitCapacityStructs, Area area);
     }
 
     public class HorizontalEscapeCapacityCalcService : IHorizontalEscapeCapacityCalcService
@@ -21,7 +22,7 @@ namespace MoECapacityCalc.Utilities.CalcServices
         private readonly IExitCapacityStructCapService _exitCapacityStructCapService;
         private readonly IStairExitCalcService _stairExitCalcService;
 
-        public HorizontalEscapeCapacityCalcService(IExitCapacityCalcService exitCapacityCalcService, 
+        public HorizontalEscapeCapacityCalcService(IExitCapacityCalcService exitCapacityCalcService,
             IExitCapacityStructCapService exitCapacityStructCapService, IStairExitCalcService stairExitCalcService)
         {
             _exitCapacityCalcService = exitCapacityCalcService;
@@ -52,27 +53,80 @@ namespace MoECapacityCalc.Utilities.CalcServices
 
         //Implements discounting logic for multiple exits (i.e. remove the most capacious exit)
         //Also implements capping logic based on number of storey exits (single exit: 60 people, two exits: 600 people)
-        public double CalcTotalHMoECapacity(List<ExitCapacityStruct> exitCapacityStructs)
+        public HmoeCapacityStruct CalcTotalHMoECapacity(List<ExitCapacityStruct> exitCapacityStructs, Area area)
         {
-            int numExits = exitCapacityStructs.Count();
+            int numExitsFromArea = GetNumberOfEscapeRoutesFromArea(area);
 
             double sum = exitCapacityStructs.Select(e => e.exitCapacity).Sum();
             double max = exitCapacityStructs.Select(e => e.exitCapacity).Max();
 
+            return GetCappedHmoeCapacityStruct(area, numExitsFromArea, sum, max);
 
-            switch (numExits)
+        }
+
+        private HmoeCapacityStruct GetCappedHmoeCapacityStruct(Area area, int numExitsFromArea, double sum, double max)
+        {
+            var cap = 0;
+            var hmoeCapacityNote = "";
+            switch (numExitsFromArea)
             {
                 case 1:
-                    return CapExitCapacity(sum, 60);
-                case 2:
-                    return CapExitCapacity(sum - max, 600);
-                case > 2:
-                    return sum - max;
-                default:
-                    return 0;
-                    throw new Exception("The number of exits prodived to this area is less than 1. This is not supported");
-            }
+                    cap = 60;
 
+                    if (sum <= cap)
+                    { hmoeCapacityNote = "The total horizontal means of escape capacity is limited to 60 as only a single escape route is provided to this area."; };
+
+                    return new HmoeCapacityStruct()
+                    {
+                        AreaId = area.Id,
+                        HmoeCapacity = CapExitCapacity(sum, cap),
+                        HmoeCapacityNote = hmoeCapacityNote
+                    };
+                case 2:
+                    cap = 600;
+
+                    if (sum <= cap)
+                    { hmoeCapacityNote = "The total horizontal means of escape capacity is limited to 600 as only two escape routes are provided to this area."; };
+
+                    return new HmoeCapacityStruct()
+                    {
+                        AreaId = area.Id,
+                        HmoeCapacity = CapExitCapacity(sum, cap),
+                        HmoeCapacityNote = hmoeCapacityNote
+                    };
+                case > 2:
+
+                    hmoeCapacityNote = "The total horizontal means of escape capacity is limited by the the capacity of escape routes.";
+
+                    return new HmoeCapacityStruct()
+                    {
+                        AreaId = area.Id,
+                        HmoeCapacity = sum - max,
+                        HmoeCapacityNote = hmoeCapacityNote
+                    };
+                default:
+                    hmoeCapacityNote = "No escape routes have been provided for the area.";
+
+                    return new HmoeCapacityStruct()
+                    {
+                        AreaId = area.Id,
+                        HmoeCapacity = 0,
+                        HmoeCapacityNote = hmoeCapacityNote
+                    };
+            }
+        }
+
+        private static int GetNumberOfEscapeRoutesFromArea(Area area)
+        {
+            var numStairsServingArea = area.Relationships.GetStairs()
+                                                        .Select(s => s)
+                                                        .Where(s => s.Relationships.GetExits().Where(e => e.ExitType == ExitType.storeyExit) != null)
+                                                        .Count();
+
+            var numNonStairExitsServingArea = area.Relationships.GetExits().Count();
+
+            int numEscapeRoutesFromArea = numNonStairExitsServingArea + numStairsServingArea;
+            return numEscapeRoutesFromArea;
         }
 
         private List<ExitCapacityStruct> GetExitCapacityStructsForNonStairExits(List<Exit> storeyExits, List<Exit> finalExits)
@@ -124,11 +178,11 @@ namespace MoECapacityCalc.Utilities.CalcServices
 
                         //Distributes weighted merging flow capacity between the exits serving the stair.
                         stairFinalExitCapacityStructs = stairFinalExitCapacityStructs.Select(e => new ExitCapacityStruct
-                            {
-                                ExitId = e.ExitId,
-                                exitCapacity = e.exitCapacity = mergingflowCapacity * (e.exitCapacity / undistributedCapacity),
-                                capacityNote = "The capacity of the exit is limited by merging flow capacity of the stair"
-                            })
+                        {
+                            ExitId = e.ExitId,
+                            exitCapacity = e.exitCapacity = mergingflowCapacity * (e.exitCapacity / undistributedCapacity),
+                            capacityNote = "The capacity of the exit is limited by merging flow capacity of the stair"
+                        })
                             .ToList();
 
                         mergingFlowCapacityStructs.AddRange(stairFinalExitCapacityStructs);

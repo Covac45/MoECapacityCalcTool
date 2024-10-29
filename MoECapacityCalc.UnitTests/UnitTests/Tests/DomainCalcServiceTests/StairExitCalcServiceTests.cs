@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoECapacityCalc.UnitTests.UnitTests.Tests
+namespace MoECapacityCalc.UnitTests.UnitTests.Tests.DomainCalcServiceTests
 {
     public class StairExitCalcServiceTests
     {
@@ -22,7 +22,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
             Exit exit5 = new Exit("final exit 2", ExitType.finalExit, DoorSwing.with, 1050);
             Exit exit6 = new Exit("final exit 3", ExitType.finalExit, DoorSwing.with, 1050);
 
-            Stair stair1 = new Stair("stair 1", 1000, 5, 1);
+            Stair stair1 = new Stair("stair 1", 1000, 5, 1, false);
 
             stair1.Relationships.ExitRelationships =
                 [new Relationship<Stair,Exit>(stair1, exit1),

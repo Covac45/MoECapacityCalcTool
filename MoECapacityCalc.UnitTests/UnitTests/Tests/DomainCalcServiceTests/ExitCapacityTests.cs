@@ -4,7 +4,7 @@ using MoECapacityCalc.UnitTests.TestHelpers;
 using MoECapacityCalc.Utilities.Services;
 using NUnit.Framework.Internal;
 
-namespace MoECapacityCalc.UnitTests.UnitTests.Tests
+namespace MoECapacityCalc.UnitTests.UnitTests.Tests.DomainCalcServiceTests
 {
     public class ExitTests
     {

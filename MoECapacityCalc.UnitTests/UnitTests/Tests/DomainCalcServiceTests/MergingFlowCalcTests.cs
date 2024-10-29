@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MoECapacityCalc.Utilities.Services;
 
-namespace MoECapacityCalc.UnitTests.UnitTests.Tests
+namespace MoECapacityCalc.UnitTests.UnitTests.Tests.DomainCalcServiceTests
 {
     public class MergingFlowCalcTests
     {
@@ -25,8 +25,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
             Exit finalExit2 = new Exit("final exit 2", ExitType.finalExit, DoorSwing.with, 1050);
             Exit finalExit3 = new Exit("final exit 3", ExitType.finalExit, DoorSwing.with, 1050);
 
-            Stair stair1 = new Stair("stair 1", 1100, 1, 0);
-            Stair stair2 = new Stair("stair 2", 1000, 1, 0);
+            Stair stair1 = new Stair("stair 1", 1100, 1, 0, false);
+            Stair stair2 = new Stair("stair 2", 1000, 1, 0, false);
 
 
             stair1.Relationships.ExitRelationships =

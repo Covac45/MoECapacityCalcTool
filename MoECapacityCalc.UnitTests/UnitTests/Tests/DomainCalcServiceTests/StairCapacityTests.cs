@@ -9,7 +9,7 @@ using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
 
 
-namespace MoECapacityCalc.UnitTests.UnitTests.Tests
+namespace MoECapacityCalc.UnitTests.UnitTests.Tests.DomainCalcServiceTests
 {
     public class StairTests
     {
@@ -18,6 +18,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
         {
         }
 
+        
         //Stair capacity tests
         [TestCase(800, 1, 50, 50)]
         [TestCase(900, 5, 50, 10)]
@@ -27,17 +28,22 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests
         [TestCase(1400, 10, 775, 77.5)]
         public void StairCapacityTests(double stairWidth, int floorsServed, double expectedStairCapacity, double expectedStairCapacityPerFloor)
         {
+            
+
             Exit finalExit1 = new Exit("final exit 1", ExitType.finalExit, DoorSwing.with, 1400);
             Exit storeyExit1 = new Exit("storey exit 1", ExitType.storeyExit, DoorSwing.with, 1400);
 
-            Stair stair1 = new Stair("stair 1", stairWidth, floorsServed, 0);
+            Stair stair1 = new Stair("stair 1", stairWidth, floorsServed, 0, false);
 
             stair1.Relationships.ExitRelationships =
                 [new Relationship<Stair, Exit>(stair1, storeyExit1),
                 new Relationship<Stair, Exit>(stair1, finalExit1)];
 
-            double stairCapacity = new StairCapacityCalcService().CalcStairCapacity(stair1);
-            double stairCapacityPerFloor = new StairCapacityCalcService().CalcStairCapacityPerFloor(stair1);
+            Area area1 = new Area(0, "Area 1", false);
+            area1.Relationships.StairRelationships = [new Relationship<Area, Stair>( area1, stair1 )];
+
+            double stairCapacity = new StairCapacityCalcService().CalcStairCapacity(area1, stair1);
+            double stairCapacityPerFloor = new StairCapacityCalcService().GetStairCapacityStruct(area1, stair1).stairCapacityPerFloor;
             Assert.That(stairCapacity, Is.EqualTo(expectedStairCapacity));
             Assert.That(stairCapacityPerFloor, Is.EqualTo(expectedStairCapacityPerFloor));
         }

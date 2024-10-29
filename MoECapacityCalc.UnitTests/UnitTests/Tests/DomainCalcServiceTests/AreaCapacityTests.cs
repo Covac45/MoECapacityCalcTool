@@ -2,9 +2,9 @@
 using MoECapacityCalc.Utilities.CalcServices;
 
 
-namespace MoECapacityCalc.UnitTests.UnitTests.Tests
+namespace MoECapacityCalc.UnitTests.UnitTests.Tests.DomainCalcServiceTests
 {
-    public class AreaCapacityTests : TestArea
+    public class AreaCapacityTests : TestAreas
     {
 
         [SetUp]
