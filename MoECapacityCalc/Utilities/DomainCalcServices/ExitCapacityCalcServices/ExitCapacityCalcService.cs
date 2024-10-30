@@ -1,5 +1,5 @@
 ﻿using MoECapacityCalc.DomainEntities;
-using MoECapacityCalc.DomainEntities.Datastructs;
+using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
 using MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices.ExitCapacityStrategies;
 
 namespace MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices
@@ -35,7 +35,7 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices
                     return result; // Use the first strategy that applies
                 }
             }
-            return new ExitCapacityStruct { ExitId = exit.Id, exitCapacity = 0, capacityNote = "No applicable capacity rule found." };
+            return new ExitCapacityStruct { Id = exit.Id, Capacity = 0, CapacityNote = "No applicable capacity rule found." };
         }
 
     }

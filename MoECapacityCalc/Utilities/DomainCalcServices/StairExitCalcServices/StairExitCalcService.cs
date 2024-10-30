@@ -27,7 +27,7 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.StairExitCalcServices
             foreach (Exit anExit in storeyExits)
             {
                 storeyExitCapacities.Add(
-                    new ExitCapacityCalcService().CalcExitCapacity(anExit).exitCapacity);
+                    new ExitCapacityCalcService().CalcExitCapacity(anExit).Capacity);
             }
 
             double storeyExitCapacity = storeyExitCapacities.Sum();
@@ -41,7 +41,7 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.StairExitCalcServices
             List<double> finalExitCapacities = new List<double>();
             foreach (Exit anExit in finalExits)
             {
-                finalExitCapacities.Add(new ExitCapacityCalcService().CalcExitCapacity(anExit).exitCapacity);
+                finalExitCapacities.Add(new ExitCapacityCalcService().CalcExitCapacity(anExit).Capacity);
             }
 
             double finalExitCapacity = finalExitCapacities.Sum();

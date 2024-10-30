@@ -1,4 +1,4 @@
-﻿using MoECapacityCalc.DomainEntities.Datastructs;
+﻿using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
 
 namespace MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices
 {
@@ -14,12 +14,12 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices
         public List<ExitCapacityStruct> GetCappedExitCapacityStructs(List<ExitCapacityStruct> exitCapacityStructs)
         {
 
-            return exitCapacityStructs.GroupBy(e => e.ExitId).Select(GetMinExitCapacityStructFromGroup()).ToList();
+            return exitCapacityStructs.GroupBy(e => e.Id).Select(GetMinExitCapacityStructFromGroup()).ToList();
         }
 
         private static Func<IGrouping<Guid, ExitCapacityStruct>, ExitCapacityStruct> GetMinExitCapacityStructFromGroup()
         {
-            return grouping => grouping.OrderBy(x => x.exitCapacity).First();
+            return grouping => grouping.OrderBy(x => x.Capacity).First();
         }
     }
 }

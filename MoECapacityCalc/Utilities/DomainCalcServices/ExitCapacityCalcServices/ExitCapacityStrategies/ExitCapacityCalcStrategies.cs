@@ -1,5 +1,6 @@
 ﻿using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.DomainEntities;
+using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
 
 namespace MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices.ExitCapacityStrategies
 {
@@ -11,9 +12,9 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices.
             {
                 return new ExitCapacityStruct
                 {
-                    ExitId = exit.Id,
-                    exitCapacity = 60,
-                    capacityNote = "The exit capacity is limited by the door swing."
+                    Id = exit.Id,
+                    Capacity = 60,
+                    CapacityNote = "The exit capacity is limited by the door swing."
                 };
             }
             return null;

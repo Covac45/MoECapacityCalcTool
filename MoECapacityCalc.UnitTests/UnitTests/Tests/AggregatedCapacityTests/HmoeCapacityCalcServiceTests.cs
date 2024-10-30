@@ -1,4 +1,4 @@
-﻿using MoECapacityCalc.DomainEntities.Datastructs;
+﻿using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
 using MoECapacityCalc.UnitTests.UnitTests.TestData;
 using MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.HMoECalcServices;
 using MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices;
@@ -31,7 +31,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var area1 = GetAreaTestData1();
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
-            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).HmoeCapacity;
+            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
 
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
@@ -44,7 +44,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var area1 = GetAreaTestData2();
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
-            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).HmoeCapacity;
+            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
 
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
@@ -58,7 +58,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var area1 = GetAreaTestData3();
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
-            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).HmoeCapacity;
+            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
 
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
@@ -71,7 +71,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var area1 = GetAreaTestData4();
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
-            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).HmoeCapacity;
+            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
 
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
@@ -84,7 +84,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var area1 = GetAreaTestData5();
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
-            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).HmoeCapacity;
+            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
 
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
@@ -98,7 +98,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var area1 = GetAreaTestData6();
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
-            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).HmoeCapacity;
+            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
 
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
@@ -111,7 +111,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var area1 = GetEmptyArea();
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
-            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).HmoeCapacity;
+            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
 
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
@@ -124,7 +124,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var area1 = GetAreaWithStairWithNoExits();
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
-            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).HmoeCapacity;
+            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
 
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
@@ -137,7 +137,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var area1 = GetAreaWithStoreyExitOnly();
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
-            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).HmoeCapacity;
+            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
 
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
@@ -150,7 +150,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var area1 = GetAreaWithFinalExitOnly();
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
-            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).HmoeCapacity;
+            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
 
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }

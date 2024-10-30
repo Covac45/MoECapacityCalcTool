@@ -11,7 +11,7 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices.Strateg
             return finalExitsServingStair.Sum(finalExit =>
             {
                 var numStairsServed = stairs.Count(s => s.Relationships.GetExits().Any(e => e.Id == finalExit.Id));
-                return new ExitCapacityCalcService().CalcExitCapacity(finalExit).exitCapacity / numStairsServed;
+                return new ExitCapacityCalcService().CalcExitCapacity(finalExit).Capacity / numStairsServed;
             });
         }
 

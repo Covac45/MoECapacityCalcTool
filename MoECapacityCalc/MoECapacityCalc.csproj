@@ -20,8 +20,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Utilities\AggregatedCapacityCalcServices\MoECapacityCalcServices\" />
-  </ItemGroup>
-
 </Project>

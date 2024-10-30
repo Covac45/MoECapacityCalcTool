@@ -22,7 +22,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var target = CreateTarget(area1);
 
             var stairCapacityStructs = target.CalcStairCapacities(area1);
-            var vmoeCapacity = target.CalcTotalVMoECapacity(stairCapacityStructs, area1);
+            var vmoeCapacity = target.CalcTotalVMoECapacity(stairCapacityStructs, area1).Capacity;
 
             Assert.That(vmoeCapacity, Is.EqualTo(expectedExitCapacity));
         }
@@ -34,7 +34,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var target = CreateTarget(area1);
 
             var stairCapacityStructs = target.CalcStairCapacities(area1);
-            var vmoeCapacity = target.CalcTotalVMoECapacity(stairCapacityStructs, area1);
+            var vmoeCapacity = target.CalcTotalVMoECapacity(stairCapacityStructs, area1).Capacity;
 
             Assert.That(vmoeCapacity, Is.EqualTo(expectedExitCapacity));
         }
@@ -46,7 +46,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var target = CreateTarget(area1);
 
             var stairCapacityStructs = target.CalcStairCapacities(area1);
-            var vmoeCapacity = target.CalcTotalVMoECapacity(stairCapacityStructs, area1);
+            var vmoeCapacity = target.CalcTotalVMoECapacity(stairCapacityStructs, area1).Capacity;
 
             Assert.That(vmoeCapacity, Is.EqualTo(expectedExitCapacity));
         }
@@ -61,7 +61,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var area1 = GetEmptyArea();
 
             var stairCapacityStructs = target.CalcStairCapacities(area1);
-            var vmoeCapacity = target.CalcTotalVMoECapacity(stairCapacityStructs, area1);
+            var vmoeCapacity = target.CalcTotalVMoECapacity(stairCapacityStructs, area1).Capacity;
 
             Assert.That(vmoeCapacity, Is.EqualTo(expectedExitCapacity));
         }
@@ -74,7 +74,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var area1 = GetAreaWithStairWithNoExits();
 
             var stairCapacityStructs = target.CalcStairCapacities(area1);
-            var vmoeCapacity = target.CalcTotalVMoECapacity(stairCapacityStructs, area1);
+            var vmoeCapacity = target.CalcTotalVMoECapacity(stairCapacityStructs, area1).Capacity;
 
             Assert.That(vmoeCapacity, Is.EqualTo(expectedExitCapacity));
         }
@@ -87,7 +87,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var area1 = GetAreaWithStoreyExitOnly();
 
             var stairCapacityStructs = target.CalcStairCapacities(area1);
-            var vmoeCapacity = target.CalcTotalVMoECapacity(stairCapacityStructs, area1);
+            var vmoeCapacity = target.CalcTotalVMoECapacity(stairCapacityStructs, area1).Capacity;
 
             Assert.That(vmoeCapacity, Is.EqualTo(expectedExitCapacity));
         }
@@ -100,7 +100,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var area1 = GetAreaWithFinalExitOnly();
 
             var stairCapacityStructs = target.CalcStairCapacities(area1);
-            var vmoeCapacity = target.CalcTotalVMoECapacity(stairCapacityStructs, area1);
+            var vmoeCapacity = target.CalcTotalVMoECapacity(stairCapacityStructs, area1).Capacity;
 
             Assert.That(vmoeCapacity, Is.EqualTo(expectedExitCapacity));
         }

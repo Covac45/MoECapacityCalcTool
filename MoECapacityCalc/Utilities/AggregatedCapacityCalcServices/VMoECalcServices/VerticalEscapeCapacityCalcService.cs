@@ -1,13 +1,13 @@
-﻿using MoECapacityCalc.DomainEntities.Datastructs;
-using MoECapacityCalc.DomainEntities;
+﻿using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices;
+using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
 
 namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.VMoECalcServices
 {
     public interface IVerticalEscapeCapacityCalcService
     {
         public List<StairCapacityStruct> CalcStairCapacities(Area area);
-        public double CalcTotalVMoECapacity(List<StairCapacityStruct> stairCapacityStructs, Area area);
+        public CapacityStruct CalcTotalVMoECapacity(List<StairCapacityStruct> stairCapacityStructs, Area area);
     }
 
     public class VerticalEscapeCapacityCalcService : IVerticalEscapeCapacityCalcService
@@ -30,30 +30,44 @@ namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.VMoECalcServi
             return stairCapacityStructs;
         }
 
-        public double CalcTotalVMoECapacity(List<StairCapacityStruct> stairCapacityStructs, Area area)
+        public CapacityStruct CalcTotalVMoECapacity(List<StairCapacityStruct> stairCapacityStructs, Area area)
         {
             var stairs = area.Relationships.GetStairs();
 
             var numStairs = stairs.Count();
-            var sumStairCapacity = stairCapacityStructs.Select(s => s.stairCapacity).Sum();
+            var sumStairCapacity = stairCapacityStructs.Select(s => s.Capacity).Sum();
 
             var maxUnprotectedStairCapacity = stairCapacityStructs.Where(scs => stairs
                                                                     .Where(s => s.IsSmokeProtected == false)
-                                                                    .Any(s => s.Id == scs.StairId))
-                                                                    .DefaultIfEmpty(new StairCapacityStruct() { stairCapacity = 0 })
-                                                                    .Max(scs => scs.stairCapacity);
+                                                                    .Any(s => s.Id == scs.Id))
+                                                                    .DefaultIfEmpty(new StairCapacityStruct() { Capacity = 0 })
+                                                                    .Max(scs => scs.Capacity);
 
-            double VmoeCapacity = 0;
+            double vmoeCapacity = 0;
             switch (numStairs)
             {
                 case 1:
-                    VmoeCapacity = sumStairCapacity;
-                    return VmoeCapacity;
+                    return new CapacityStruct()
+                    {
+                        Id = area.Id,
+                        Capacity = sumStairCapacity,
+                        CapacityNote = "The means of escape capacity of this area is limited by the capacity of stairs serving this area."
+                    };
+
                 case > 1:
-                    VmoeCapacity = sumStairCapacity - maxUnprotectedStairCapacity;
-                    return VmoeCapacity;
+                    return new CapacityStruct()
+                    {
+                        Id = area.Id,
+                        Capacity = sumStairCapacity - maxUnprotectedStairCapacity,
+                        CapacityNote = "The means of escape capacity of this area is limited by the capacity of stairs serving this area."
+                    };
                 default:
-                    return VmoeCapacity;
+                    return new CapacityStruct()
+                    {
+                        Id = area.Id,
+                        Capacity = sumStairCapacity - maxUnprotectedStairCapacity,
+                        CapacityNote = "No viable escape routes have been provided for the area."
+                    };
             }
         }
     }

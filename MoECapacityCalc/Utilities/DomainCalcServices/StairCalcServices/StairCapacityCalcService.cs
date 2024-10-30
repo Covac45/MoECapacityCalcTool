@@ -1,5 +1,6 @@
 ﻿using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
+using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
 using MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices.Strategies;
 
 namespace MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices
@@ -24,10 +25,10 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices
 
             return new StairCapacityStruct
             {
-                StairId = stair.Id,
-                stairCapacity = stairCapacity,
-                stairCapacityPerFloor = stairCapacityPerFloor,
-                capacityNote = "The stair capacity is limited by the clear width of the stairs"
+                Id = stair.Id,
+                Capacity = stairCapacity,
+                CapacityPerFloor = stairCapacityPerFloor,
+                CapacityNote = "The stair capacity is limited by the clear width of the stairs"
             };
         }
 

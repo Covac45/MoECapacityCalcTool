@@ -1,5 +1,5 @@
-﻿using MoECapacityCalc.DomainEntities.Datastructs;
-using MoECapacityCalc.DomainEntities;
+﻿using MoECapacityCalc.DomainEntities;
+using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
 
 namespace MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices.ExitCapacityStrategies
 {

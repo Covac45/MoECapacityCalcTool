@@ -9,7 +9,7 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices.Strateg
         public double GetEffectiveStairFinalExitCapacity(List<Exit> finalExitsServingStair)
         {
             return finalExitsServingStair.Sum(finalExit =>
-                new ExitCapacityCalcService().CalcExitCapacity(finalExit).exitCapacity);
+                new ExitCapacityCalcService().CalcExitCapacity(finalExit).Capacity);
         }
     }
 }

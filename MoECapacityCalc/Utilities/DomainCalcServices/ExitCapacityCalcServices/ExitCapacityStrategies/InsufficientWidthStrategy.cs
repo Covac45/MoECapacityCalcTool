@@ -1,5 +1,5 @@
-﻿using MoECapacityCalc.DomainEntities.Datastructs;
-using MoECapacityCalc.DomainEntities;
+﻿using MoECapacityCalc.DomainEntities;
+using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
 
 namespace MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices.ExitCapacityStrategies
 {
@@ -11,9 +11,9 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices.
             {
                 return new ExitCapacityStruct
                 {
-                    ExitId = exit.Id,
-                    exitCapacity = 0,
-                    capacityNote = "The exit has insufficient width to be used as a means of escape."
+                    Id = exit.Id,
+                    Capacity = 0,
+                    CapacityNote = "The exit has insufficient width to be used as a means of escape."
                 };
             }
             return null; // Return null if this rule does not apply
