@@ -1,6 +1,5 @@
 ﻿//Means of Escape Capacity Calculator (based on ADB 2022)
 
-using MoECapacityCalc;
 using MoECapacityCalc.Database.Context;
 
 using MoEContext context = new();

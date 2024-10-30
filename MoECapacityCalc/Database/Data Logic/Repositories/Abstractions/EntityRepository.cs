@@ -1,11 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MoECapacityCalc.Database.Abstractions;
-using MoECapacityCalc.Database.Data_Logic.Repositories.RepositoryServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
 {

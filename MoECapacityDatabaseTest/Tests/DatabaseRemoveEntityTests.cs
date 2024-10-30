@@ -1,13 +1,6 @@
-﻿using MoECapacityCalc.DomainEntities.Datastructs;
-using MoECapacityCalc.DomainEntities;
+﻿using MoECapacityCalc.DomainEntities;
 using MoECapacityDatabaseTest.TestHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MoECapacityCalc.Utilities.Associations;
-using System.Net.Http.Headers;
 
 namespace MoECapacityDatabaseTest.Tests
 {

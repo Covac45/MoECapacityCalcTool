@@ -1,5 +1,4 @@
-﻿using MoECapacityCalc.DomainEntities;
-using MoECapacityDatabaseTest.TestHelpers;
+﻿using MoECapacityDatabaseTest.TestHelpers;
 
 
 namespace MoECapacityDatabaseTest.Tests

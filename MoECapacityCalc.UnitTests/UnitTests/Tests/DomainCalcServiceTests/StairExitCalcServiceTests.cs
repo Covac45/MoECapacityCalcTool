@@ -2,11 +2,6 @@
 using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.Utilities.Associations;
 using MoECapacityCalc.Utilities.DomainCalcServices.StairExitCalcServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoECapacityCalc.UnitTests.UnitTests.Tests.DomainCalcServiceTests
 {

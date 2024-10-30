@@ -1,14 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.Utilities.Associations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoECapacityCalc.Database.Context
 {

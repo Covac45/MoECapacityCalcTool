@@ -1,11 +1,4 @@
-﻿using MoECapacityCalc.Database.Abstractions;
-using MoECapacityCalc.DomainEntities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using MoECapacityCalc.DomainEntities;
 
 namespace MoECapacityCalc.Utilities.Associations
 {

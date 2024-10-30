@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MoECapacityCalc.Utilities.Associations;
+﻿using MoECapacityCalc.Utilities.Associations;
 using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices.ServiceFactory;

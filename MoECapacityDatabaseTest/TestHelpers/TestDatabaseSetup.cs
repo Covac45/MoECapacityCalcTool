@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using System.Reflection.Emit;
 using MoECapacityCalc.Utilities.Associations;
 using MoECapacityCalc.Database.Context;
 using MoECapacityCalc.Database.Data_Logic.Repositories.RepositoryServices;

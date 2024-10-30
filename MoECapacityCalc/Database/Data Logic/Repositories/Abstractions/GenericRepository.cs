@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
-using MoECapacityCalc.Database.Abstractions;
 
 namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
 {

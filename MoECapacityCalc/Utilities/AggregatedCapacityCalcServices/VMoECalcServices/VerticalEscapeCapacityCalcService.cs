@@ -38,9 +38,10 @@ namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.VMoECalcServi
             var sumStairCapacity = stairCapacityStructs.Select(s => s.stairCapacity).Sum();
 
             var maxUnprotectedStairCapacity = stairCapacityStructs.Where(scs => stairs
-                                                                            .Where(s => s.IsSmokeProtected == false)
-                                                                            .Any(s => s.Id == scs.StairId))
-                                                                            .Max(scs => scs.stairCapacity);
+                                                                    .Where(s => s.IsSmokeProtected == false)
+                                                                    .Any(s => s.Id == scs.StairId))
+                                                                    .DefaultIfEmpty(new StairCapacityStruct() { stairCapacity = 0 })
+                                                                    .Max(scs => scs.stairCapacity);
 
             double VmoeCapacity = 0;
             switch (numStairs)

@@ -1,14 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using MoECapacityCalc.Database;
-using MoECapacityCalc.Database.Data_Logic.Repositories;
 using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.Utilities.Associations;
 using MoECapacityDatabaseTest.TestHelpers;
-using System.Reflection.Emit;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace MoECapacityDatabaseTest.Tests
 {
