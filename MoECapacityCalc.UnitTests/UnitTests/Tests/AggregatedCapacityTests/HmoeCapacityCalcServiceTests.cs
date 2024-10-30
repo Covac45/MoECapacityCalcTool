@@ -1,9 +1,8 @@
 ﻿using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.UnitTests.UnitTests.TestData;
 using MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.HMoECalcServices;
-using MoECapacityCalc.Utilities.CalcServices;
 using MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices;
-using MoECapacityCalc.Utilities.Services;
+using MoECapacityCalc.Utilities.DomainCalcServices.StairExitCalcServices;
 
 namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
 {

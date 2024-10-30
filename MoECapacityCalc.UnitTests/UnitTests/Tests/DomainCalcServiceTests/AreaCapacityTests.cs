@@ -1,5 +1,4 @@
 ﻿using MoECapacityCalc.UnitTests.UnitTests.TestData;
-using MoECapacityCalc.Utilities.CalcServices;
 
 
 namespace MoECapacityCalc.UnitTests.UnitTests.Tests.DomainCalcServiceTests

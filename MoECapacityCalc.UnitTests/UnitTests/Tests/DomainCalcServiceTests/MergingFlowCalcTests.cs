@@ -1,13 +1,7 @@
 ﻿using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.Utilities.Associations;
-using MoECapacityCalc.Utilities.CalcServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MoECapacityCalc.Utilities.Services;
+using MoECapacityCalc.Utilities.DomainCalcServices.StairExitCalcServices;
 
 namespace MoECapacityCalc.UnitTests.UnitTests.Tests.DomainCalcServiceTests
 {
