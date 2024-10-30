@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices;
 
 namespace MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices
 {
-    public class SingleStairCapacityCalcService : IStairCapacityCalcService
+    public class SingleStairCapacityCalcService //: IStairCapacityCalcService
     {
 
             public SingleStairCapacityCalcService()
@@ -145,8 +146,5 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices
                 return stairCapacity;
             }
 
-        }
     }
-
-}
 }

@@ -2,8 +2,9 @@
 using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.Utilities.Associations;
+using MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices;
 
-namespace MoECapacityCalc.Utilities.Services
+namespace MoECapacityCalc.Utilities.DomainCalcServices.StairExitCalcServices
 {
     public interface IStairExitCalcService
     {

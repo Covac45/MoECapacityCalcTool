@@ -1,5 +1,6 @@
 ﻿using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
+using MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices.ExitCapacityStrategies;
 
 namespace MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices
 {
@@ -11,52 +12,30 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices
     public class ExitCapacityCalcService : IExitCapacityCalcService
     {
 
+        private readonly List<IExitCapacityCalcStrategy> _strategies;
+
         public ExitCapacityCalcService()
         {
-
+            _strategies = new List<IExitCapacityCalcStrategy>
+            {
+                new InsufficientWidthStrategy(),
+                new WidthBasedCapacityStrategy(),
+                new DoorSwingCapacityStrategy()
+            };
         }
+            
 
         public ExitCapacityStruct CalcExitCapacity(Exit exit)
         {
-            double exitCapacity = 0;
-            string note = "";
-
-
-            if (exit.ExitWidth < 750)
+            foreach (var strategy in _strategies)
             {
-                exitCapacity = 0;
-                note = "The exit has insufficient width to be used as a means of escape.";
+                var result = strategy.CalcExitCapacity(exit);
+                if (result != null)
+                {
+                    return result; // Use the first strategy that applies
+                }
             }
-            else if (exit.ExitWidth >= 750 && exit.ExitWidth < 850)
-            {
-                exitCapacity = 60;
-                note = "The exit capacity is limited by its width.";
-            }
-            else if (exit.ExitWidth >= 850 && exit.ExitWidth < 1050)
-            {
-                exitCapacity = 110;
-                note = "The exit capacity is limited by its width.";
-            }
-            else if (exit.ExitWidth >= 1050)
-            {
-                exitCapacity = 220 + (exit.ExitWidth - 1050) / 5;
-                note = "The exit capacity is limited by its width.";
-            }
-
-            if (exit.ExitWidth >= 850 && exit.DoorSwing == DoorSwing.against)
-            {
-                exitCapacity = 60;
-                note = "The exit capacity is limited by the door swing.";
-            }
-
-            ExitCapacityStruct exitCapacityStruct = new()
-            {
-                ExitId = exit.Id,
-                exitCapacity = exitCapacity,
-                capacityNote = note
-            };
-
-            return exitCapacityStruct;
+            return new ExitCapacityStruct { ExitId = exit.Id, exitCapacity = 0, capacityNote = "No applicable capacity rule found." };
         }
 
     }

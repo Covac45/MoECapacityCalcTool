@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MoECapacityCalc.Utilities.Services;
 using MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices;
+using MoECapacityCalc.Utilities.DomainCalcServices.StairExitCalcServices;
 
 namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.HMoECalcServices
 {

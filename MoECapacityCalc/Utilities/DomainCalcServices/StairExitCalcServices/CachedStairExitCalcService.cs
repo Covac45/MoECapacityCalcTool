@@ -1,7 +1,6 @@
 ﻿using MoECapacityCalc.DomainEntities;
-using MoECapacityCalc.Utilities.Services;
 
-namespace MoECapacityCalc.Utilities.CalcServices
+namespace MoECapacityCalc.Utilities.DomainCalcServices.StairExitCalcServices
 {
     internal class CachedStairExitCalcService : IStairExitCalcService
     {
@@ -9,7 +8,7 @@ namespace MoECapacityCalc.Utilities.CalcServices
 
         Dictionary<List<Stair>, Dictionary<Stair, double>> MergingFlowCapacities = new Dictionary<List<Stair>, Dictionary<Stair, double>>();
 
-        public CachedStairExitCalcService(IStairExitCalcService stairExitCalcService) 
+        public CachedStairExitCalcService(IStairExitCalcService stairExitCalcService)
         {
             _stairExitCalcService = stairExitCalcService;
         }

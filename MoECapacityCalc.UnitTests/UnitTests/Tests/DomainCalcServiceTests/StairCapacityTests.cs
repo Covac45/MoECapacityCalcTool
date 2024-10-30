@@ -7,6 +7,7 @@ using MoECapacityCalc.Utilities.Associations;
 using MoECapacityCalc.Utilities.Services;
 using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
+using MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices;
 
 
 namespace MoECapacityCalc.UnitTests.UnitTests.Tests.DomainCalcServiceTests

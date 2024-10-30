@@ -2,6 +2,7 @@
 using MoECapacityCalc.UnitTests.UnitTests.TestData;
 using MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.HMoECalcServices;
 using MoECapacityCalc.Utilities.CalcServices;
+using MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices;
 using MoECapacityCalc.Utilities.Services;
 
 namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
