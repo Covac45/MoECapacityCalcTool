@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MoECapacityCalc.Utilities.Services;
-using MoECapacityCalc.Utilities.CalcServices;
+using MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices;
 
 namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.HMoECalcServices
 {

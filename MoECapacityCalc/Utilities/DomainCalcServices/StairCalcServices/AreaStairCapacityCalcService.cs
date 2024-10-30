@@ -1,38 +1,14 @@
 ﻿using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MoECapacityCalc.Utilities.Services;
 
-namespace MoECapacityCalc.Utilities.Services
+namespace MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices
 {
-    public interface IStairCapacityCalcService
-    {
-        public double CalcStairCapacity(Area area, Stair stair);
-
-        public StairCapacityStruct GetStairCapacityStruct(Area area, Stair stair);
-    }
-
-    public class StairCapacityCalcService : IStairCapacityCalcService
+    public class AreaStairCapacityCalcService : IStairCapacityCalcService
     {
 
-        public StairCapacityCalcService()
+        public AreaStairCapacityCalcService()
         {
-        }
-
-        public double CalcStairCapacity(Area area, Stair stair)
-        {
-            //If the width of the stair is greater than the width of final exits serving the stair, set the effective width of the stair equal to the width of the final exits serving the stair.
-            double effectiveStairWidth = GetEffectiveStairWidth(area, stair);
-
-            //Calculate the capacity of the stair
-            double stairCapacity = CalcEffectiveStairCapacity(stair, effectiveStairWidth);
-            stairCapacity = UpdateEffectiveStairCapacityWithDoorsSwingingAgainst(area, stair, stairCapacity);
-
-            return stairCapacity;
         }
 
         public StairCapacityStruct GetStairCapacityStruct(Area area, Stair stair)
@@ -51,6 +27,18 @@ namespace MoECapacityCalc.Utilities.Services
             };
 
             return stairCapacityStruct;
+        }
+
+        public double CalcStairCapacity(Area area, Stair stair)
+        {
+            //If the width of the stair is greater than the width of final exits serving the stair, set the effective width of the stair equal to the width of the final exits serving the stair.
+            double effectiveStairWidth = GetEffectiveStairWidth(area, stair);
+
+            //Calculate the capacity of the stair
+            double stairCapacity = CalcEffectiveStairCapacity(stair, effectiveStairWidth);
+            stairCapacity = UpdateEffectiveStairCapacityWithDoorsSwingingAgainst(area, stair, stairCapacity);
+
+            return stairCapacity;
         }
 
 
@@ -79,7 +67,7 @@ namespace MoECapacityCalc.Utilities.Services
 
             if (effectiveStairWidth >= 1100)
             {
-                stairCapacity = (200 * (effectiveStairWidth / 1000)) + (50 * ((effectiveStairWidth / 1000) - 0.3) * (stair.FloorsServedPerEvacuationPhase - 1));
+                stairCapacity = 200 * (effectiveStairWidth / 1000) + 50 * (effectiveStairWidth / 1000 - 0.3) * (stair.FloorsServedPerEvacuationPhase - 1);
             }
             else if (effectiveStairWidth >= 1000 && effectiveStairWidth < 1100)
             {

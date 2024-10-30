@@ -62,6 +62,7 @@ namespace MoECapacityDatabaseTest.TestHelpers
                 Name = "stair 1",
                 StairWidth = 1000,
                 FloorsServedPerEvacuationPhase = 3,
+                IsSmokeProtected = false,
                 FinalExitLevel = 0
             };
 
@@ -71,6 +72,7 @@ namespace MoECapacityDatabaseTest.TestHelpers
                 Name = "stair 2",
                 StairWidth = 1100,
                 FloorsServedPerEvacuationPhase = 3,
+                IsSmokeProtected = false,
                 FinalExitLevel = 0
             };
 

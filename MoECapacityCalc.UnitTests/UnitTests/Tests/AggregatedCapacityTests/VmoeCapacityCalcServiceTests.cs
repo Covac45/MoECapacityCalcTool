@@ -1,6 +1,6 @@
 ﻿using MoECapacityCalc.UnitTests.UnitTests.TestData;
 using MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.VMoECalcServices;
-using MoECapacityCalc.Utilities.Services;
+using MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices;
 
 namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
 {
@@ -8,7 +8,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
     {
         private IVerticalEscapeCapacityCalcService CreateTarget()
         {
-            IStairCapacityCalcService stairCapacityCalcService = new StairCapacityCalcService();
+            IStairCapacityCalcService stairCapacityCalcService = new AreaStairCapacityCalcService();
             return new VerticalEscapeCapacityCalcService(stairCapacityCalcService);
         }
 

@@ -1,6 +1,6 @@
 ﻿using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.DomainEntities;
-using MoECapacityCalc.Utilities.Services;
+using MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices;
 
 namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.VMoECalcServices
 {

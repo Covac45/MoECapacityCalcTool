@@ -1,6 +1,6 @@
 ﻿using MoECapacityCalc.DomainEntities.Datastructs;
 
-namespace MoECapacityCalc.Utilities.CalcServices
+namespace MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices
 {
     public interface IExitCapacityStructCapService
     {

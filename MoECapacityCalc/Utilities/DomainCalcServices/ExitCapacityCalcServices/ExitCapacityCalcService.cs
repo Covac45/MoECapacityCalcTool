@@ -1,7 +1,7 @@
 ﻿using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
 
-namespace MoECapacityCalc.Utilities.Services
+namespace MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices
 {
     public interface IExitCapacityCalcService
     {
