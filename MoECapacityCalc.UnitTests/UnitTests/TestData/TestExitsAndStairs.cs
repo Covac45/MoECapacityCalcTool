@@ -382,6 +382,33 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
             return (exits, stairs);
         }
 
+        public static List<Stair> GetStairWithNoExits()
+        {
+            Stair stair1 = new Stair("stair 1", 1000, 3, 0, false);
+
+            List<Stair> stairs = new List<Stair> { stair1 };
+
+            return (stairs);
+        }
+
+        public static List<Exit> GetStoryExitOnly()
+        {
+            Exit storeyExit1 = new Exit("storey exit 1", ExitType.storeyExit, DoorSwing.with, 1050);
+
+            List<Exit> exits = new List<Exit> { storeyExit1};
+
+
+            return (exits);
+        }
+
+        public static List<Exit> GetFinalExitOnly()
+        {
+            Exit finalExit1 = new Exit("final exit 1", ExitType.finalExit, DoorSwing.with, 1050);
+
+            List<Exit> exits = new List<Exit> { finalExit1 };
+
+            return (exits);
+        }
 
 
     }

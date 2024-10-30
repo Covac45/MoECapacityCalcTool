@@ -103,5 +103,56 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
         }
 
+        //Test for an empty area
+        [TestCase(0)]
+        public void EmptyAreaHMoECapacityTest(double expectedExitCapacity)
+        {
+            var target = CreateTarget();
+            var area1 = GetEmptyArea();
+
+            List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
+            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).HmoeCapacity;
+
+            Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
+        }
+
+        //Test for an area containing a stair and no exits
+        [TestCase(0)]
+        public void AreaContainingStairWithNoExitsHMoECapacityTest(double expectedExitCapacity)
+        {
+            var target = CreateTarget();
+            var area1 = GetAreaWithStairWithNoExits();
+
+            List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
+            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).HmoeCapacity;
+
+            Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
+        }
+
+        //Test for an area containing a storey exit only
+        [TestCase(60)]
+        public void AreaContainingStoreyExitOnlyHMoECapacityTest(double expectedExitCapacity)
+        {
+            var target = CreateTarget();
+            var area1 = GetAreaWithStoreyExitOnly();
+
+            List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
+            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).HmoeCapacity;
+
+            Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
+        }
+
+        //Test for an area containing a final exit only
+        [TestCase(60)]
+        public void AreaContainingFinalExitOnlyHMoECapacityTest(double expectedExitCapacity)
+        {
+            var target = CreateTarget();
+            var area1 = GetAreaWithFinalExitOnly();
+
+            List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
+            var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).HmoeCapacity;
+
+            Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));
+        }
     }
 }

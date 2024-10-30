@@ -58,7 +58,7 @@ namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.HMoECalcServi
             int numExitsFromArea = GetNumberOfEscapeRoutesFromArea(area);
 
             double sum = exitCapacityStructs.Select(e => e.exitCapacity).Sum();
-            double max = exitCapacityStructs.Select(e => e.exitCapacity).Max();
+            double max = exitCapacityStructs.Select(e => e.exitCapacity).DefaultIfEmpty(0).Max();
 
             return GetCappedHmoeCapacityStruct(area, numExitsFromArea, sum, max);
 
@@ -242,7 +242,5 @@ namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.HMoECalcServi
         {
             return Math.Min(totalExitCapacity, cap);
         }
-
-
     }
 }

@@ -6,7 +6,6 @@ using MoECapacityCalc.Database.Context;
 using MoEContext context = new();
 {
     context.Database.EnsureCreated();
-
 }
 
 //Menu menu = new Menu();

@@ -157,7 +157,54 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
             return area1;
         }
 
+        //Validation tests
+        public static Area GetEmptyArea()
+        {
+            Area area1 = new Area(1, "Area 1", false);
 
+            return area1;
+        }
+
+        public static Area GetAreaWithStairWithNoExits()
+        {
+            var stairs = GetStairWithNoExits();
+
+            Area area1 = new Area(1, "Area 1", false);
+
+            foreach (var stair in stairs)
+            {
+                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, stair));
+            }
+            return area1;
+        }
+
+
+
+        public static Area GetAreaWithStoreyExitOnly()
+        {
+            var exits = GetStoryExitOnly();
+
+            Area area1 = new Area(1, "Area 1", false);
+
+            foreach (var exit in exits)
+            {
+                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, exit));
+            }
+            return area1;
+        }
+
+        public static Area GetAreaWithFinalExitOnly()
+        {
+            var exits = GetFinalExitOnly();
+
+            Area area1 = new Area(1, "Area 1", false);
+
+            foreach (var exit in exits)
+            {
+                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, exit));
+            }
+            return area1;
+        }
 
     }
 }
