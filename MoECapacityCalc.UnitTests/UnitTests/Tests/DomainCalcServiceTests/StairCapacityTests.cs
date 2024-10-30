@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MoECapacityCalc.Utilities.Associations;
-using MoECapacityCalc.Utilities.Services;
 using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
-using MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices;
+using MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices.ServiceFactory;
 
 
 namespace MoECapacityCalc.UnitTests.UnitTests.Tests.DomainCalcServiceTests
@@ -43,8 +42,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.DomainCalcServiceTests
             Area area1 = new Area(0, "Area 1", false);
             area1.Relationships.StairRelationships = [new Relationship<Area, Stair>( area1, stair1 )];
 
-            double stairCapacity = new AreaStairCapacityCalcService().CalcStairCapacity(area1, stair1);
-            double stairCapacityPerFloor = new AreaStairCapacityCalcService().GetStairCapacityStruct(area1, stair1).stairCapacityPerFloor;
+            var stairCapacity = new StairCalcServiceFactory().Create().CalcStairCapacity(stair1); ;
+            double stairCapacityPerFloor = new StairCalcServiceFactory().Create().GetStairCapacityStruct(stair1).stairCapacityPerFloor;
             Assert.That(stairCapacity, Is.EqualTo(expectedStairCapacity));
             Assert.That(stairCapacityPerFloor, Is.EqualTo(expectedStairCapacityPerFloor));
         }

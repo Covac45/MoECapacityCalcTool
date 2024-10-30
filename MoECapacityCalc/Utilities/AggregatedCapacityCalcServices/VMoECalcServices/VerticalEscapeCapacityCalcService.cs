@@ -25,7 +25,7 @@ namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.VMoECalcServi
             List<StairCapacityStruct> stairCapacityStructs = new();
 
 
-            stairs.ForEach(s => stairCapacityStructs.Add(_stairCapacityCalcService.GetStairCapacityStruct(area, s)));
+            stairs.ForEach(s => stairCapacityStructs.Add(_stairCapacityCalcService.GetStairCapacityStruct(s, area)));
 
             return stairCapacityStructs;
         }

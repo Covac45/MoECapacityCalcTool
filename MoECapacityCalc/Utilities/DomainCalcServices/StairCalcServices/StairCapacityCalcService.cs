@@ -1,5 +1,6 @@
 ﻿using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
+using MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices.Strategies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,19 @@ using System.Threading.Tasks;
 
 namespace MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices
 {
-    public abstract class StairCapacityCalcServiceBase
+    public class StairCapacityCalcService : IStairCapacityCalcService
     {
+
+        private readonly IStairFinalExitWidthStrategy _stairFinalExitWidthStrategy;
+        private readonly IStairFinalExitCapacityStrategy _stairFinalExitCapacityStrategy;
+
+        public StairCapacityCalcService(IStairFinalExitWidthStrategy stairFinalExitWidthStrategy,
+            IStairFinalExitCapacityStrategy stairFinalExitCapacityStrategy)
+        {
+            _stairFinalExitWidthStrategy = stairFinalExitWidthStrategy;
+            _stairFinalExitCapacityStrategy = stairFinalExitCapacityStrategy;
+        }
+
         public StairCapacityStruct GetStairCapacityStruct(Stair stair, Area area = null)
         {
             double stairCapacity = CalcStairCapacity(stair, area);
@@ -24,20 +36,26 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices
             };
         }
 
-        protected double CalcStairCapacity(Stair stair, Area area = null)
+        public double CalcStairCapacity(Stair stair, Area area = null)
         {
             double effectiveStairWidth = GetEffectiveStairWidth(stair, area);
             double stairCapacity = CalcEffectiveStairCapacity(stair, effectiveStairWidth);
             return UpdateEffectiveStairCapacityWithDoorsSwingingAgainst(stair, stairCapacity, area);
         }
 
-        protected virtual double GetEffectiveStairWidth(Stair stair, Area area)
+        protected double GetEffectiveStairWidth(Stair stair, Area area)
         {
             double effectiveFinalExitWidth = GetEffectiveFinalExitWidthForDoorsSwingingWithEscape(stair, area);
             return stair.StairWidth > effectiveFinalExitWidth ? effectiveFinalExitWidth : stair.StairWidth;
         }
 
-        protected abstract double GetEffectiveFinalExitWidthForDoorsSwingingWithEscape(Stair stair, Area area);
+        protected double GetEffectiveFinalExitWidthForDoorsSwingingWithEscape(Stair stair, Area area = null)
+        {
+            var finalExitsServingStair = stair.Relationships.GetExits()
+                .Where(e => e.ExitType == ExitType.finalExit && e.DoorSwing == DoorSwing.with).ToList();
+
+            return _stairFinalExitWidthStrategy.GetEffectiveStairFinalExitWidth(finalExitsServingStair);
+        }
 
         private double CalcEffectiveStairCapacity(Stair stair, double effectiveStairWidth)
         {
@@ -76,6 +94,12 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices
             return stairCapacity;
         }
 
-        protected abstract double GetEffectiveCapacityOfFinalExitDoorsSwingingAgainstEscape(Stair stair, Area area);
+        protected double GetEffectiveCapacityOfFinalExitDoorsSwingingAgainstEscape(Stair stair, Area area = null)
+        {
+            var finalExitsServingStair = stair.Relationships.GetExits()
+                .Where(e => e.ExitType == ExitType.finalExit && e.DoorSwing == DoorSwing.against).ToList();
+
+            return _stairFinalExitCapacityStrategy.GetEffectiveStairFinalExitCapacity(finalExitsServingStair);
+        }
     }
 }

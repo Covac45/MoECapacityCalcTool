@@ -2,7 +2,6 @@ using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.UnitTests.TestHelpers;
 using MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices;
-using MoECapacityCalc.Utilities.Services;
 using NUnit.Framework.Internal;
 
 namespace MoECapacityCalc.UnitTests.UnitTests.Tests.DomainCalcServiceTests

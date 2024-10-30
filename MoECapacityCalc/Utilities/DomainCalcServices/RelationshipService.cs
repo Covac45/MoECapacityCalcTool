@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MoECapacityCalc.Utilities.Services
 {
-    public class RelationshipService
+    /*public class RelationshipService
     {
         public RelationshipService() { }
 
@@ -54,5 +54,5 @@ namespace MoECapacityCalc.Utilities.Services
 
         }
 
-    }
+    }*/
 }

@@ -10,8 +10,8 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices
 {
     public interface IStairCapacityCalcService
     {
-        public double CalcStairCapacity(Area area, Stair stair);
+        public double CalcStairCapacity(Stair stair, Area area = null);
 
-        public StairCapacityStruct GetStairCapacityStruct(Area area, Stair stair);
+        public StairCapacityStruct GetStairCapacityStruct(Stair stair, Area area = null);
     }
 }
