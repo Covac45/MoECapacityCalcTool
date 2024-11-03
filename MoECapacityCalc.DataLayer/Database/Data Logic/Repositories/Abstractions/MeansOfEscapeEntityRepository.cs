@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MoECapacityCalc.Database.Abstractions;
+using MoECapacityCalc.DomainEntities.Abstractions;
 using MoECapacityCalc.Database.Data_Logic.Repositories;
 using MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions;
 using MoECapacityCalc.Database.Data_Logic.Repositories.RepositoryServices;

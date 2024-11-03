@@ -18,7 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MoECapacityCalc\MoECapacityCalc.csproj" />
+    <ProjectReference Include="..\MoECapacityCalc.DataLayer\MoECapacityCalc.DataLayer.csproj" />
+    <ProjectReference Include="..\MoECapacityCalc\MoECapacityCalc.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using MoECapacityCalc.Utilities.Associations;
 
-namespace MoECapacityCalc.Database.Abstractions
+namespace MoECapacityCalc.DomainEntities.Abstractions
 {
     public abstract class MeansOfEscapeEntity<T> : Entity
     {

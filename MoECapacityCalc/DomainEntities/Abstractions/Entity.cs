@@ -1,4 +1,4 @@
-﻿namespace MoECapacityCalc.Database.Abstractions
+﻿namespace MoECapacityCalc.DomainEntities.Abstractions
 {
     public abstract class Entity
     {

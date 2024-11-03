@@ -1,4 +1,4 @@
-﻿using MoECapacityCalc.Database.Abstractions;
+﻿using MoECapacityCalc.DomainEntities.Abstractions;
 using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.Utilities.Associations;
 
