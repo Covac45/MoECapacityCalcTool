@@ -1,3 +1,4 @@
+using MoECapacityCalc.Domain.DomainEntities.Datastructs;
 using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.Utilities.Associations;
@@ -171,10 +172,10 @@ namespace MoECapacityDatabaseTest.Tests
                     FinalExitLevel = 0
                 };
 
-                var association1 = new Association(stair1, storeyExit1);
-                var association2 = new Association(stair1, finalExit1);
-                var association3 = new Association(stair2, storeyExit2);
-                var association4 = new Association(stair2, finalExit2);
+                var association1 = new Association(stair1, RelativeDirection.from, storeyExit1);
+                var association2 = new Association(stair1, RelativeDirection.to, finalExit1);
+                var association3 = new Association(stair2, RelativeDirection.from, storeyExit2);
+                var association4 = new Association(stair2, RelativeDirection.to, finalExit2);
 
                 _repositories.AssociationsRepository.AddOrUpdate(association1);
                 _repositories.AssociationsRepository.AddOrUpdateMany(new List<Association>() {

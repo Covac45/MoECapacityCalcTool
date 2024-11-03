@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MoECapacityCalc.Domain.DomainEntities.Datastructs;
 using MoECapacityCalc.DomainEntities.Abstractions;
 using MoECapacityCalc.Utilities.Associations;
 
@@ -26,9 +27,12 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
 
             var associations = allAssociations.Where(assoc => assoc.SubjectType == subjectEntity.GetType().Name).ToList();
 
-            var entities = associations.Select(assoc => _table.Single(ent => assoc.SubjectId == ent.Id)).ToList();
+            var toEntities = associations.Select(assoc => _table.SingleOrDefault(ent => assoc.SubjectId == ent.Id && assoc.RelativeDirection == RelativeDirection.to)).DefaultIfEmpty().ToList();
+            var fromEntities = associations.Select(assoc => _table.SingleOrDefault(ent => assoc.SubjectId == ent.Id && assoc.RelativeDirection == RelativeDirection.from)).DefaultIfEmpty().ToList();
 
-            var relationships = entities.Select(ent => new Relationship<TEntity1, TEntity2>(objectEntity, ent)).ToList();
+
+            var relationships = toEntities.Select(ent => new Relationship<TEntity1, TEntity2>(objectEntity, RelativeDirection.to, ent)).ToList();
+            relationships.AddRange(fromEntities.Select(ent => new Relationship<TEntity1, TEntity2>(objectEntity, RelativeDirection.from, ent)).ToList());
 
             return relationships;
         }

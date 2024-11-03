@@ -1,4 +1,5 @@
-﻿using MoECapacityCalc.DomainEntities;
+﻿using MoECapacityCalc.Domain.DomainEntities.Datastructs;
+using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.Utilities.Associations;
 
 namespace MoECapacityCalc.UnitTests.UnitTests.TestData
@@ -13,13 +14,13 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
 
             foreach (var exit in exits)
             {
-                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, exit));
+                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, RelativeDirection.to, exit));
 
             }
 
             foreach (var stair in stairs)
             {
-                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, stair));
+                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, RelativeDirection.to, stair));
             }
             return area1;
         }
@@ -32,13 +33,13 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
 
             foreach (var exit in exits)
             {
-                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, exit));
+                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, RelativeDirection.to, exit));
 
             }
 
             foreach (var stair in stairs)
             {
-                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, stair));
+                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, RelativeDirection.to, stair));
             }
             return area1;
         }
@@ -51,13 +52,13 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
 
             foreach (var exit in exits)
             {
-                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, exit));
+                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, RelativeDirection.to, exit));
 
             }
 
             foreach (var stair in stairs)
             {
-                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, stair));
+                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, RelativeDirection.to, stair));
             }
             return area1;
         }
@@ -70,13 +71,13 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
 
             foreach (var exit in exits)
             {
-                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, exit));
+                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, RelativeDirection.to, exit));
 
             }
 
             foreach (var stair in stairs)
             {
-                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, stair));
+                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, RelativeDirection.to, stair));
             }
             return area1;
         }
@@ -89,13 +90,13 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
 
             foreach (var exit in exits)
             {
-                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, exit));
+                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, RelativeDirection.to, exit));
 
             }
 
             foreach (var stair in stairs)
             {
-                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, stair));
+                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, RelativeDirection.to, stair));
             }
             return area1;
         }
@@ -109,13 +110,13 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
 
             foreach (var exit in exits)
             {
-                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, exit));
+                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, RelativeDirection.to, exit));
 
             }
 
             foreach (var stair in stairs)
             {
-                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, stair));
+                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, RelativeDirection.to, stair));
             }
             return area1;
         }
@@ -128,13 +129,13 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
 
             foreach (var exit in exits)
             {
-                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, exit));
+                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, RelativeDirection.to, exit));
 
             }
 
             foreach (var stair in stairs)
             {
-                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, stair));
+                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, RelativeDirection.to, stair));
             }
             return area1;
         }
@@ -147,12 +148,12 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
 
             foreach (var exit in exits)
             {
-                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, exit));
+                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, RelativeDirection.to, exit));
             }
 
             foreach (var stair in stairs)
             {
-                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, stair));
+                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, RelativeDirection.to, stair));
             }
             return area1;
         }
@@ -173,7 +174,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
 
             foreach (var stair in stairs)
             {
-                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, stair));
+                area1.Relationships.StairRelationships.Add(new Relationship<Area, Stair>(area1, RelativeDirection.to, stair));
             }
             return area1;
         }
@@ -188,7 +189,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
 
             foreach (var exit in exits)
             {
-                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, exit));
+                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, RelativeDirection.to, exit));
             }
             return area1;
         }
@@ -201,7 +202,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
 
             foreach (var exit in exits)
             {
-                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, exit));
+                area1.Relationships.ExitRelationships.Add(new Relationship<Area, Exit>(area1, RelativeDirection.to, exit));
             }
             return area1;
         }

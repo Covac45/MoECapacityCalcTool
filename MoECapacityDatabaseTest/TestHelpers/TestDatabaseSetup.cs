@@ -6,6 +6,7 @@ using MoECapacityCalc.Database.Data_Logic.Repositories.RepositoryServices;
 using MoECapacityCalc.Database.Data_Logic.Repositories;
 using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
+using MoECapacityCalc.Domain.DomainEntities.Datastructs;
 
 namespace MoECapacityDatabaseTest.TestHelpers
 {
@@ -86,21 +87,20 @@ namespace MoECapacityDatabaseTest.TestHelpers
                 finalExit3);
 
                 context.Stairs.AddRange(stair1, stair2);
-
                 context.Associations.AddRange(
-                    new Association(stair1, storeyExit1),
-                    new Association(stair1, finalExit1),
-                    new Association(stair2, storeyExit2),
-                    new Association(stair2, finalExit2),
-                    new Association(storeyExit3, finalExit3));
+                    new Association(stair1, RelativeDirection.from, storeyExit1),
+                    new Association(stair1, RelativeDirection.to, finalExit1),
+                    new Association(stair2, RelativeDirection.from, storeyExit2),
+                    new Association(stair2, RelativeDirection.to, finalExit2),
+                    new Association(storeyExit3, RelativeDirection.to, finalExit3));
 
                 context.Areas.Add(area1);
 
                 context.Associations.AddRange(
-                    new Association(area1, storeyExit3),
-                    new Association(area1, finalExit3),
-                    new Association(area1, stair1),
-                    new Association(area1, stair2));
+                    new Association(area1, RelativeDirection.from, storeyExit3),
+                    new Association(area1, RelativeDirection.to, finalExit3),
+                    new Association(area1, RelativeDirection.from, stair1),
+                    new Association(area1, RelativeDirection.from, stair2));
 
                 context.SaveChanges();
             }

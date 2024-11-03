@@ -2,6 +2,7 @@
 using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.Utilities.Associations;
 using MoECapacityCalc.Utilities.DomainCalcServices.StairExitCalcServices;
+using MoECapacityCalc.Domain.DomainEntities.Datastructs;
 
 namespace MoECapacityCalc.UnitTests.UnitTests.Tests.DomainCalcServiceTests
 {
@@ -24,14 +25,14 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.DomainCalcServiceTests
 
 
             stair1.Relationships.ExitRelationships =
-                                [new Relationship<Stair, Exit>(stair1, storeyExit1),
-                                new Relationship<Stair, Exit>(stair1, finalExit1),
-                                new Relationship<Stair, Exit>(stair1, finalExit3)]; ;
+                                [new Relationship<Stair, Exit>(stair1,  RelativeDirection.from, storeyExit1),
+                                new Relationship<Stair, Exit>(stair1,  RelativeDirection.to, finalExit1),
+                                new Relationship<Stair, Exit>(stair1,  RelativeDirection.to, finalExit3)]; ;
 
             stair2.Relationships.ExitRelationships =
-                                [new Relationship<Stair, Exit>(stair2, storeyExit2),
-                                new Relationship<Stair, Exit>(stair2, finalExit2),
-                                new Relationship<Stair, Exit>(stair2, finalExit3)]; ;
+                                [new Relationship<Stair, Exit>(stair2,  RelativeDirection.from, storeyExit2),
+                                new Relationship<Stair, Exit>(stair2,  RelativeDirection.to, finalExit2),
+                                new Relationship<Stair, Exit>(stair2,  RelativeDirection.to, finalExit3)]; ;
 
             Dictionary<Stair, double> mergingFlowCapacities = new StairExitCalcService().CalcMergingFlowCapacities(new List<Stair>() { stair1, stair2 });
 

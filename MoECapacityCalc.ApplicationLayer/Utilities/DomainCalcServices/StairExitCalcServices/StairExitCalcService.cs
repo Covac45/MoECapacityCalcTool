@@ -21,7 +21,7 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.StairExitCalcServices
 
         public double TotalStoreyExitCapacity(Stair stair)
         {
-            var storeyExits = stair.Relationships.GetExits().Where(e => e.ExitType == ExitType.storeyExit).ToList();
+            var storeyExits = stair.Relationships.GetFromExits().Where(e => e.ExitType == ExitType.storeyExit).ToList();
 
             List<double> storeyExitCapacities = new List<double>();
             foreach (Exit anExit in storeyExits)
@@ -36,7 +36,7 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.StairExitCalcServices
 
         public double TotalFinalExitCapacity(Stair stair)
         {
-            var finalExits = stair.Relationships.GetExits().Where(e => e.ExitType == ExitType.finalExit).ToList();
+            var finalExits = stair.Relationships.GetToExits().Where(e => e.ExitType == ExitType.finalExit).ToList();
 
             List<double> finalExitCapacities = new List<double>();
             foreach (Exit anExit in finalExits)
