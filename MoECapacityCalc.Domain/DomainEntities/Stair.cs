@@ -6,7 +6,7 @@ namespace MoECapacityCalc.DomainEntities
     public class Stair : MeansOfEscapeEntity<Stair>
     {
         public double StairWidth { get; set; }
-        public int FloorsServedPerEvacuationPhase { get; set; }
+        public int FloorsServed { get; set; }
         public int FinalExitLevel { get; set; }
         public bool IsSmokeProtected { get; set; }
 
@@ -17,7 +17,7 @@ namespace MoECapacityCalc.DomainEntities
             Id = Guid.NewGuid();
             Name = name;
             StairWidth = width;
-            FloorsServedPerEvacuationPhase = floorsServedPerEvacuationPhase;
+            FloorsServed = floorsServedPerEvacuationPhase;
             FinalExitLevel = finalExitLevel;
             IsSmokeProtected = isSmokeProtected;
             Relationships = new RelationshipSet<Stair>();

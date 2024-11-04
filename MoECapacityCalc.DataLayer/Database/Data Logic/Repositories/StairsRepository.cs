@@ -35,7 +35,7 @@ namespace MoECapacityCalc.Database.Data_Logic.Repositories
             {
                 retrievedStair.Name = stair.Name;
                 retrievedStair.StairWidth = stair.StairWidth;
-                retrievedStair.FloorsServedPerEvacuationPhase = stair.FloorsServedPerEvacuationPhase;
+                retrievedStair.FloorsServed = stair.FloorsServed;
                 retrievedStair.FinalExitLevel = stair.FinalExitLevel;
                 retrievedStair.Relationships = stair.Relationships;
 

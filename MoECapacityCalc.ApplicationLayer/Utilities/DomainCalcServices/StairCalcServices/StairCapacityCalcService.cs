@@ -1,4 +1,5 @@
-﻿using MoECapacityCalc.DomainEntities;
+﻿using MoECapacityCalc.ApplicationLayer.Utilities.DomainCalcServices.StairCalcServices.EvacuationStrategies;
+using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
 using MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices.Strategies;
@@ -10,18 +11,22 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices
 
         private readonly IStairFinalExitWidthStrategy _stairFinalExitWidthStrategy;
         private readonly IStairFinalExitCapacityStrategy _stairFinalExitCapacityStrategy;
+        private readonly IEvacuationStrategy _evacuationStrategy;
+
+
 
         public StairCapacityCalcService(IStairFinalExitWidthStrategy stairFinalExitWidthStrategy,
-            IStairFinalExitCapacityStrategy stairFinalExitCapacityStrategy)
+            IStairFinalExitCapacityStrategy stairFinalExitCapacityStrategy, IEvacuationStrategy evacuationStrategy)
         {
             _stairFinalExitWidthStrategy = stairFinalExitWidthStrategy;
             _stairFinalExitCapacityStrategy = stairFinalExitCapacityStrategy;
+            _evacuationStrategy = evacuationStrategy;
         }
 
         public StairCapacityStruct GetStairCapacityStruct(Stair stair, Area area = null)
         {
             double stairCapacity = CalcStairCapacity(stair, area);
-            double stairCapacityPerFloor = stairCapacity / stair.FloorsServedPerEvacuationPhase;
+            double stairCapacityPerFloor = _evacuationStrategy.GetStairCapacityPerFloor(stairCapacity, stair.FloorsServed);
 
             return new StairCapacityStruct
             {
@@ -60,11 +65,11 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices
 
             if (effectiveStairWidth >= 1100)
             {
-                stairCapacity = 200 * (effectiveStairWidth / 1000) + 50 * (effectiveStairWidth / 1000 - 0.3) * (stair.FloorsServedPerEvacuationPhase - 1);
+                stairCapacity = 200 * (effectiveStairWidth / 1000) + 50 * (effectiveStairWidth / 1000 - 0.3) * (stair.FloorsServed - 1);
             }
             else if (effectiveStairWidth >= 1000 && effectiveStairWidth < 1100)
             {
-                stairCapacity = 150 + (stair.FloorsServedPerEvacuationPhase - 1) * 40;
+                stairCapacity = 150 + (stair.FloorsServed - 1) * 40;
             }
             else if (effectiveStairWidth >= 800 && effectiveStairWidth < 1000)
             {

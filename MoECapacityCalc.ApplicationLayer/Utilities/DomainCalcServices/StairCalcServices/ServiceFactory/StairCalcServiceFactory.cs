@@ -1,4 +1,5 @@
-﻿using MoECapacityCalc.DomainEntities;
+﻿using MoECapacityCalc.ApplicationLayer.Utilities.DomainCalcServices.StairCalcServices.EvacuationStrategies;
+using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices.Strategies;
 
 namespace MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices.ServiceFactory
@@ -6,11 +7,13 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices.Service
 
     public class StairCalcServiceFactory
     {
-        private IStairFinalExitWidthStrategy _AreaStairFinalExitWidthCalcStrategy;
-        private IStairFinalExitCapacityStrategy _AreaStairFinalExitCapacityCalcStrategy;
+        private IStairFinalExitWidthStrategy AreaStairFinalExitWidthCalcStrategy;
+        private IStairFinalExitCapacityStrategy AreaStairFinalExitCapacityCalcStrategy;
 
-        private IStairFinalExitWidthStrategy _SingleStairFinalExitWidthCalcStrategy;
-        private IStairFinalExitCapacityStrategy _SingleStairFinalExitCapacityCalcStrategy;
+        private IStairFinalExitWidthStrategy SingleStairFinalExitWidthCalcStrategy;
+        private IStairFinalExitCapacityStrategy SingleStairFinalExitCapacityCalcStrategy;
+
+        private IEvacuationStrategy EvacuationStrategy;
 
 
         public StairCalcServiceFactory()
@@ -22,15 +25,17 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices.Service
         {
             if (area == null)
             {
-                _SingleStairFinalExitWidthCalcStrategy = new SingleStairFinalExitWidthStrategy();
-                _SingleStairFinalExitCapacityCalcStrategy = new SingleStairFinalExitCapacityStrategy();
-                return new StairCapacityCalcService(_SingleStairFinalExitWidthCalcStrategy, _SingleStairFinalExitCapacityCalcStrategy);
+                SingleStairFinalExitWidthCalcStrategy = new SingleStairFinalExitWidthStrategy();
+                SingleStairFinalExitCapacityCalcStrategy = new SingleStairFinalExitCapacityStrategy();
+                EvacuationStrategy = new SimultaneousEvacuationStrategy();
+                return new StairCapacityCalcService(SingleStairFinalExitWidthCalcStrategy, SingleStairFinalExitCapacityCalcStrategy, EvacuationStrategy);
             }
             
-            _AreaStairFinalExitWidthCalcStrategy = new AreaStairFinalExitWidthStrategy(area);
-            _AreaStairFinalExitCapacityCalcStrategy = new AreaStairFinalExitCapacityStrategy(area);
+            AreaStairFinalExitWidthCalcStrategy = new AreaStairFinalExitWidthStrategy(area);
+            AreaStairFinalExitCapacityCalcStrategy = new AreaStairFinalExitCapacityStrategy(area);
+            EvacuationStrategy = new SimultaneousEvacuationStrategy();
 
-            return new StairCapacityCalcService(_AreaStairFinalExitWidthCalcStrategy, _AreaStairFinalExitCapacityCalcStrategy);
+            return new StairCapacityCalcService(AreaStairFinalExitWidthCalcStrategy, AreaStairFinalExitCapacityCalcStrategy, EvacuationStrategy);
         }
 
     }
