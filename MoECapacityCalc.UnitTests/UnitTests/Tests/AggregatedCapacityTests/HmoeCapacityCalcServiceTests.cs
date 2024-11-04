@@ -1,4 +1,5 @@
-﻿using MoECapacityCalc.ApplicationLayer.Utilities.DomainCalcServices.StairCalcServices.EvacuationStrategies;
+﻿using MoECapacityCalc.ApplicationLayer.Utilities.AggregatedCapacityCalcServices.HMoECalcServices;
+using MoECapacityCalc.ApplicationLayer.Utilities.DomainCalcServices.StairCalcServices.EvacuationStrategies;
 using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
 using MoECapacityCalc.UnitTests.UnitTests.TestData;
@@ -24,7 +25,11 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var evacuationStrategy = new SimultaneousEvacuationStrategy();
             var stairCapacityCalcService = new StairCapacityCalcService(stairFinalExitWidthStrategy, stairFinalExitCapacityStrategy, evacuationStrategy);
             
-            return new HorizontalEscapeCapacityCalcService(exitCapacityCalcService, exitCapacityStructCapService, stairExitCalcService, stairCapacityCalcService);
+            var exitCapacityStructsService = new ExitCapacityStructsService(exitCapacityCalcService, stairCapacityCalcService, stairExitCalcService);
+            var cachedExitCapacityStructsService = new CachedExitCapacityStructService(exitCapacityStructsService);
+
+
+            return new HorizontalEscapeCapacityCalcService(exitCapacityCalcService, exitCapacityStructCapService, stairExitCalcService, stairCapacityCalcService, cachedExitCapacityStructsService);
         }
 
         [SetUp]

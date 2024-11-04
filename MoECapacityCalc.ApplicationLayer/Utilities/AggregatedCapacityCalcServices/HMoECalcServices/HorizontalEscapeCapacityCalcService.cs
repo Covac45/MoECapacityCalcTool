@@ -5,6 +5,7 @@ using MoECapacityCalc.Utilities.DomainCalcServices.StairExitCalcServices;
 using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
 using MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices;
 using System.Linq;
+using MoECapacityCalc.ApplicationLayer.Utilities.AggregatedCapacityCalcServices.HMoECalcServices;
 
 namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.HMoECalcServices
 {
@@ -20,15 +21,17 @@ namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.HMoECalcServi
         private readonly IExitCapacityStructCapService _exitCapacityStructCapService;
         private readonly IStairExitCalcService _stairExitCalcService;
         private readonly IStairCapacityCalcService _stairCapacityCalcService;
+        private readonly IExitCapacityStructsService _exitCapacityStructsService;
 
         public HorizontalEscapeCapacityCalcService(IExitCapacityCalcService exitCapacityCalcService,
             IExitCapacityStructCapService exitCapacityStructCapService, IStairExitCalcService stairExitCalcService,
-            IStairCapacityCalcService stairCapacityCalcService)
+            IStairCapacityCalcService stairCapacityCalcService, IExitCapacityStructsService exitCapacityStructsService)
         {
             _exitCapacityCalcService = exitCapacityCalcService;
             _exitCapacityStructCapService = exitCapacityStructCapService;
             _stairExitCalcService = stairExitCalcService;
             _stairCapacityCalcService = stairCapacityCalcService;
+            _exitCapacityStructsService = exitCapacityStructsService;
         }
 
         public List<ExitCapacityStruct> CalcExitCapacities(Area area)
@@ -42,14 +45,20 @@ namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.HMoECalcServi
             var altExits = exits.Where(exit => exit.ExitType == ExitType.exit).ToList();
 
             //For HMoE not associated with stairs
-            var nonStairExitCapacityStructs = GetExitCapacityStructsForNonStairExits(storeyExits, finalExits);
+            var nonStairExitCapacityStructs = _exitCapacityStructsService.GetExitCapacityStructsForNonStairExits(storeyExits, finalExits);
 
             //ForHMoEAssociated with Stairs
-            var stairExitCapacityStructs = GetExitCapacityStructsForStairExits(area, stairs);
+            var stairExitCapacityStructs = _exitCapacityStructsService.GetExitCapacityStructsForStairExits(area, stairs);
+
+            var summedStairExitCapacityStructs = _exitCapacityStructsService
+                .SumExitCapacityStructsById(stairExitCapacityStructs
+                .Values
+                .SelectMany(ecsList => ecsList)
+                .ToList());
 
             var allExitCapacityStructs = new List<ExitCapacityStruct>();
             allExitCapacityStructs.AddRange(nonStairExitCapacityStructs);
-            allExitCapacityStructs.AddRange(stairExitCapacityStructs);
+            allExitCapacityStructs.AddRange(summedStairExitCapacityStructs);
 
             var cappedExitCapacityStructs = _exitCapacityStructCapService.GetCappedExitCapacityStructs(allExitCapacityStructs);
 
@@ -66,6 +75,19 @@ namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.HMoECalcServi
             double max = exitCapacityStructs.Select(e => e.Capacity).DefaultIfEmpty().Max();
 
             return GetCappedHmoeCapacityStruct(area, numExitsFromArea, sum, max);
+        }
+
+        private static int GetNumberOfEscapeRoutesFromArea(Area area)
+        {
+            var numStairsServingArea = area.Relationships.GetStairs()
+                                                        .Select(s => s)
+                                                        .Where(s => s.Relationships.GetFromExits().Where(e => e.ExitType == ExitType.storeyExit) != null)
+                                                        .Count();
+
+            var numNonStairExitsServingArea = area.Relationships.GetToExits().Count();
+
+            int numEscapeRoutesFromArea = numNonStairExitsServingArea + numStairsServingArea;
+            return numEscapeRoutesFromArea;
         }
 
         private CapacityStruct GetCappedHmoeCapacityStruct(Area area, int numExitsFromArea, double sum, double max)
@@ -120,158 +142,10 @@ namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.HMoECalcServi
             }
         }
 
-        private static int GetNumberOfEscapeRoutesFromArea(Area area)
-        {
-            var numStairsServingArea = area.Relationships.GetStairs()
-                                                        .Select(s => s)
-                                                        .Where(s => s.Relationships.GetFromExits().Where(e => e.ExitType == ExitType.storeyExit) != null)
-                                                        .Count();
-
-            var numNonStairExitsServingArea = area.Relationships.GetToExits().Count();
-
-            int numEscapeRoutesFromArea = numNonStairExitsServingArea + numStairsServingArea;
-            return numEscapeRoutesFromArea;
-        }
-
-        private List<ExitCapacityStruct> GetExitCapacityStructsForNonStairExits(List<Exit> storeyExits, List<Exit> finalExits)
-        {
-            var exitCapacityStructsForNonStairExits = new List<ExitCapacityStruct>();
-            foreach (Exit anExit in storeyExits)
-            {
-                exitCapacityStructsForNonStairExits.Add(_exitCapacityCalcService.CalcExitCapacity(anExit));
-            }
-
-            foreach (Exit anExit in finalExits)
-            {
-                exitCapacityStructsForNonStairExits.Add(_exitCapacityCalcService.CalcExitCapacity(anExit));
-            }
-
-            return exitCapacityStructsForNonStairExits;
-        }
-
-        private List<ExitCapacityStruct> GetExitCapacityStructsForStairExits(Area area, List<Stair> stairs)
-        {
-
-            var mergingflowCapacities = _stairExitCalcService.CalcMergingFlowCapacities(stairs);
-            var exitCapacityStructs = new List<ExitCapacityStruct>();
-
-            foreach (Stair aStair in stairs)
-            {
-
-                if (area.FloorLevel > aStair.FinalExitLevel)
-                {
-                    //No interaction with mergeing flow, so just calculate storey exit capacities
-                    var stairStoreyExitCapacityStructs = GetStairExitCapacityStructs(aStair, ExitType.storeyExit);
-
-                    var storeyExitCapacity = stairStoreyExitCapacityStructs.Sum(s => s.Capacity);
-
-                    var stairCapacityStruct = _stairCapacityCalcService.GetStairCapacityStruct(aStair, area);
-
-                    //Division by storey exit count is a strategy - this needs to be decoupled by strategy pattern
-                    var storeyExitCount = stairStoreyExitCapacityStructs.Count(); 
-
-                    if (stairCapacityStruct.CapacityPerFloor < storeyExitCapacity)
-                    {
-                        stairStoreyExitCapacityStructs = stairStoreyExitCapacityStructs.Select(secs => new ExitCapacityStruct
-                        {
-                            Id = secs.Id,
-                            Capacity = stairCapacityStruct.CapacityPerFloor / storeyExitCount,
-                            CapacityNote = "The capacity of the exit is limited by the capacity of the stair it serves"
-                        }).ToList();
-
-                        exitCapacityStructs.AddRange(stairStoreyExitCapacityStructs);
-                    }
-                }
-
-                else if (area.FloorLevel <= aStair.FinalExitLevel)
-                {
-                    //DECOUPLE SPLITTING OF EXIT CAPACITY ASSUMPTION WITH STRATEGY PATTERN
-                    List<ExitCapacityStruct> stairFinalExitCapacityStructs = GetStairExitCapacityStructs(aStair, ExitType.finalExit);
-                    var totalFinalExitCapacity = stairFinalExitCapacityStructs.Sum(fe => fe.Capacity / GetNumberOfStairsServedByExit(stairs, fe));
-
-                    List<ExitCapacityStruct> stairStoreyExitCapacityStructs = GetStairExitCapacityStructs(aStair, ExitType.storeyExit);
-                    var totalStoreyExitCapacity = stairStoreyExitCapacityStructs.Sum(se => se.Capacity / GetNumberOfStairsServedByExit(stairs, se));
-
-                    var mergingflowCapacity = mergingflowCapacities.Single(m => m.Key == aStair).Value;
-
-                    if (mergingflowCapacity < totalFinalExitCapacity && mergingflowCapacity < totalStoreyExitCapacity)
-                    {
-                        //Exit capacity is capped by merging flow capacity...
-                        var undistributedCapacity = stairFinalExitCapacityStructs.Sum(fe => fe.Capacity);
-
-                        //Distributes weighted merging flow capacity between the exits serving the stair.
-                        stairFinalExitCapacityStructs = stairFinalExitCapacityStructs.Select(e => new ExitCapacityStruct
-                        {
-                            Id = e.Id,
-                            Capacity = e.Capacity = mergingflowCapacity * (e.Capacity / undistributedCapacity),
-                            CapacityNote = "The capacity of the exit is limited by merging flow capacity of the stair"
-                        })
-                            .ToList();
-
-                        exitCapacityStructs.AddRange(stairFinalExitCapacityStructs);
-                    }
-
-                    else if (totalStoreyExitCapacity < mergingflowCapacity && totalStoreyExitCapacity < totalFinalExitCapacity)
-                    {
-                        exitCapacityStructs.AddRange(stairStoreyExitCapacityStructs);
-                    }
-
-                    else if (totalFinalExitCapacity < mergingflowCapacity && totalFinalExitCapacity < totalStoreyExitCapacity)
-                    {
-                        exitCapacityStructs.AddRange(stairFinalExitCapacityStructs);
-                    }
-                }
-            }
-
-            var summedCapacityStructs = SumExitCapacityStructsById(exitCapacityStructs);
-
-            return summedCapacityStructs;
-        }
-
-        //DECOUPLE EXIT SPLITTING ASSUMPTION USING STRATEGY PATTERN
-        private static int GetNumberOfStairsServedByExit(List<Stair> stairs, ExitCapacityStruct fe)
-        {
-            return stairs.Select(s => s.Relationships.GetExits()
-                            .SingleOrDefault(e => e.Id == fe.Id))
-                            .Where(e => e != null)
-                            .ToList()
-                            .Count();
-        }
-
-        private List<ExitCapacityStruct> GetStairExitCapacityStructs(Stair aStair, ExitType exitType)
-        {
-            var stairStoreyExits = aStair.Relationships.GetExits().Where(exit => exit.ExitType == exitType).ToList();
-
-            var stairStoreyExitCapacityStructs = new List<ExitCapacityStruct>();
-
-            stairStoreyExits.ForEach(e => stairStoreyExitCapacityStructs.Add(_exitCapacityCalcService.CalcExitCapacity(e)));
-
-            return stairStoreyExitCapacityStructs;
-        }
-
-        private static List<ExitCapacityStruct> SumExitCapacityStructsById(List<ExitCapacityStruct> mergingFlowCapacityStructs)
-        {
-            return mergingFlowCapacityStructs.GroupBy(e => e.Id).Select(g => new ExitCapacityStruct
-            {
-                Id = g.Key,
-                Capacity = g.Sum(e => e.Capacity),
-                CapacityNote = g.First().CapacityNote, //All notes should be the same
-            }).ToList();
-        }
-
 
         private double CapExitCapacity(double totalExitCapacity, double cap)
         {
             return Math.Min(totalExitCapacity, cap);
         }
-
-        private double GetTotalExitCapacity(List<Stair> stairs, Stair aStair, ExitType exitType)
-        {
-            List<ExitCapacityStruct> stairExitCapacityStructs = GetStairExitCapacityStructs(aStair, exitType);
-            return stairExitCapacityStructs.Sum(fe => fe.Capacity / GetNumberOfStairsServedByExit(stairs, fe));
-        }
-
-            
-
     }
 }
