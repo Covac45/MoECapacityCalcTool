@@ -2,6 +2,7 @@
 using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices.ServiceFactory;
+using MoECapacityCalc.Domain.DomainEntities.Datastructs;
 
 
 namespace MoECapacityCalc.UnitTests.UnitTests.Tests.DomainCalcServiceTests
@@ -31,11 +32,11 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.DomainCalcServiceTests
             Stair stair1 = new Stair("stair 1", stairWidth, floorsServed, 0, false);
 
             stair1.Relationships.ExitRelationships =
-                [new Relationship<Stair, Exit>(stair1, storeyExit1),
-                new Relationship<Stair, Exit>(stair1, finalExit1)];
+                [new Relationship<Stair, Exit>(stair1,  RelativeDirection.from, storeyExit1),
+                new Relationship<Stair, Exit>(stair1,  RelativeDirection.to, finalExit1)];
 
             Area area1 = new Area(0, "Area 1", false);
-            area1.Relationships.StairRelationships = [new Relationship<Area, Stair>( area1, stair1 )];
+            area1.Relationships.StairRelationships = [new Relationship<Area, Stair>( area1, RelativeDirection.to, stair1 )];
 
             var stairCapacity = new StairCalcServiceFactory().Create().CalcStairCapacity(stair1); ;
             double stairCapacityPerFloor = new StairCalcServiceFactory().Create().GetStairCapacityStruct(stair1).CapacityPerFloor;

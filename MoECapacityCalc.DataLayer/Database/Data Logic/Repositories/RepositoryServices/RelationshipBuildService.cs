@@ -1,0 +1,40 @@
+﻿using Microsoft.EntityFrameworkCore;
+using MoECapacityCalc.Domain.DomainEntities.Datastructs;
+using MoECapacityCalc.DomainEntities.Abstractions;
+using MoECapacityCalc.Utilities.Associations;
+
+namespace MoECapacityCalc.Database.Data_Logic.Repositories.Abstractions
+{
+
+    public class RelationshipBuildService<TEntity1, TEntity2>
+        where TEntity1 : MeansOfEscapeEntity<TEntity1>
+        where TEntity2 : MeansOfEscapeEntity<TEntity2>
+    {
+        private readonly DbContext _dbContext;
+        private readonly DbSet<TEntity2> _table;
+        private readonly IAssociationsRepository _associationsRepository;
+
+        public RelationshipBuildService(DbContext dbContext, IAssociationsRepository associationsRepository)
+        {
+            _dbContext = dbContext;
+            _table = _dbContext.Set<TEntity2>();
+            _associationsRepository = associationsRepository;
+        }
+
+        public List<Relationship<TEntity1, TEntity2>> GetRelationships(TEntity1 objectEntity, TEntity2 subjectEntity)
+        {
+            var allAssociations = _associationsRepository.GetAllAssociationsForObject(objectEntity).ToList();
+
+            var associations = allAssociations.Where(assoc => assoc.SubjectType == subjectEntity.GetType().Name).ToList();
+
+            var toEntities = associations.Select(assoc => _table.SingleOrDefault(ent => assoc.SubjectId == ent.Id && assoc.RelativeDirection == RelativeDirection.to)).DefaultIfEmpty().ToList();
+            var fromEntities = associations.Select(assoc => _table.SingleOrDefault(ent => assoc.SubjectId == ent.Id && assoc.RelativeDirection == RelativeDirection.from)).DefaultIfEmpty().ToList();
+
+
+            var relationships = toEntities.Select(ent => new Relationship<TEntity1, TEntity2>(objectEntity, RelativeDirection.to, ent)).ToList();
+            relationships.AddRange(fromEntities.Select(ent => new Relationship<TEntity1, TEntity2>(objectEntity, RelativeDirection.from, ent)).ToList());
+
+            return relationships;
+        }
+    }
+}

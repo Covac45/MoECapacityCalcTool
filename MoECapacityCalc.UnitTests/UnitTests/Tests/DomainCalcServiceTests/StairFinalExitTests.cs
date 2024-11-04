@@ -1,4 +1,5 @@
-﻿using MoECapacityCalc.DomainEntities;
+﻿using MoECapacityCalc.Domain.DomainEntities.Datastructs;
+using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.Utilities.Associations;
 using MoECapacityCalc.Utilities.DomainCalcServices.StairExitCalcServices;
@@ -24,7 +25,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.DomainCalcServiceTests
             List<Exit> stair1FinalExit = new List<Exit>() { finalExit1 };
 
             Stair stair1 = new Stair("stair 1", stairWidth, 1, 0, false);
-            stair1.Relationships.ExitRelationships = [new Relationship<Stair, Exit>(stair1, finalExit1)]; ;
+            stair1.Relationships.ExitRelationships = [new Relationship<Stair, Exit>(stair1, RelativeDirection.to, finalExit1)]; ;
 
             double exitCapacity = new StairExitCalcService().CalcMergingFlowCapacities(new List<Stair>() { stair1 }).Single(s => s.Key == stair1).Value;
             Assert.That(exitCapacity, Is.EqualTo(expectedExitCapacity));

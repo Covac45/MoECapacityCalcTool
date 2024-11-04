@@ -1,7 +1,11 @@
-﻿using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
+﻿using MoECapacityCalc.ApplicationLayer.Utilities.DomainCalcServices.StairCalcServices.EvacuationStrategies;
+using MoECapacityCalc.DomainEntities;
+using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
 using MoECapacityCalc.UnitTests.UnitTests.TestData;
 using MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.HMoECalcServices;
 using MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices;
+using MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices;
+using MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices.Strategies;
 using MoECapacityCalc.Utilities.DomainCalcServices.StairExitCalcServices;
 
 namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
@@ -9,12 +13,18 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
     public class HmoeCapacityCalcServiceTests : TestAreas
     {
 
-        private IHorizontalEscapeCapacityCalcService CreateTarget()
+        private IHorizontalEscapeCapacityCalcService CreateTarget(Area area)
         {
             var stairExitCalcService = new StairExitCalcService();
             var exitCapacityCalcService = new ExitCapacityCalcService();
             var exitCapacityStructCapService = new ExitCapacityStructCapService();
-            return new HorizontalEscapeCapacityCalcService(exitCapacityCalcService, exitCapacityStructCapService, stairExitCalcService);
+
+            var stairFinalExitWidthStrategy = new AreaStairFinalExitWidthStrategy(area);
+            var stairFinalExitCapacityStrategy = new AreaStairFinalExitCapacityStrategy(area);
+            var evacuationStrategy = new SimultaneousEvacuationStrategy();
+            var stairCapacityCalcService = new StairCapacityCalcService(stairFinalExitWidthStrategy, stairFinalExitCapacityStrategy, evacuationStrategy);
+            
+            return new HorizontalEscapeCapacityCalcService(exitCapacityCalcService, exitCapacityStructCapService, stairExitCalcService, stairCapacityCalcService);
         }
 
         [SetUp]
@@ -27,8 +37,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
         [TestCase(325)]
         public void AreaHMoECapacityTest1(double expectedExitCapacity)
         {
-            var target = CreateTarget();
             var area1 = GetAreaTestData1();
+            var target = CreateTarget(area1);
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
             var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
@@ -40,8 +50,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
         [TestCase(325)]
         public void AreaHMoECapacityTest2(double expectedExitCapacity)
         {
-            var target = CreateTarget();
             var area1 = GetAreaTestData2();
+            var target = CreateTarget(area1);
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
             var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
@@ -54,8 +64,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
         [TestCase(315)]
         public void AreaHMoECapacityTest3(double expectedExitCapacity)
         {
-            var target = CreateTarget();
             var area1 = GetAreaTestData3();
+            var target = CreateTarget(area1);
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
             var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
@@ -67,8 +77,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
         [TestCase(850)]
         public void AreaHMoECapacityTest4(double expectedExitCapacity)
         {
-            var target = CreateTarget();
             var area1 = GetAreaTestData4();
+            var target = CreateTarget(area1);
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
             var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
@@ -80,8 +90,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
         [TestCase(240)]
         public void AreaHMoECapacityTest5(double expectedExitCapacity)
         {
-            var target = CreateTarget();
             var area1 = GetAreaTestData5();
+            var target = CreateTarget(area1);
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
             var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
@@ -94,8 +104,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
         [TestCase(880)]
         public void AreaHMoECapacityTest6(double expectedExitCapacity)
         {
-            var target = CreateTarget();
             var area1 = GetAreaTestData6();
+            var target = CreateTarget(area1);
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
             var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
@@ -107,8 +117,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
         [TestCase(0)]
         public void EmptyAreaHMoECapacityTest(double expectedExitCapacity)
         {
-            var target = CreateTarget();
             var area1 = GetEmptyArea();
+            var target = CreateTarget(area1);
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
             var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
@@ -120,8 +130,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
         [TestCase(0)]
         public void AreaContainingStairWithNoExitsHMoECapacityTest(double expectedExitCapacity)
         {
-            var target = CreateTarget();
             var area1 = GetAreaWithStairWithNoExits();
+            var target = CreateTarget(area1);
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
             var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
@@ -133,8 +143,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
         [TestCase(60)]
         public void AreaContainingStoreyExitOnlyHMoECapacityTest(double expectedExitCapacity)
         {
-            var target = CreateTarget();
             var area1 = GetAreaWithStoreyExitOnly();
+            var target = CreateTarget(area1);
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
             var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
@@ -146,8 +156,8 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
         [TestCase(60)]
         public void AreaContainingFinalExitOnlyHMoECapacityTest(double expectedExitCapacity)
         {
-            var target = CreateTarget();
             var area1 = GetAreaWithFinalExitOnly();
+            var target = CreateTarget(area1);
 
             List<ExitCapacityStruct> exitCapacityStructs = target.CalcExitCapacities(area1);
             var exitCapacity = target.CalcTotalHMoECapacity(exitCapacityStructs, area1).Capacity;
