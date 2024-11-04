@@ -6,7 +6,7 @@ namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.VMoECalcServi
 {
     public interface IVerticalEscapeCapacityCalcService
     {
-        public List<StairCapacityStruct> CalcStairCapacities(Area area);
+        public List<StairCapacityStruct> GetStairCapacityStructs(Area area);
         public CapacityStruct CalcTotalVMoECapacity(List<StairCapacityStruct> stairCapacityStructs, Area area);
     }
 
@@ -18,7 +18,7 @@ namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.VMoECalcServi
             _stairCapacityCalcService = stairCapacityCalcService;
         }
 
-        public List<StairCapacityStruct> CalcStairCapacities(Area area)
+        public List<StairCapacityStruct> GetStairCapacityStructs(Area area)
         {
             var stairs = area.Relationships.GetStairs();
 
@@ -50,6 +50,7 @@ namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.VMoECalcServi
                     return new CapacityStruct()
                     {
                         Id = area.Id,
+                        Name = area.Name,
                         Capacity = sumStairCapacity,
                         CapacityNote = "The means of escape capacity of this area is limited by the capacity of stairs serving this area."
                     };
@@ -58,6 +59,7 @@ namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.VMoECalcServi
                     return new CapacityStruct()
                     {
                         Id = area.Id,
+                        Name = area.Name,
                         Capacity = sumStairCapacity - maxUnprotectedStairCapacity,
                         CapacityNote = "The means of escape capacity of this area is limited by the capacity of stairs serving this area."
                     };
@@ -65,6 +67,7 @@ namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.VMoECalcServi
                     return new CapacityStruct()
                     {
                         Id = area.Id,
+                        Name = area.Name,
                         Capacity = sumStairCapacity - maxUnprotectedStairCapacity,
                         CapacityNote = "No viable escape routes have been provided for the area."
                     };

@@ -104,10 +104,11 @@ namespace MoECapacityCalc.ApplicationLayer.Utilities.AggregatedCapacityCalcServi
                         stairFinalExitCapacityStructs = stairFinalExitCapacityStructs.Select(e => new ExitCapacityStruct
                         {
                             Id = e.Id,
+                            Name = e.Name,
                             Capacity = e.Capacity = mergingflowCapacity * (e.Capacity / undistributedCapacity),
                             CapacityNote = "The capacity of the exit is limited by merging flow capacity of the stair"
                         })
-                            .ToList();
+                        .ToList();
 
                         stairExitCapacityStructs.Add(aStair, stairFinalExitCapacityStructs);
                     }

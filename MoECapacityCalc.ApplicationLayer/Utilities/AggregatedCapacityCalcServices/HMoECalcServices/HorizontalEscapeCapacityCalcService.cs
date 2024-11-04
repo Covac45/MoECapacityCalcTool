@@ -6,13 +6,14 @@ using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
 using MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices;
 using System.Linq;
 using MoECapacityCalc.ApplicationLayer.Utilities.AggregatedCapacityCalcServices.HMoECalcServices;
+using MoECapacityCalc.ApplicationLayer.Utilities.AggregatedCapacityCalcServices.DiscountingService;
 
 namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.HMoECalcServices
 {
     public interface IHorizontalEscapeCapacityCalcService
     {
         List<ExitCapacityStruct> CalcExitCapacities(Area area);
-        public CapacityStruct CalcTotalHMoECapacity(List<ExitCapacityStruct> exitCapacityStructs, Area area);
+        public CapacityStruct CalcTotalDiscountedHMoECapacity(List<ExitCapacityStruct> exitCapacityStructs, Area area);
     }
 
     public class HorizontalEscapeCapacityCalcService : IHorizontalEscapeCapacityCalcService
@@ -22,16 +23,19 @@ namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.HMoECalcServi
         private readonly IStairExitCalcService _stairExitCalcService;
         private readonly IStairCapacityCalcService _stairCapacityCalcService;
         private readonly IExitCapacityStructsService _exitCapacityStructsService;
+        private readonly IDiscountingAndCappingService _discountingAndCappingService;
 
         public HorizontalEscapeCapacityCalcService(IExitCapacityCalcService exitCapacityCalcService,
             IExitCapacityStructCapService exitCapacityStructCapService, IStairExitCalcService stairExitCalcService,
-            IStairCapacityCalcService stairCapacityCalcService, IExitCapacityStructsService exitCapacityStructsService)
+            IStairCapacityCalcService stairCapacityCalcService, IExitCapacityStructsService exitCapacityStructsService,
+            IDiscountingAndCappingService discountingAndCappingService)
         {
             _exitCapacityCalcService = exitCapacityCalcService;
             _exitCapacityStructCapService = exitCapacityStructCapService;
             _stairExitCalcService = stairExitCalcService;
             _stairCapacityCalcService = stairCapacityCalcService;
             _exitCapacityStructsService = exitCapacityStructsService;
+            _discountingAndCappingService = discountingAndCappingService;
         }
 
         public List<ExitCapacityStruct> CalcExitCapacities(Area area)
@@ -60,92 +64,16 @@ namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.HMoECalcServi
             allExitCapacityStructs.AddRange(nonStairExitCapacityStructs);
             allExitCapacityStructs.AddRange(summedStairExitCapacityStructs);
 
-            var cappedExitCapacityStructs = _exitCapacityStructCapService.GetCappedExitCapacityStructs(allExitCapacityStructs);
+            var LimitingFactorExitCapacityStructs = _exitCapacityStructCapService.GetLimitingFactorExitCapacityStructs(allExitCapacityStructs);
 
-            return cappedExitCapacityStructs;
+            return LimitingFactorExitCapacityStructs;
         }
 
         //Implements discounting logic for multiple exits (i.e. remove the most capacious exit)
         //Also implements capping logic based on number of storey exits (single exit: 60 people, two exits: 600 people)
-        public CapacityStruct CalcTotalHMoECapacity(List<ExitCapacityStruct> exitCapacityStructs, Area area)
+        public CapacityStruct CalcTotalDiscountedHMoECapacity(List<ExitCapacityStruct> exitCapacityStructs, Area area)
         {
-            int numExitsFromArea = GetNumberOfEscapeRoutesFromArea(area);
-
-            double sum = exitCapacityStructs.Select(e => e.Capacity).Sum();
-            double max = exitCapacityStructs.Select(e => e.Capacity).DefaultIfEmpty().Max();
-
-            return GetCappedHmoeCapacityStruct(area, numExitsFromArea, sum, max);
-        }
-
-        private static int GetNumberOfEscapeRoutesFromArea(Area area)
-        {
-            var numStairsServingArea = area.Relationships.GetStairs()
-                                                        .Select(s => s)
-                                                        .Where(s => s.Relationships.GetFromExits().Where(e => e.ExitType == ExitType.storeyExit) != null)
-                                                        .Count();
-
-            var numNonStairExitsServingArea = area.Relationships.GetToExits().Count();
-
-            int numEscapeRoutesFromArea = numNonStairExitsServingArea + numStairsServingArea;
-            return numEscapeRoutesFromArea;
-        }
-
-        private CapacityStruct GetCappedHmoeCapacityStruct(Area area, int numExitsFromArea, double sum, double max)
-        {
-            var cap = 0;
-            var hmoeCapacityNote = "";
-            switch (numExitsFromArea)
-            {
-                case 1:
-                    cap = 60;
-
-                    if (sum <= cap)
-                    { hmoeCapacityNote = "The means of escape capacity of this area is limited to 60 as only a single escape route is provided to this area."; };
-
-                    return new CapacityStruct()
-                    {
-                        Id = area.Id,
-                        Capacity = CapExitCapacity(sum, cap),
-                        CapacityNote = hmoeCapacityNote
-                    };
-                case 2:
-                    cap = 600;
-
-                    if (sum <= cap)
-                    { hmoeCapacityNote = "The means of escape capacity of this area is limited to 600 as only two escape routes are provided to this area."; };
-
-                    return new CapacityStruct()
-                    {
-                        Id = area.Id,
-                        Capacity = CapExitCapacity(sum, cap),
-                        CapacityNote = hmoeCapacityNote
-                    };
-                case > 2:
-
-                    hmoeCapacityNote = "The means of escape capacity of this area is limited by the the capacity of escape routes. See escape route capacity assessment for further information.";
-
-                    return new CapacityStruct()
-                    {
-                        Id = area.Id,
-                        Capacity = sum - max,
-                        CapacityNote = hmoeCapacityNote
-                    };
-                default:
-                    hmoeCapacityNote = "No escape routes have been provided for the area.";
-
-                    return new CapacityStruct()
-                    {
-                        Id = area.Id,
-                        Capacity = 0,
-                        CapacityNote = hmoeCapacityNote
-                    };
-            }
-        }
-
-
-        private double CapExitCapacity(double totalExitCapacity, double cap)
-        {
-            return Math.Min(totalExitCapacity, cap);
+            return _discountingAndCappingService.GetTotalDiscountedMoECapacity(exitCapacityStructs, area);
         }
     }
 }

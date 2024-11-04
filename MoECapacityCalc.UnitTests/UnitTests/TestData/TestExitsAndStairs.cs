@@ -158,14 +158,14 @@ namespace MoECapacityCalc.UnitTests.UnitTests.TestData
                                 new Relationship<Stair, Exit>(stair2, RelativeDirection.to, finalExit5)];
 
 
-            Stair stair3 = new Stair("stair 1", 1000, 3, 0, false);
+            Stair stair3 = new Stair("stair 3", 1000, 3, 0, false);
          
             stair3.Relationships.ExitRelationships =
                                 [new Relationship<Stair, Exit>(stair3, RelativeDirection.from, storeyExit3),
                                 new Relationship<Stair, Exit>(stair3,  RelativeDirection.to, finalExit3),
                                 new Relationship<Stair, Exit>(stair3,  RelativeDirection.to, finalExit6)];
             
-            Stair stair4 = new Stair("stair 2", 1100, 3, 0, false);
+            Stair stair4 = new Stair("stair 4", 1100, 3, 0, false);
 
             stair4.Relationships.ExitRelationships =
                                 [new Relationship<Stair, Exit>(stair4, RelativeDirection.from, storeyExit4),
