@@ -12,6 +12,7 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices.
                 return new ExitCapacityStruct
                 {
                     Id = exit.Id,
+                    Name = exit.Name,
                     Capacity = 0,
                     CapacityNote = "The exit has insufficient width to be used as a means of escape."
                 };

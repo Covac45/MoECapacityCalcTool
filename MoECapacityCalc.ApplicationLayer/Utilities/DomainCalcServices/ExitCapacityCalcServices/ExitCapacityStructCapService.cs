@@ -4,14 +4,14 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices
 {
     public interface IExitCapacityStructCapService
     {
-        List<ExitCapacityStruct> GetCappedExitCapacityStructs(List<ExitCapacityStruct> exitCapacityStructs);
+        List<ExitCapacityStruct> GetLimitingFactorExitCapacityStructs(List<ExitCapacityStruct> exitCapacityStructs);
     }
 
     public class ExitCapacityStructCapService : IExitCapacityStructCapService
     {
         public ExitCapacityStructCapService() { }
 
-        public List<ExitCapacityStruct> GetCappedExitCapacityStructs(List<ExitCapacityStruct> exitCapacityStructs)
+        public List<ExitCapacityStruct> GetLimitingFactorExitCapacityStructs(List<ExitCapacityStruct> exitCapacityStructs)
         {
 
             return exitCapacityStructs.GroupBy(e => e.Id).Select(GetMinExitCapacityStructFromGroup()).ToList();

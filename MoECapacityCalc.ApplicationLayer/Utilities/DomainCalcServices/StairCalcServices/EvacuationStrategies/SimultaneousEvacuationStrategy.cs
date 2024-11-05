@@ -1,7 +1,4 @@
-﻿using MoECapacityCalc.DomainEntities;
-
-
-namespace MoECapacityCalc.ApplicationLayer.Utilities.DomainCalcServices.StairCalcServices.EvacuationStrategies
+﻿namespace MoECapacityCalc.ApplicationLayer.Utilities.DomainCalcServices.StairCalcServices.EvacuationStrategies
 {
     public class SimultaneousEvacuationStrategy : IEvacuationStrategy
     {

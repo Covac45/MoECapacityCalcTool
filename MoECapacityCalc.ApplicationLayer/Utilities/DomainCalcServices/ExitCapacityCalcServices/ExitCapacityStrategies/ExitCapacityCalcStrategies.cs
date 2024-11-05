@@ -13,6 +13,7 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices.
                 return new ExitCapacityStruct
                 {
                     Id = exit.Id,
+                    Name = exit.Name,
                     Capacity = 60,
                     CapacityNote = "The exit capacity is limited by the door swing."
                 };

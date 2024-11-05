@@ -31,6 +31,7 @@ namespace MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices
             return new StairCapacityStruct
             {
                 Id = stair.Id,
+                Name = stair.Name,
                 Capacity = stairCapacity,
                 CapacityPerFloor = stairCapacityPerFloor,
                 CapacityNote = "The stair capacity is limited by the clear width of the stairs"
