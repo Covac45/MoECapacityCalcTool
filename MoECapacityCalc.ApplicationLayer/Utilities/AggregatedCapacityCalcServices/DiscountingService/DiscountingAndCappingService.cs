@@ -1,11 +1,6 @@
 ﻿using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
 using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.DomainEntities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoECapacityCalc.ApplicationLayer.Utilities.AggregatedCapacityCalcServices.DiscountingService
 {

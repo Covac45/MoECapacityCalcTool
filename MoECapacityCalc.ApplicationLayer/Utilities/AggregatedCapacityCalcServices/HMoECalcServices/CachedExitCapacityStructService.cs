@@ -1,6 +1,5 @@
 ﻿using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
-using System.Collections.Generic;
 
 namespace MoECapacityCalc.ApplicationLayer.Utilities.AggregatedCapacityCalcServices.HMoECalcServices
 {

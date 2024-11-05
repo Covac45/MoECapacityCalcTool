@@ -1,10 +1,5 @@
 ﻿using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
 using MoECapacityCalc.DomainEntities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MoECapacityCalc.Utilities.DomainCalcServices.ExitCapacityCalcServices;
 using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.Utilities.DomainCalcServices.StairCalcServices;
@@ -66,22 +61,7 @@ namespace MoECapacityCalc.ApplicationLayer.Utilities.AggregatedCapacityCalcServi
 
                     var storeyExitCapacity = stairStoreyExitCapacityStructs.Sum(s => s.Capacity);
 
-                    /*var stairCapacityStruct = _stairCapacityCalcService.GetStairCapacityStruct(aStair, area);
-
-                    //Division by storey exit count is a strategy - this needs to be decoupled by strategy pattern
-                    var storeyExitCount = stairStoreyExitCapacityStructs.Count();
-
-                    if (stairCapacityStruct.CapacityPerFloor < storeyExitCapacity)
-                    {
-                        stairStoreyExitCapacityStructs = stairStoreyExitCapacityStructs.Select(secs => new ExitCapacityStruct
-                        {
-                            Id = secs.Id,
-                            Capacity = stairCapacityStruct.CapacityPerFloor / storeyExitCount,
-                            CapacityNote = "The capacity of the exit is limited by the capacity of the stair it serves"
-                        }).ToList();*/
-
-                        stairExitCapacityStructs.Add(aStair, stairStoreyExitCapacityStructs);
-                    //}
+                    stairExitCapacityStructs.Add(aStair, stairStoreyExitCapacityStructs);
                 }
 
                 else if (area.FloorLevel <= aStair.FinalExitLevel)

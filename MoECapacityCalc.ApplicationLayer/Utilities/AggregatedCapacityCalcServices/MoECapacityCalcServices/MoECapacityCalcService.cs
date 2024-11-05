@@ -4,16 +4,15 @@ using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
 using MoECapacityCalc.DomainEntities.Datastructs.CapacityStructs;
 using MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.VMoECalcServices;
-using System.Collections.Generic;
 
 namespace MoECapacityCalc.Utilities.AggregatedCapacityCalcServices.MoECapacityCalcServices
 {
-    public interface IMoECapacityCalcService
+    public interface IMoeCapacityCalcService
     {
         public List<ExitCapacityStruct> GetMoECapacityStructs(Area area);
         public CapacityStruct GetTotalDiscountedMoECapacity(List<ExitCapacityStruct> exitCapacityStructs, Area area);
     }
-    public class MoECapacityCalcService : IMoECapacityCalcService
+    public class MoECapacityCalcService : IMoeCapacityCalcService
     {
         private readonly IExitCapacityStructsService _exitCapacityStructsService;
         private readonly IVerticalEscapeCapacityCalcService _verticalEscapeCapacityCalcService;
