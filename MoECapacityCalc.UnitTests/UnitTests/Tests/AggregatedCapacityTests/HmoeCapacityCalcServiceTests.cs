@@ -32,7 +32,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
             var discountingService = new DiscountingAndCappingService();
 
 
-            return new HorizontalEscapeCapacityCalcService(exitCapacityCalcService, exitCapacityStructCapService, stairExitCalcService, stairCapacityCalcService, cachedExitCapacityStructsService, discountingService);
+            return new HorizontalEscapeCapacityCalcService(cachedExitCapacityStructsService, exitCapacityStructCapService, discountingService);
         }
 
         [SetUp]

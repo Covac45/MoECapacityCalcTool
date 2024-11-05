@@ -16,7 +16,7 @@ namespace MoECapacityCalc.UnitTests.UnitTests.Tests.AggregatedCapacityTests
 {
     public class MoECapacityCalcTests : TestAreas
     {
-        private IMoECapacityCalcService CreateTarget(Area area)
+        private IMoeCapacityCalcService CreateTarget(Area area)
         {
             var stairExitCalcService = new StairExitCalcService();
             var exitCapacityCalcService = new ExitCapacityCalcService();
