@@ -21,7 +21,6 @@
   <ItemGroup>
     <ProjectReference Include="..\MoECapacityCalc.ApplicationLayer\MoECapacityCalc.ApplicationLayer.csproj" />
     <ProjectReference Include="..\MoECapacityCalc.Domain\MoECapacityCalc.Domain.csproj" />
-    <ProjectReference Include="..\MoECapacityCalc\MoECapacityCalc.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
