@@ -1,6 +1,7 @@
-﻿using MoECapacityCalc.Utilities.Associations;
+using MoECapacityCalc.Utilities.Associations;
 using MoECapacityCalc.DomainEntities;
 using MoECapacityCalc.DomainEntities.Datastructs;
+
 
 namespace MoECapacityCalc.UnitTests.TestHelpers
 {
