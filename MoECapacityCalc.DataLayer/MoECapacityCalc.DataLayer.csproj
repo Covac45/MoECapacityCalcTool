@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MoECapacityCalc.Domain\MoECapacityCalc.Domain.csproj" />
-    <ProjectReference Include="..\MoECapacityCalc\MoECapacityCalc.Domain.csproj" />
   </ItemGroup>
 
 </Project>
